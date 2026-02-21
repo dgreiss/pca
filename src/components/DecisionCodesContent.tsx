@@ -66,16 +66,16 @@ export function DecisionCodesContent() {
   });
 
   const statusConfig = {
-    applied: { label: 'Applied', color: 'bg-emerald-100 text-emerald-700', icon: Check, dotColor: 'text-emerald-500' },
-    pending: { label: 'Pending', color: 'bg-amber-100 text-amber-700', icon: AlertTriangle, dotColor: 'text-amber-500' },
-    rejected: { label: 'Rejected', color: 'bg-red-100 text-red-700', icon: X, dotColor: 'text-red-500' },
+    applied: { label: 'Applied', color: 'ui-badge-success', icon: Check, dotColor: 'text-emerald-500' },
+    pending: { label: 'Pending', color: 'ui-badge-warning', icon: AlertTriangle, dotColor: 'text-amber-500' },
+    rejected: { label: 'Rejected', color: 'ui-badge-danger', icon: X, dotColor: 'text-red-500' },
   };
 
   const codeTypeBadge: Record<string, string> = {
-    RFU: 'bg-blue-100 text-blue-700',
-    MC: 'bg-purple-100 text-purple-700',
-    Provincial: 'bg-teal-100 text-teal-700',
-    Other: 'bg-slate-100 text-slate-600',
+    RFU: 'ui-badge-info',
+    MC: 'ui-badge-primary',
+    Provincial: 'ui-badge-neutral',
+    Other: 'ui-badge-neutral',
   };
 
   const formatDateForDisplay = (dateStr: string) => {
@@ -203,23 +203,23 @@ export function DecisionCodesContent() {
   };
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="p-6 space-y-5">
       {/* Header */}
       <div>
-        <h2 className="text-2xl font-semibold text-slate-900 mb-2">Decision Codes</h2>
-        <p className="text-sm text-slate-500">Review and manage clinical decision codes for this assessment</p>
+        <h2 className="text-xl font-semibold text-slate-900 mb-1.5">Decision Codes</h2>
+        <p className="text-[13px] text-slate-500">Review and manage clinical decision codes for this assessment</p>
       </div>
 
       {/* Inline Add Code Form */}
       <div className="border border-slate-200 rounded-lg bg-slate-50/50">
-        <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200">
+        <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-200">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-slate-800">Add Decision Code</span>
+            <span className="text-[13px] font-semibold text-slate-800">Add Decision Code</span>
           </div>
           {hasAnyInput && (
             <button
               onClick={handleReset}
-              className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-700 transition-colors"
+              className="flex items-center gap-1.5 text-[11px] text-slate-500 hover:text-slate-700 transition-colors"
             >
               <RotateCcw className="w-3 h-3" />
               Reset
@@ -227,20 +227,20 @@ export function DecisionCodesContent() {
           )}
         </div>
 
-        <div className="p-5 space-y-4">
+        <div className="p-4 space-y-3">
           {/* Success message */}
           {successMessage && (
-            <div className="flex items-center gap-2 px-3 py-2 bg-emerald-50 border border-emerald-200 rounded-lg text-sm text-emerald-700">
+            <div className="flex items-center gap-2 px-3 py-1.5 border rounded-lg text-[12px] ui-badge-success">
               <Check className="w-4 h-4 flex-shrink-0" />
               {successMessage}
             </div>
           )}
 
           {/* Code input row: three code fields side by side with individual Add buttons */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-3">
             {/* RFU Code */}
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide">RFU Code</label>
+              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">RFU Code</label>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -250,7 +250,7 @@ export function DecisionCodesContent() {
                     if (formErrors.rfuCode) setFormErrors(prev => { const n = { ...prev }; delete n.rfuCode; return n; });
                   }}
                   placeholder="e.g. 001"
-                  className={`flex-1 min-w-0 px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
+                  className={`flex-1 min-w-0 px-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
                     formErrors.rfuCode ? 'border-red-400 bg-red-50' : 'border-slate-300'
                   }`}
                 />
@@ -260,7 +260,7 @@ export function DecisionCodesContent() {
 
             {/* MC Code */}
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide">MC Code</label>
+              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">MC Code</label>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -270,7 +270,7 @@ export function DecisionCodesContent() {
                     if (formErrors.mcCode) setFormErrors(prev => { const n = { ...prev }; delete n.mcCode; return n; });
                   }}
                   placeholder="e.g. 100"
-                  className={`flex-1 min-w-0 px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
+                  className={`flex-1 min-w-0 px-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
                     formErrors.mcCode ? 'border-red-400 bg-red-50' : 'border-slate-300'
                   }`}
                 />
@@ -280,7 +280,7 @@ export function DecisionCodesContent() {
 
             {/* Provincial Code */}
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide">Provincial Code</label>
+              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">Provincial Code</label>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -290,7 +290,7 @@ export function DecisionCodesContent() {
                     if (formErrors.provincialCode) setFormErrors(prev => { const n = { ...prev }; delete n.provincialCode; return n; });
                   }}
                   placeholder="e.g. AB-200"
-                  className={`flex-1 min-w-0 px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
+                  className={`flex-1 min-w-0 px-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
                     formErrors.provincialCode ? 'border-red-400 bg-red-50' : 'border-slate-300'
                   }`}
                 />
@@ -300,9 +300,9 @@ export function DecisionCodesContent() {
           </div>
 
           {/* Date fields row */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide">
+              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">
                 Decision Effective Date
               </label>
               <div className="relative">
@@ -314,7 +314,7 @@ export function DecisionCodesContent() {
                     setForm(prev => ({ ...prev, decisionEffectiveDate: e.target.value }));
                     if (formErrors.decisionEffectiveDate) setFormErrors(prev => { const n = { ...prev }; delete n.decisionEffectiveDate; return n; });
                   }}
-                  className={`w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
+                  className={`w-full pl-9 pr-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
                     formErrors.decisionEffectiveDate ? 'border-red-400 bg-red-50' : 'border-slate-300'
                   }`}
                 />
@@ -322,7 +322,7 @@ export function DecisionCodesContent() {
               {formErrors.decisionEffectiveDate && <p className="text-xs text-red-500">{formErrors.decisionEffectiveDate}</p>}
             </div>
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wide">
+              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">
                 Decision Expiry Date
               </label>
               <div className="relative">
@@ -334,7 +334,7 @@ export function DecisionCodesContent() {
                     setForm(prev => ({ ...prev, decisionExpiryDate: e.target.value }));
                     if (formErrors.decisionExpiryDate) setFormErrors(prev => { const n = { ...prev }; delete n.decisionExpiryDate; return n; });
                   }}
-                  className={`w-full pl-9 pr-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
+                  className={`w-full pl-9 pr-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
                     formErrors.decisionExpiryDate ? 'border-red-400 bg-red-50' : 'border-slate-300'
                   }`}
                 />
@@ -342,12 +342,13 @@ export function DecisionCodesContent() {
               {formErrors.decisionExpiryDate && <p className="text-xs text-red-500">{formErrors.decisionExpiryDate}</p>}
             </div>
           </div>
+          <p className="text-[11px] text-slate-500">Effective date must be on or before expiry.</p>
 
           {/* Add button */}
           <div className="flex items-center justify-end pt-1">
             <button
               onClick={handleAddAll}
-              className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white rounded-lg transition-all hover:opacity-90 active:scale-[0.98]"
+              className="flex items-center gap-2 px-4 py-2 text-[13px] font-medium text-white rounded-lg transition-all hover:opacity-90 active:scale-[0.98]"
               style={{ backgroundColor: '#00373a' }}
             >
               <Plus className="w-4 h-4" />
@@ -360,17 +361,17 @@ export function DecisionCodesContent() {
       {/* Decision Codes Table */}
       <div className="border border-slate-200 rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
+          <table className="w-full text-[13px]">
+            <thead className="sticky top-0 z-10">
               <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider w-[70px]">Status</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Condition Code</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Code</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Dx Effective Date</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Dx Expiry</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider w-[80px]">Status Code</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Condition Description</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Expiry Date</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider w-[70px]">Status</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Condition Code</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Code</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Dx Effective Date</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Dx Expiry</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider w-[80px]">Status Code</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Condition Description</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Expiry Date</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -378,31 +379,31 @@ export function DecisionCodesContent() {
                 const statusInfo = statusConfig[code.status];
                 return (
                   <tr key={code.id} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-4 py-3">
-                      <span className={`inline-flex items-center justify-center w-6 h-6 rounded text-xs font-semibold ${
-                        code.rowStatus === 'C' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600'
+                    <td className="px-3 py-2">
+                      <span className={`inline-flex items-center justify-center w-5 h-5 rounded text-[11px] font-semibold ${
+                        code.rowStatus === 'C' ? 'ui-badge-success' : 'ui-badge-neutral'
                       }`}>
                         {code.rowStatus}
                       </span>
                     </td>
-                    <td className="px-4 py-3 font-mono text-slate-700">{code.conditionCode}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-3 py-2 font-mono text-slate-700">{code.conditionCode}</td>
+                    <td className="px-3 py-2">
                       <div className="flex items-center gap-2">
                         <span className="font-mono font-semibold text-slate-900">{code.code}</span>
-                        <span className={`inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide ${codeTypeBadge[code.codeType]}`}>
+                        <span className={`inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide border ${codeTypeBadge[code.codeType]}`}>
                           {code.codeType}
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-slate-600">{code.diagnosisEffectiveDate}</td>
-                    <td className="px-4 py-3 text-slate-600">{code.diagnosisExpiry}</td>
-                    <td className="px-4 py-3">
-                      <span className={`inline-flex items-center justify-center w-6 h-6 rounded text-xs font-semibold ${statusInfo.color}`}>
+                    <td className="px-3 py-2 text-slate-600">{code.diagnosisEffectiveDate}</td>
+                    <td className="px-3 py-2 text-slate-600">{code.diagnosisExpiry}</td>
+                    <td className="px-3 py-2">
+                      <span className={`inline-flex items-center justify-center w-5 h-5 rounded text-[11px] font-semibold border ${statusInfo.color}`}>
                         {code.statusCode}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-700">{code.description}</td>
-                    <td className="px-4 py-3 text-slate-600">{code.expiryDate}</td>
+                    <td className="px-3 py-2 text-slate-700">{code.description}</td>
+                    <td className="px-3 py-2 text-slate-600">{code.expiryDate}</td>
                   </tr>
                 );
               })}
