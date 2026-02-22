@@ -3,7 +3,7 @@ import { Navigation } from './components/Navigation';
 import { HeaderBar } from './components/HeaderBar';
 import { ToastBanners } from './components/ToastBanners';
 import { TabSidebar } from './components/TabSidebar';
-import { MemberPanel } from './components/MemberPanel';
+import { DocumentViewerPanel } from './components/DocumentViewerPanel';
 import { ContentPanel } from './components/ContentPanel';
 import { DetailsPanel } from './components/DetailsPanel';
 
@@ -16,7 +16,7 @@ function App() {
       <HeaderBar />
 
       {/* Below header: sidebar + tab sidebar + content */}
-      <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* Navigation Sidebar */}
         <Navigation />
 
@@ -24,16 +24,16 @@ function App() {
         <TabSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col min-w-0">
+        <div className="flex-1 flex flex-col min-h-0 min-w-0">
           {/* Toast Banners */}
           <ToastBanners />
 
-          <div className="flex flex-1 overflow-hidden min-w-0">
+          <div className="flex flex-1 min-h-0 overflow-hidden min-w-0">
             {/* Content */}
             <ContentPanel activeTab={activeTab} setActiveTab={setActiveTab} />
 
             {/* Member Panel */}
-            <MemberPanel />
+            <DocumentViewerPanel />
 
             {/* Details Panel */}
             <DetailsPanel />
