@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Component, useEffect, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import {
@@ -15,6 +15,37 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
+
+if (typeof URL !== 'undefined' && !('parse' in URL)) {
+  (URL as unknown as { parse?: (url: string, base?: string) => URL }).parse =
+    (url, base) => new URL(url, base);
+}
+
+class PdfErrorBoundary extends Component<
+  { children: React.ReactNode },
+  { hasError: boolean; message?: string }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, message: error.message };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="text-sm text-red-500">
+          {this.state.message ?? 'Unable to load PDF'}
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 const DOCUMENTS = [
   {
@@ -36,6 +67,7 @@ export function DocumentViewerPanel() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPreviewExpanded, setIsPreviewExpanded] = useState(false);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -45,16 +77,22 @@ export function DocumentViewerPanel() {
 
   useEffect(() => {
     setNumPages(null);
+    setLoadError(null);
   }, [selectedDoc]);
 
   useEffect(() => {
     const node = previewRef.current;
     if (!node) return;
 
-    const observer = new ResizeObserver((entries) => {
-      if (entries[0]) {
-        setContainerWidth(entries[0].contentRect.width);
-      }
+    const updateWidth = () => {
+     
+      setContainerWidth(node.clientWidth);
+    };
+
+    updateWidth();
+
+    const observer = new ResizeObserver(() => {
+      updateWidth();
     });
 
     observer.observe(node);
@@ -199,25 +237,41 @@ export function DocumentViewerPanel() {
           >
             {isPdf ? (
               <div className="w-full p-4">
-                <Document
-                  file={selectedDoc.url}
-                  onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-                >
-                  {Array.from(new Array(numPages || 0), (_, index) => {
-                    const pageWidth = Math.max(0, containerWidth - 32) * (zoom / 100);
-                    return (
-                      <Page
-                        key={`page_${index + 1}`}
-                        pageNumber={index + 1}
-                        width={pageWidth > 0 ? pageWidth : undefined}
-                        rotate={rotation}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                        className="mb-6"
-                      />
-                    );
-                  })}
-                </Document>
+                {containerWidth > 0 ? (
+                  <PdfErrorBoundary>
+                    <Document
+                      file={selectedDoc.url}
+                      onLoadSuccess={({ numPages }) => {
+                        setNumPages(numPages);
+                        setLoadError(null);
+                      }}
+                      onLoadError={(error) => {
+                        setLoadError(error?.message ?? 'Unable to load PDF');
+                      }}
+                    >
+                      {loadError ? (
+                        <div className="text-sm text-red-500">{loadError}</div>
+                      ) : (
+                        Array.from(new Array(numPages || 0), (_, index) => {
+                          const pageWidth = Math.max(0, containerWidth - 32) * (zoom / 100);
+                          return (
+                            <Page
+                              key={`page_${index + 1}`}
+                              pageNumber={index + 1}
+                              width={pageWidth > 0 ? pageWidth : undefined}
+                              rotate={rotation}
+                              renderTextLayer={false}
+                              renderAnnotationLayer={false}
+                              className="mb-6"
+                            />
+                          );
+                        })
+                      )}
+                    </Document>
+                  </PdfErrorBoundary>
+                ) : (
+                  <div className="text-sm text-slate-400">Loading preview…</div>
+                )}
               </div>
             ) : isImage ? (
               <div className="min-h-full w-full flex items-center justify-center p-6">
