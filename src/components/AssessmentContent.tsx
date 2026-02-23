@@ -415,31 +415,38 @@ export function AssessmentContent() {
 
       {/* Member Information */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <h3 className="text-[15px] font-semibold text-slate-900">
             Member Information
           </h3>
-          <span className="text-[11px] text-slate-400">Last updated 2 days ago</span>
+          <div className="relative w-full max-w-xs">
+            <input
+              type="search"
+              placeholder="Search plan members"
+              className="w-full rounded-md border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a]"
+            />
+          </div>
         </div>
         <div className="border border-slate-200 rounded-lg p-4 bg-white">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <h4 className="text-lg font-semibold text-slate-900">John Doe</h4>
+              <div className="flex items-center gap-2">
+                <h4 className="text-lg font-semibold text-slate-900">John Doe</h4>
+                <span className="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-sm border border-green-200 bg-green-50 text-green-700">
+                  Active
+                </span>
+              </div>
               <p className="text-sm text-slate-500">Member ID: 12345678</p>
               <p className="text-sm text-slate-500">Alternate ID: ALT-87654321</p>
             </div>
-            <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
-              <div className="text-xs text-slate-500">Status</div>
-              <div className="text-sm font-semibold text-green-600">Active</div>
-              <div className="border-t border-slate-200 pt-2 mt-2 grid grid-cols-2 gap-3">
-                <div>
-                  <div className="text-xs text-slate-500 mb-0.5">Effective Date</div>
-                  <div className="text-sm text-slate-700">03/01/2024</div>
-                </div>
-                <div>
-                  <div className="text-xs text-slate-500 mb-0.5">Update Date</div>
-                  <div className="text-sm text-slate-700">01/15/2026</div>
-                </div>
+            <div className="flex items-center gap-6">
+              <div>
+                <div className="text-xs text-slate-500 mb-0.5">Effective Date</div>
+                <div className="text-sm text-slate-700">03/01/2024</div>
+              </div>
+              <div>
+                <div className="text-xs text-slate-500 mb-0.5">Update Date</div>
+                <div className="text-sm text-slate-700">01/15/2026</div>
               </div>
             </div>
           </div>
@@ -656,7 +663,7 @@ export function AssessmentContent() {
           </div>
           <div className="mt-4">
             <h5 className="text-sm font-semibold text-slate-900">Insurance Information</h5>
-            <div className="bg-slate-50 rounded-lg p-3 space-y-2 mt-2">
+            <div className="bg-slate-50 rounded-lg p-3 mt-2">
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4" style={{ color: "#00373a" }} />
                 <div className="flex-1">
@@ -664,16 +671,14 @@ export function AssessmentContent() {
                   <div className="text-sm text-slate-700">ORG-001</div>
                 </div>
               </div>
-              <div className="border-t border-slate-200 pt-2 space-y-2">
+              <div className="border-t border-slate-200 pt-2 mt-2 flex flex-wrap items-center gap-x-6 gap-y-2">
                 <div>
                   <div className="text-xs text-slate-500">Client Code</div>
                   <div className="text-sm text-slate-700">CLT-2048</div>
                 </div>
                 <div>
                   <div className="text-xs text-slate-500">Client Name</div>
-                  <div className="text-sm text-slate-700">
-                    Blue Cross Blue Shield
-                  </div>
+                  <div className="text-sm text-slate-700">Blue Cross Blue Shield</div>
                 </div>
                 <div>
                   <div className="text-xs text-slate-500">Package ID</div>
@@ -692,7 +697,7 @@ export function AssessmentContent() {
       {/* Assessment Overview */}
       <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
 
-        <div className="grid grid-cols-4 gap-3 mt-4">
+        <div className="grid grid-cols-4 gap-3">
           <div className="flex items-center gap-3">
             <Hash className="w-4 h-4" style={{ color: "#00373a" }} />
             <div>
@@ -927,21 +932,21 @@ export function AssessmentContent() {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 h-6">
-              <label className="text-xs font-medium text-slate-600">
-                Approved Medication
-              </label>
-              <span className="text-xs text-slate-400">Search by</span>
-              <div className="relative" ref={approvedFilterDropdownRef}>
-                <button
-                  type="button"
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 h-6">
+                <label className="text-[10px] font-medium text-slate-600">
+                  Approved Medication
+                </label>
+                <span className="text-[10px] text-slate-400">Search by</span>
+                <div className="relative" ref={approvedFilterDropdownRef}>
+                  <button
+                    type="button"
                   onClick={() =>
                     setIsApprovedFilterDropdownOpen(
                       !isApprovedFilterDropdownOpen,
                     )
                   }
-                  className="inline-flex items-center gap-1 h-6 px-2 text-[11px] rounded border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="inline-flex items-center gap-1 h-6 px-2 text-[10px] rounded border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
                 >
                   {approvedSearchFilterType === "name" && "Drug Name"}
                   {approvedSearchFilterType === "din" && "DIN"}
@@ -950,7 +955,7 @@ export function AssessmentContent() {
                   <ChevronDown className="w-3 h-3 text-slate-400" />
                 </button>
                 {isApprovedFilterDropdownOpen && (
-                  <div className="absolute left-0 top-full mt-1 z-60 bg-white border border-slate-200 rounded-lg shadow-lg min-w-[150px]">
+                    <div className="absolute left-0 top-full mt-1 z-60 bg-white border border-slate-200 rounded-lg shadow-lg min-w-[150px]">
                     {(
                       [
                         { value: "name", label: "Drug Name" },
@@ -961,7 +966,7 @@ export function AssessmentContent() {
                       <button
                         key={option.value}
                         type="button"
-                        className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-teal-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                        className={`w-full text-left px-3 py-1.5 text-[10px] hover:bg-teal-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
                           approvedSearchFilterType === option.value
                             ? "bg-teal-50 font-medium"
                             : ""
@@ -1000,7 +1005,7 @@ export function AssessmentContent() {
                         ? "Search by DIN..."
                         : "Search by benefit category..."
                   }
-                  className={`w-full pl-9 pr-9 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:border-transparent ${
+                  className={`w-full pl-9 pr-9 py-1.5 border rounded-lg text-[12px] whitespace-nowrap focus:outline-none focus:ring-2 focus:border-transparent ${
                     !approvedMedication && !isApprovedDropdownOpen
                       ? ""
                       : "border-slate-300"
@@ -1035,7 +1040,7 @@ export function AssessmentContent() {
                 <div className="absolute left-0 right-0 top-full mt-1 z-50 bg-white border border-slate-200 rounded-lg shadow-xl max-h-72 overflow-y-auto">
                   {approvedSearchQuery && (
                     <div className="px-3 py-2 border-b border-slate-100 bg-slate-50">
-                      <span className="text-[11px] text-slate-500">
+                      <span className="text-[10px] text-slate-500">
                         {approvedFilteredMedications.length} result
                         {approvedFilteredMedications.length !== 1 ? "s" : ""}{" "}
                         for "{approvedSearchQuery}"
@@ -1043,7 +1048,7 @@ export function AssessmentContent() {
                     </div>
                   )}
                   {approvedFilteredMedications.length === 0 ? (
-                    <div className="px-4 py-6 text-center text-xs text-slate-400">
+                    <div className="px-4 py-6 text-center text-[10px] text-slate-400">
                       No medications found matching your search.
                     </div>
                   ) : (
@@ -1066,7 +1071,7 @@ export function AssessmentContent() {
                               className="w-4 h-4 shrink-0"
                               style={{ color: "#00373a" }}
                             />
-                            <span className="text-sm text-slate-900">
+                            <span className="text-[12px] text-slate-900">
                               {highlightMatch(med.name, approvedSearchQuery)}{" "}
                               <span className="text-slate-500">
                                 (
@@ -1083,15 +1088,15 @@ export function AssessmentContent() {
                           )}
                         </div>
                         <div className="flex items-center gap-2.5 mt-1 ml-6">
-                          <span className="text-[11px] text-slate-500">
+                          <span className="text-[9px] text-slate-500">
                             DIN: {highlightMatch(med.din, approvedSearchQuery)}
                           </span>
-                          <span className="text-[11px] text-slate-400">|</span>
-                          <span className="text-[11px] text-slate-500">
+                          <span className="text-[9px] text-slate-400">|</span>
+                          <span className="text-[9px] text-slate-500">
                             {highlightMatch(med.strength, approvedSearchQuery)}
                           </span>
-                          <span className="text-[11px] text-slate-400">|</span>
-                          <span className="text-[11px] text-slate-500">
+                          <span className="text-[9px] text-slate-400">|</span>
+                          <span className="text-[9px] text-slate-500">
                             {highlightMatch(
                               med.benefitCategory,
                               approvedSearchQuery,
