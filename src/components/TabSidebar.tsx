@@ -19,18 +19,18 @@ export function TabSidebar({ activeTab, setActiveTab }: TabSidebarProps) {
   ];
 
   return (
-    <div className="border-b border-slate-200 bg-white/95 px-6">
-      <div className="flex items-center justify-center gap-6 overflow-x-auto py-2">
+    <div className="bg-white/95 px-6">
+      <div className="flex items-center justify-center gap-0 overflow-x-auto">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center whitespace-nowrap border-b px-2 py-3 text-[13px] font-semibold transition-colors ${
+              className={`flex items-center whitespace-nowrap py-2 px-4 text-[13px] border-b-2 font-semibold transition-colors ${
                 isActive
-                  ? 'border-slate-700 text-slate-700'
-                  : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700'
+                  ? 'border-slate-900 text-slate-800'
+                  : 'border-slate-200 text-slate-500 hover:border-slate-400 hover:text-slate-700'
               }`}
             >
               {tab.label}
