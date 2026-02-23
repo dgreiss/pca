@@ -17,8 +17,8 @@ import {
   Shield,
   Pencil,
   Check,
-} from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+} from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
 
 interface Medication {
   id: string;
@@ -31,147 +31,141 @@ interface Medication {
 
 const MEDICATIONS: Medication[] = [
   {
-    id: "1",
-    name: "Humira",
-    generic: "adalimumab",
-    din: "02258595",
-    strength: "40mg/0.8mL subcutaneous",
-    benefitCategory: "Biologic Response Modifiers",
+    id: '1',
+    name: 'Humira',
+    generic: 'adalimumab',
+    din: '02258595',
+    strength: '40mg/0.8mL subcutaneous',
+    benefitCategory: 'Biologic Response Modifiers',
   },
   {
-    id: "2",
-    name: "Humira",
-    generic: "adalimumab",
-    din: "02258609",
-    strength: "20mg/0.4mL subcutaneous",
-    benefitCategory: "Biologic Response Modifiers",
+    id: '2',
+    name: 'Humira',
+    generic: 'adalimumab',
+    din: '02258609',
+    strength: '20mg/0.4mL subcutaneous',
+    benefitCategory: 'Biologic Response Modifiers',
   },
   {
-    id: "3",
-    name: "Enbrel",
-    generic: "etanercept",
-    din: "02242903",
-    strength: "50mg/mL subcutaneous",
-    benefitCategory: "Biologic Response Modifiers",
+    id: '3',
+    name: 'Enbrel',
+    generic: 'etanercept',
+    din: '02242903',
+    strength: '50mg/mL subcutaneous',
+    benefitCategory: 'Biologic Response Modifiers',
   },
   {
-    id: "4",
-    name: "Enbrel",
-    generic: "etanercept",
-    din: "02242904",
-    strength: "25mg/0.5mL subcutaneous",
-    benefitCategory: "Biologic Response Modifiers",
+    id: '4',
+    name: 'Enbrel',
+    generic: 'etanercept',
+    din: '02242904',
+    strength: '25mg/0.5mL subcutaneous',
+    benefitCategory: 'Biologic Response Modifiers',
   },
   {
-    id: "5",
-    name: "Remicade",
-    generic: "infliximab",
-    din: "02244016",
-    strength: "100mg IV infusion",
-    benefitCategory: "Biologic Response Modifiers",
+    id: '5',
+    name: 'Remicade',
+    generic: 'infliximab',
+    din: '02244016',
+    strength: '100mg IV infusion',
+    benefitCategory: 'Biologic Response Modifiers',
   },
   {
-    id: "6",
-    name: "Methotrexate",
-    generic: "methotrexate",
-    din: "02182963",
-    strength: "2.5mg oral tablet",
-    benefitCategory: "Antineoplastic Agents",
+    id: '6',
+    name: 'Methotrexate',
+    generic: 'methotrexate',
+    din: '02182963',
+    strength: '2.5mg oral tablet',
+    benefitCategory: 'Antineoplastic Agents',
   },
   {
-    id: "7",
-    name: "Rinvoq",
-    generic: "upadacitinib",
-    din: "02497514",
-    strength: "15mg oral tablet",
-    benefitCategory: "JAK Inhibitors",
+    id: '7',
+    name: 'Rinvoq',
+    generic: 'upadacitinib',
+    din: '02497514',
+    strength: '15mg oral tablet',
+    benefitCategory: 'JAK Inhibitors',
   },
   {
-    id: "8",
-    name: "Xeljanz",
-    generic: "tofacitinib",
-    din: "02413728",
-    strength: "5mg oral tablet",
-    benefitCategory: "JAK Inhibitors",
+    id: '8',
+    name: 'Xeljanz',
+    generic: 'tofacitinib',
+    din: '02413728',
+    strength: '5mg oral tablet',
+    benefitCategory: 'JAK Inhibitors',
   },
   {
-    id: "9",
-    name: "Orencia",
-    generic: "abatacept",
-    din: "02280132",
-    strength: "125mg/mL subcutaneous",
-    benefitCategory: "Biologic Response Modifiers",
+    id: '9',
+    name: 'Orencia',
+    generic: 'abatacept',
+    din: '02280132',
+    strength: '125mg/mL subcutaneous',
+    benefitCategory: 'Biologic Response Modifiers',
   },
   {
-    id: "10",
-    name: "Actemra",
-    generic: "tocilizumab",
-    din: "02350092",
-    strength: "162mg/0.9mL subcutaneous",
-    benefitCategory: "Biologic Response Modifiers",
+    id: '10',
+    name: 'Actemra',
+    generic: 'tocilizumab',
+    din: '02350092',
+    strength: '162mg/0.9mL subcutaneous',
+    benefitCategory: 'Biologic Response Modifiers',
   },
   {
-    id: "11",
-    name: "Cosentyx",
-    generic: "secukinumab",
-    din: "02444550",
-    strength: "150mg/mL subcutaneous",
-    benefitCategory: "Interleukin Inhibitors",
+    id: '11',
+    name: 'Cosentyx',
+    generic: 'secukinumab',
+    din: '02444550',
+    strength: '150mg/mL subcutaneous',
+    benefitCategory: 'Interleukin Inhibitors',
   },
   {
-    id: "12",
-    name: "Stelara",
-    generic: "ustekinumab",
-    din: "02324776",
-    strength: "45mg/0.5mL subcutaneous",
-    benefitCategory: "Interleukin Inhibitors",
+    id: '12',
+    name: 'Stelara',
+    generic: 'ustekinumab',
+    din: '02324776',
+    strength: '45mg/0.5mL subcutaneous',
+    benefitCategory: 'Interleukin Inhibitors',
   },
   {
-    id: "13",
-    name: "Otezla",
-    generic: "apremilast",
-    din: "02438917",
-    strength: "30mg oral tablet",
-    benefitCategory: "PDE4 Inhibitors",
+    id: '13',
+    name: 'Otezla',
+    generic: 'apremilast',
+    din: '02438917',
+    strength: '30mg oral tablet',
+    benefitCategory: 'PDE4 Inhibitors',
   },
   {
-    id: "14",
-    name: "Hydroxychloroquine",
-    generic: "hydroxychloroquine",
-    din: "00585840",
-    strength: "200mg oral tablet",
-    benefitCategory: "Antimalarials",
+    id: '14',
+    name: 'Hydroxychloroquine',
+    generic: 'hydroxychloroquine',
+    din: '00585840',
+    strength: '200mg oral tablet',
+    benefitCategory: 'Antimalarials',
   },
   {
-    id: "15",
-    name: "Sulfasalazine",
-    generic: "sulfasalazine",
-    din: "00235822",
-    strength: "500mg oral tablet",
-    benefitCategory: "Aminosalicylates",
+    id: '15',
+    name: 'Sulfasalazine',
+    generic: 'sulfasalazine',
+    din: '00235822',
+    strength: '500mg oral tablet',
+    benefitCategory: 'Aminosalicylates',
   },
 ];
 
 export function AssessmentContent() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchFilterType, setSearchFilterType] = useState<
-    "name" | "din" | "category"
-  >("name");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchFilterType, setSearchFilterType] = useState<'name' | 'din' | 'category'>('name');
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
-  const [selectedMedication, setSelectedMedication] = useState<Medication>(
-    MEDICATIONS[0],
-  );
+  const [selectedMedication, setSelectedMedication] = useState<Medication>(MEDICATIONS[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [approvedSearchQuery, setApprovedSearchQuery] = useState("");
-  const [approvedMedication, setApprovedMedication] =
-    useState<Medication | null>(null);
+  const [approvedSearchQuery, setApprovedSearchQuery] = useState('');
+  const [approvedMedication, setApprovedMedication] = useState<Medication | null>(null);
   const [isApprovedDropdownOpen, setIsApprovedDropdownOpen] = useState(false);
   const [approvedSearchFilterType, setApprovedSearchFilterType] = useState<
-    "name" | "din" | "category"
-  >("name");
-  const [isApprovedFilterDropdownOpen, setIsApprovedFilterDropdownOpen] =
-    useState(false);
-  const [diseaseDiagnosis, setDiseaseDiagnosis] = useState("");
+    'name' | 'din' | 'category'
+  >('name');
+  const [isApprovedFilterDropdownOpen, setIsApprovedFilterDropdownOpen] = useState(false);
+  const [diseaseDiagnosis, setDiseaseDiagnosis] = useState('');
   const [checklist, setChecklist] = useState<Record<string, boolean>>({
     requestedMedReviewed: false,
     approvedMedReviewed: false,
@@ -194,110 +188,98 @@ export function AssessmentContent() {
   const approvedInputRef = useRef<HTMLInputElement>(null);
   const approvedDropdownRef = useRef<HTMLDivElement>(null);
   const approvedFilterDropdownRef = useRef<HTMLDivElement>(null);
-  const [submissionType, setSubmissionType] = useState("Initial");
+  const [submissionType, setSubmissionType] = useState('Initial');
   const [editingAddress, setEditingAddress] = useState(false);
   const [address, setAddress] = useState({
-    line1: "123 Main St",
-    line2: "",
-    city: "Springfield",
-    province: "IL",
-    postalCode: "62701",
+    line1: '123 Main St',
+    line2: '',
+    city: 'Springfield',
+    province: 'IL',
+    postalCode: '62701',
   });
   const [editAddress, setEditAddress] = useState({
-    line1: "123 Main St",
-    line2: "",
-    city: "Springfield",
-    province: "IL",
-    postalCode: "62701",
+    line1: '123 Main St',
+    line2: '',
+    city: 'Springfield',
+    province: 'IL',
+    postalCode: '62701',
   });
   const [useAsClaimAddress, setUseAsClaimAddress] = useState(true);
 
   const displayValue = selectedMedication
-    ? `${selectedMedication.name} (${selectedMedication.generic}) ${selectedMedication.strength.split(" ")[0]}`
-    : "";
+    ? `${selectedMedication.name} (${selectedMedication.generic}) ${selectedMedication.strength.split(' ')[0]}`
+    : '';
 
   const filteredMedications = MEDICATIONS.filter((med) => {
     const query = searchQuery.toLowerCase();
-    if (searchFilterType === "name") {
-      return (
-        med.name.toLowerCase().includes(query) ||
-        med.generic.toLowerCase().includes(query)
-      );
+    if (searchFilterType === 'name') {
+      return med.name.toLowerCase().includes(query) || med.generic.toLowerCase().includes(query);
     }
-    if (searchFilterType === "din") {
+    if (searchFilterType === 'din') {
       return med.din.includes(query);
     }
-    if (searchFilterType === "category") {
+    if (searchFilterType === 'category') {
       return med.benefitCategory.toLowerCase().includes(query);
     }
-    return (
-      med.name.toLowerCase().includes(query) ||
-      med.generic.toLowerCase().includes(query)
-    );
+    return med.name.toLowerCase().includes(query) || med.generic.toLowerCase().includes(query);
   });
 
   const approvedFilteredMedications = MEDICATIONS.filter((med) => {
     const query = approvedSearchQuery.toLowerCase();
-    if (approvedSearchFilterType === "name") {
-      return (
-        med.name.toLowerCase().includes(query) ||
-        med.generic.toLowerCase().includes(query)
-      );
+    if (approvedSearchFilterType === 'name') {
+      return med.name.toLowerCase().includes(query) || med.generic.toLowerCase().includes(query);
     }
-    if (approvedSearchFilterType === "din") {
+    if (approvedSearchFilterType === 'din') {
       return med.din.includes(query);
     }
-    if (approvedSearchFilterType === "category") {
+    if (approvedSearchFilterType === 'category') {
       return med.benefitCategory.toLowerCase().includes(query);
     }
-    return (
-      med.name.toLowerCase().includes(query) ||
-      med.generic.toLowerCase().includes(query)
-    );
+    return med.name.toLowerCase().includes(query) || med.generic.toLowerCase().includes(query);
   });
 
   const approvedDisplayValue = approvedMedication
-    ? `${approvedMedication.name} (${approvedMedication.generic}) ${approvedMedication.strength.split(" ")[0]}`
-    : "";
+    ? `${approvedMedication.name} (${approvedMedication.generic}) ${approvedMedication.strength.split(' ')[0]}`
+    : '';
 
   const assessmentItems = [
     {
-      key: "requestedMedReviewed",
-      label: "Requested Medication",
+      key: 'requestedMedReviewed',
+      label: 'Requested Medication',
       value: selectedMedication
         ? `${selectedMedication.name} (${selectedMedication.generic})`
         : null,
       showValue: true,
     },
     {
-      key: "approvedMedReviewed",
-      label: "Approved Medication",
+      key: 'approvedMedReviewed',
+      label: 'Approved Medication',
       value: approvedMedication
         ? `${approvedMedication.name} (${approvedMedication.generic})`
         : null,
       showValue: true,
     },
     {
-      key: "diagnosisConfirmed",
-      label: "Disease Diagnosis",
+      key: 'diagnosisConfirmed',
+      label: 'Disease Diagnosis',
       value: diseaseDiagnosis || null,
       showValue: true,
     },
     {
-      key: "prescriberSignature",
-      label: "Prescriber Signature",
+      key: 'prescriberSignature',
+      label: 'Prescriber Signature',
       value: null,
       showValue: false,
     },
     {
-      key: "patientSignature",
-      label: "Patient Signature",
+      key: 'patientSignature',
+      label: 'Patient Signature',
       value: null,
       showValue: false,
     },
     {
-      key: "receiptsAttached",
-      label: "Receipts Attached",
+      key: 'receiptsAttached',
+      label: 'Receipts Attached',
       value: null,
       showValue: false,
     },
@@ -309,27 +291,24 @@ export function AssessmentContent() {
   }[];
 
   const coverageItems = [
-    { key: "correspondenceType", label: "Correspondence type", response: "Approved" },
-    { key: "planTerminated", label: "Plan terminated", response: "No" },
+    { key: 'correspondenceType', label: 'Correspondence type', response: 'Approved' },
+    { key: 'planTerminated', label: 'Plan terminated', response: 'No' },
     {
-      key: "mockClaimSummary",
-      label: "Mock claim summary",
-      response:
-        "Failed on:\nBEL 0400: Not a benefit\nBEL 02800: Prior Authorization Required",
+      key: 'mockClaimSummary',
+      label: 'Mock claim summary',
+      response: 'Failed on:\nBEL 0400: Not a benefit\nBEL 02800: Prior Authorization Required',
     },
-    { key: "ppn", label: "PPN", response: "Yes" },
+    { key: 'ppn', label: 'PPN', response: 'Yes' },
   ] as { key: string; label: string; response: string }[];
 
   const decisionItems = [
-    { key: "rfuMc", label: "RFU/MC" },
-    { key: "assessmentStatus", label: "Assessment Status" },
-    { key: "effectiveExpiryDate", label: "Effective and Expiry Date" },
-    { key: "clinicalCriteria", label: "Clinical Criteria" },
+    { key: 'rfuMc', label: 'RFU/MC' },
+    { key: 'assessmentStatus', label: 'Assessment Status' },
+    { key: 'effectiveExpiryDate', label: 'Effective and Expiry Date' },
+    { key: 'clinicalCriteria', label: 'Clinical Criteria' },
   ] as { key: string; label: string }[];
 
-  const assessmentAllChecked = assessmentItems.every(
-    (item) => checklist[item.key],
-  );
+  const assessmentAllChecked = assessmentItems.every((item) => checklist[item.key]);
   const coverageAllChecked = coverageItems.every((item) => checklist[item.key]);
   const decisionAllChecked = decisionItems.every((item) => checklist[item.key]);
 
@@ -342,7 +321,7 @@ export function AssessmentContent() {
         !inputRef.current.contains(event.target as Node)
       ) {
         setIsDropdownOpen(false);
-        setSearchQuery("");
+        setSearchQuery('');
       }
       if (
         approvedDropdownRef.current &&
@@ -351,12 +330,9 @@ export function AssessmentContent() {
         !approvedInputRef.current.contains(event.target as Node)
       ) {
         setIsApprovedDropdownOpen(false);
-        setApprovedSearchQuery("");
+        setApprovedSearchQuery('');
       }
-      if (
-        filterDropdownRef.current &&
-        !filterDropdownRef.current.contains(event.target as Node)
-      ) {
+      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target as Node)) {
         setIsFilterDropdownOpen(false);
       }
       if (
@@ -366,19 +342,19 @@ export function AssessmentContent() {
         setIsApprovedFilterDropdownOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   function handleSelectMedication(med: Medication) {
     setSelectedMedication(med);
     setIsDropdownOpen(false);
-    setSearchQuery("");
+    setSearchQuery('');
   }
 
   function handleClear() {
     setSelectedMedication(null as unknown as Medication);
-    setSearchQuery("");
+    setSearchQuery('');
     setIsDropdownOpen(true);
     inputRef.current?.focus();
   }
@@ -403,9 +379,7 @@ export function AssessmentContent() {
       {/* Header */}
       <div>
         <div className="flex items-center gap-3 mb-1.5">
-          <h2 className="text-xl font-semibold text-slate-900">
-            Assessment ID: 850234
-          </h2>
+          <h2 className="text-xl font-semibold text-slate-900">Assessment ID: 850234</h2>
           <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium border ui-badge-warning">
             Pending Review
           </span>
@@ -416,9 +390,7 @@ export function AssessmentContent() {
       {/* Member Information */}
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-[15px] font-semibold text-slate-900">
-            Member Information
-          </h3>
+          <h3 className="text-[15px] font-semibold text-slate-900">Member Information</h3>
           <div className="relative w-full max-w-xs">
             <input
               type="search"
@@ -498,9 +470,7 @@ export function AssessmentContent() {
                               })
                             }
                             className="w-full px-2 py-1 border border-slate-300 rounded text-sm text-slate-700 focus:outline-none focus:ring-2 focus:border-transparent"
-                            style={
-                              { "--tw-ring-color": "#00373a" } as React.CSSProperties
-                            }
+                            style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
                             placeholder="Street address"
                           />
                         </div>
@@ -518,16 +488,12 @@ export function AssessmentContent() {
                               })
                             }
                             className="w-full px-2 py-1 border border-slate-300 rounded text-sm text-slate-700 focus:outline-none focus:ring-2 focus:border-transparent"
-                            style={
-                              { "--tw-ring-color": "#00373a" } as React.CSSProperties
-                            }
+                            style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
                             placeholder="Apt, suite, unit (optional)"
                           />
                         </div>
                         <div>
-                          <label className="text-xs text-slate-500 mb-0.5 block">
-                            City
-                          </label>
+                          <label className="text-xs text-slate-500 mb-0.5 block">City</label>
                           <input
                             type="text"
                             value={editAddress.city}
@@ -538,17 +504,13 @@ export function AssessmentContent() {
                               })
                             }
                             className="w-full px-2 py-1 border border-slate-300 rounded text-sm text-slate-700 focus:outline-none focus:ring-2 focus:border-transparent"
-                            style={
-                              { "--tw-ring-color": "#00373a" } as React.CSSProperties
-                            }
+                            style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
                             placeholder="City"
                           />
                         </div>
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="text-xs text-slate-500 mb-0.5 block">
-                              Province
-                            </label>
+                            <label className="text-xs text-slate-500 mb-0.5 block">Province</label>
                             <input
                               type="text"
                               value={editAddress.province}
@@ -559,9 +521,7 @@ export function AssessmentContent() {
                                 })
                               }
                               className="w-full px-2 py-1 border border-slate-300 rounded text-sm text-slate-700 focus:outline-none focus:ring-2 focus:border-transparent"
-                              style={
-                                { "--tw-ring-color": "#00373a" } as React.CSSProperties
-                              }
+                              style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
                               placeholder="Province"
                             />
                           </div>
@@ -579,9 +539,7 @@ export function AssessmentContent() {
                                 })
                               }
                               className="w-full px-2 py-1 border border-slate-300 rounded text-sm text-slate-700 focus:outline-none focus:ring-2 focus:border-transparent"
-                              style={
-                                { "--tw-ring-color": "#00373a" } as React.CSSProperties
-                              }
+                              style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
                               placeholder="Postal code"
                             />
                           </div>
@@ -631,29 +589,25 @@ export function AssessmentContent() {
                       </div>
                     )}
                     <div className="flex items-center gap-2 mt-1.5">
-                      <span className="text-xs text-slate-500">
-                        Use as claim address?
-                      </span>
+                      <span className="text-xs text-slate-500">Use as claim address?</span>
                       <button
                         onClick={() => setUseAsClaimAddress(!useAsClaimAddress)}
                         className={`relative inline-flex h-4 w-8 items-center rounded-full transition-colors ${
-                          useAsClaimAddress ? "bg-[#00373a]" : "bg-slate-300"
+                          useAsClaimAddress ? 'bg-[#00373a]' : 'bg-slate-300'
                         }`}
                       >
                         <span
                           className={`inline-block h-3 w-3 rounded-full bg-white transition-transform ${
-                            useAsClaimAddress
-                              ? "translate-x-4"
-                              : "translate-x-0.5"
+                            useAsClaimAddress ? 'translate-x-4' : 'translate-x-0.5'
                           }`}
                         />
                       </button>
                       <span
                         className={`text-xs ${
-                          useAsClaimAddress ? "text-[#00373a]" : "text-slate-400"
+                          useAsClaimAddress ? 'text-[#00373a]' : 'text-slate-400'
                         }`}
                       >
-                        {useAsClaimAddress ? "Yes" : "No"}
+                        {useAsClaimAddress ? 'Yes' : 'No'}
                       </span>
                     </div>
                   </div>
@@ -665,7 +619,7 @@ export function AssessmentContent() {
             <h5 className="text-sm font-semibold text-slate-900">Insurance Information</h5>
             <div className="bg-slate-50 rounded-lg p-3 mt-2">
               <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4" style={{ color: "#00373a" }} />
+                <Shield className="w-4 h-4" style={{ color: '#00373a' }} />
                 <div className="flex-1">
                   <div className="text-xs text-slate-500">Org Code</div>
                   <div className="text-sm text-slate-700">ORG-001</div>
@@ -696,19 +650,16 @@ export function AssessmentContent() {
 
       {/* Assessment Overview */}
       <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
-
         <div className="grid grid-cols-4 gap-3">
           <div className="flex items-center gap-3">
-            <Hash className="w-4 h-4" style={{ color: "#00373a" }} />
+            <Hash className="w-4 h-4" style={{ color: '#00373a' }} />
             <div>
               <div className="text-[11px] text-slate-500">Submission ID</div>
-              <div className="text-sm font-medium text-slate-900 font-mono">
-                1008741
-              </div>
+              <div className="text-sm font-medium text-slate-900 font-mono">1008741</div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <FileText className="w-4 h-4" style={{ color: "#00373a" }} />
+            <FileText className="w-4 h-4" style={{ color: '#00373a' }} />
             <div>
               <div className="text-[11px] text-slate-500">Submission Type</div>
               <select
@@ -717,8 +668,8 @@ export function AssessmentContent() {
                 className="text-[13px] font-medium text-slate-900 bg-white border border-slate-200 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500 appearance-none cursor-pointer pr-7 shadow-sm hover:border-slate-300 transition-colors"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "right 6px center",
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 6px center',
                 }}
               >
                 <option value="Initial">Initial</option>
@@ -728,49 +679,39 @@ export function AssessmentContent() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <User className="w-4 h-4" style={{ color: "#00373a" }} />
+            <User className="w-4 h-4" style={{ color: '#00373a' }} />
             <div>
               <div className="text-[11px] text-slate-500">Assigned To</div>
-              <div className="text-sm font-medium text-slate-900">
-                Sarah Smith
-              </div>
+              <div className="text-sm font-medium text-slate-900">Sarah Smith</div>
             </div>
           </div>
           <div aria-hidden="true" />
           <div className="flex items-center gap-3">
-            <Download className="w-4 h-4" style={{ color: "#00373a" }} />
+            <Download className="w-4 h-4" style={{ color: '#00373a' }} />
             <div>
               <div className="text-[11px] text-slate-500">Received Date</div>
-              <div className="text-sm font-medium text-slate-900">
-                Jan 28, 2026 9:12 AM
-              </div>
+              <div className="text-sm font-medium text-slate-900">Jan 28, 2026 9:12 AM</div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Calendar className="w-4 h-4" style={{ color: "#00373a" }} />
+            <Calendar className="w-4 h-4" style={{ color: '#00373a' }} />
             <div>
               <div className="text-[11px] text-slate-500">Imported Date</div>
-              <div className="text-sm font-medium text-slate-900">
-                Jan 29, 2026 8:03 AM
-              </div>
+              <div className="text-sm font-medium text-slate-900">Jan 29, 2026 8:03 AM</div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <Calendar className="w-4 h-4" style={{ color: "#00373a" }} />
+            <Calendar className="w-4 h-4" style={{ color: '#00373a' }} />
             <div>
               <div className="text-[11px] text-slate-500">Created</div>
-              <div className="text-sm font-medium text-slate-900">
-                Feb 1, 2026 10:27 AM
-              </div>
+              <div className="text-sm font-medium text-slate-900">Feb 1, 2026 10:27 AM</div>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <RefreshCw className="w-4 h-4" style={{ color: "#00373a" }} />
+            <RefreshCw className="w-4 h-4" style={{ color: '#00373a' }} />
             <div>
               <div className="text-[11px] text-slate-500">Updated Date</div>
-              <div className="text-sm font-medium text-slate-900">
-                Feb 5, 2026 4:41 PM
-              </div>
+              <div className="text-sm font-medium text-slate-900">Feb 5, 2026 4:41 PM</div>
             </div>
           </div>
         </div>
@@ -778,13 +719,10 @@ export function AssessmentContent() {
 
       {/* Medication Information */}
       <div className="space-y-3">
-
         <div className="grid grid-cols-3 gap-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2 h-6">
-              <label className="text-xs font-medium text-slate-600">
-                Requested Medication
-              </label>
+              <label className="text-xs font-medium text-slate-600">Requested Medication</label>
               <span className="text-xs text-slate-400">Search by</span>
               <div className="relative" ref={filterDropdownRef}>
                 <button
@@ -792,33 +730,27 @@ export function AssessmentContent() {
                   onClick={() => setIsFilterDropdownOpen(!isFilterDropdownOpen)}
                   className="inline-flex items-center gap-1 h-6 px-2 text-[11px] rounded border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
                 >
-                  {searchFilterType === "name" && "Drug Name"}
-                  {searchFilterType === "din" && "DIN"}
-                  {searchFilterType === "category" && "Benefit Category"}
+                  {searchFilterType === 'name' && 'Drug Name'}
+                  {searchFilterType === 'din' && 'DIN'}
+                  {searchFilterType === 'category' && 'Benefit Category'}
                   <ChevronDown className="w-3 h-3 text-slate-400" />
                 </button>
                 {isFilterDropdownOpen && (
                   <div className="absolute left-0 top-full mt-1 z-60 bg-white border border-slate-200 rounded-lg shadow-lg min-w-[150px]">
                     {(
                       [
-                        { value: "name", label: "Drug Name" },
-                        { value: "din", label: "DIN" },
-                        { value: "category", label: "Benefit Category" },
+                        { value: 'name', label: 'Drug Name' },
+                        { value: 'din', label: 'DIN' },
+                        { value: 'category', label: 'Benefit Category' },
                       ] as const
                     ).map((option) => (
                       <button
                         key={option.value}
                         type="button"
                         className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-teal-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
-                          searchFilterType === option.value
-                            ? "bg-teal-50 font-medium"
-                            : ""
+                          searchFilterType === option.value ? 'bg-teal-50 font-medium' : ''
                         }`}
-                        style={
-                          searchFilterType === option.value
-                            ? { color: "#00373a" }
-                            : {}
-                        }
+                        style={searchFilterType === option.value ? { color: '#00373a' } : {}}
                         onClick={() => {
                           setSearchFilterType(option.value);
                           setIsFilterDropdownOpen(false);
@@ -838,20 +770,18 @@ export function AssessmentContent() {
                   type="text"
                   value={isDropdownOpen ? searchQuery : displayValue}
                   placeholder={
-                    searchFilterType === "name"
-                      ? "Search by drug name..."
-                      : searchFilterType === "din"
-                        ? "Search by DIN..."
-                        : "Search by benefit category..."
+                    searchFilterType === 'name'
+                      ? 'Search by drug name...'
+                      : searchFilterType === 'din'
+                        ? 'Search by DIN...'
+                        : 'Search by benefit category...'
                   }
                   className="w-full pl-9 pr-9 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:border-transparent"
-                  style={
-                    { "--tw-ring-color": "#00373a" } as React.CSSProperties
-                  }
+                  style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
                   ref={inputRef}
                   onFocus={() => {
                     setIsDropdownOpen(true);
-                    setSearchQuery("");
+                    setSearchQuery('');
                   }}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -872,8 +802,7 @@ export function AssessmentContent() {
                     <div className="px-3 py-2 border-b border-slate-100 bg-slate-50">
                       <span className="text-[11px] text-slate-500">
                         {filteredMedications.length} result
-                        {filteredMedications.length !== 1 ? "s" : ""} for "
-                        {searchQuery}"
+                        {filteredMedications.length !== 1 ? 's' : ''} for "{searchQuery}"
                       </span>
                     </div>
                   )}
@@ -887,18 +816,15 @@ export function AssessmentContent() {
                         key={med.id}
                         type="button"
                         className={`w-full text-left px-3 py-2 hover:bg-teal-50 transition-colors border-b border-slate-50 last:border-b-0 ${
-                          selectedMedication?.id === med.id ? "bg-teal-50" : ""
+                          selectedMedication?.id === med.id ? 'bg-teal-50' : ''
                         }`}
                         onClick={() => handleSelectMedication(med)}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <Pill
-                              className="w-4 h-4 shrink-0"
-                              style={{ color: "#00373a" }}
-                            />
+                            <Pill className="w-4 h-4 shrink-0" style={{ color: '#00373a' }} />
                             <span className="text-sm text-slate-900">
-                              {highlightMatch(med.name, searchQuery)}{" "}
+                              {highlightMatch(med.name, searchQuery)}{' '}
                               <span className="text-slate-500">
                                 ({highlightMatch(med.generic, searchQuery)})
                               </span>
@@ -907,7 +833,7 @@ export function AssessmentContent() {
                           {selectedMedication?.id === med.id && (
                             <CheckCircle2
                               className="w-4 h-4 shrink-0"
-                              style={{ color: "#00373a" }}
+                              style={{ color: '#00373a' }}
                             />
                           )}
                         </div>
@@ -932,49 +858,38 @@ export function AssessmentContent() {
             </div>
           </div>
 
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 h-6">
-                <label className="text-[10px] font-medium text-slate-600">
-                  Approved Medication
-                </label>
-                <span className="text-[10px] text-slate-400">Search by</span>
-                <div className="relative" ref={approvedFilterDropdownRef}>
-                  <button
-                    type="button"
-                  onClick={() =>
-                    setIsApprovedFilterDropdownOpen(
-                      !isApprovedFilterDropdownOpen,
-                    )
-                  }
-                    className="inline-flex items-center gap-1 h-6 px-2 text-[10px] rounded border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 h-6">
+              <label className="text-[10px] font-medium text-slate-600">Approved Medication</label>
+              <span className="text-[10px] text-slate-400">Search by</span>
+              <div className="relative" ref={approvedFilterDropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsApprovedFilterDropdownOpen(!isApprovedFilterDropdownOpen)}
+                  className="inline-flex items-center gap-1 h-6 px-2 text-[10px] rounded border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
                 >
-                  {approvedSearchFilterType === "name" && "Drug Name"}
-                  {approvedSearchFilterType === "din" && "DIN"}
-                  {approvedSearchFilterType === "category" &&
-                    "Benefit Category"}
+                  {approvedSearchFilterType === 'name' && 'Drug Name'}
+                  {approvedSearchFilterType === 'din' && 'DIN'}
+                  {approvedSearchFilterType === 'category' && 'Benefit Category'}
                   <ChevronDown className="w-3 h-3 text-slate-400" />
                 </button>
                 {isApprovedFilterDropdownOpen && (
-                    <div className="absolute left-0 top-full mt-1 z-60 bg-white border border-slate-200 rounded-lg shadow-lg min-w-[150px]">
+                  <div className="absolute left-0 top-full mt-1 z-60 bg-white border border-slate-200 rounded-lg shadow-lg min-w-[150px]">
                     {(
                       [
-                        { value: "name", label: "Drug Name" },
-                        { value: "din", label: "DIN" },
-                        { value: "category", label: "Benefit Category" },
+                        { value: 'name', label: 'Drug Name' },
+                        { value: 'din', label: 'DIN' },
+                        { value: 'category', label: 'Benefit Category' },
                       ] as const
                     ).map((option) => (
                       <button
                         key={option.value}
                         type="button"
                         className={`w-full text-left px-3 py-1.5 text-[10px] hover:bg-teal-50 transition-colors first:rounded-t-lg last:rounded-b-lg ${
-                          approvedSearchFilterType === option.value
-                            ? "bg-teal-50 font-medium"
-                            : ""
+                          approvedSearchFilterType === option.value ? 'bg-teal-50 font-medium' : ''
                         }`}
                         style={
-                          approvedSearchFilterType === option.value
-                            ? { color: "#00373a" }
-                            : {}
+                          approvedSearchFilterType === option.value ? { color: '#00373a' } : {}
                         }
                         onClick={() => {
                           setApprovedSearchFilterType(option.value);
@@ -993,30 +908,22 @@ export function AssessmentContent() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input
                   type="text"
-                  value={
-                    isApprovedDropdownOpen
-                      ? approvedSearchQuery
-                      : approvedDisplayValue
-                  }
+                  value={isApprovedDropdownOpen ? approvedSearchQuery : approvedDisplayValue}
                   placeholder={
-                    approvedSearchFilterType === "name"
-                      ? "Search by drug name..."
-                      : approvedSearchFilterType === "din"
-                        ? "Search by DIN..."
-                        : "Search by benefit category..."
+                    approvedSearchFilterType === 'name'
+                      ? 'Search by drug name...'
+                      : approvedSearchFilterType === 'din'
+                        ? 'Search by DIN...'
+                        : 'Search by benefit category...'
                   }
                   className={`w-full pl-9 pr-9 py-1.5 border rounded-lg text-[12px] whitespace-nowrap focus:outline-none focus:ring-2 focus:border-transparent ${
-                    !approvedMedication && !isApprovedDropdownOpen
-                      ? ""
-                      : "border-slate-300"
+                    !approvedMedication && !isApprovedDropdownOpen ? '' : 'border-slate-300'
                   }`}
-                  style={
-                    { "--tw-ring-color": "#00373a" } as React.CSSProperties
-                  }
+                  style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
                   ref={approvedInputRef}
                   onFocus={() => {
                     setIsApprovedDropdownOpen(true);
-                    setApprovedSearchQuery("");
+                    setApprovedSearchQuery('');
                   }}
                   onChange={(e) => setApprovedSearchQuery(e.target.value)}
                 />
@@ -1024,7 +931,7 @@ export function AssessmentContent() {
                   <button
                     onClick={() => {
                       setApprovedMedication(null);
-                      setApprovedSearchQuery("");
+                      setApprovedSearchQuery('');
                       setIsApprovedDropdownOpen(true);
                       approvedInputRef.current?.focus();
                     }}
@@ -1042,8 +949,8 @@ export function AssessmentContent() {
                     <div className="px-3 py-2 border-b border-slate-100 bg-slate-50">
                       <span className="text-[10px] text-slate-500">
                         {approvedFilteredMedications.length} result
-                        {approvedFilteredMedications.length !== 1 ? "s" : ""}{" "}
-                        for "{approvedSearchQuery}"
+                        {approvedFilteredMedications.length !== 1 ? 's' : ''} for "
+                        {approvedSearchQuery}"
                       </span>
                     </div>
                   )}
@@ -1057,29 +964,21 @@ export function AssessmentContent() {
                         key={med.id}
                         type="button"
                         className={`w-full text-left px-3 py-2 hover:bg-green-50 transition-colors border-b border-slate-50 last:border-b-0 ${
-                          approvedMedication?.id === med.id ? "bg-green-50" : ""
+                          approvedMedication?.id === med.id ? 'bg-green-50' : ''
                         }`}
                         onClick={() => {
                           setApprovedMedication(med);
                           setIsApprovedDropdownOpen(false);
-                          setApprovedSearchQuery("");
+                          setApprovedSearchQuery('');
                         }}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <Pill
-                              className="w-4 h-4 shrink-0"
-                              style={{ color: "#00373a" }}
-                            />
+                            <Pill className="w-4 h-4 shrink-0" style={{ color: '#00373a' }} />
                             <span className="text-[12px] text-slate-900">
-                              {highlightMatch(med.name, approvedSearchQuery)}{" "}
+                              {highlightMatch(med.name, approvedSearchQuery)}{' '}
                               <span className="text-slate-500">
-                                (
-                                {highlightMatch(
-                                  med.generic,
-                                  approvedSearchQuery,
-                                )}
-                                )
+                                ({highlightMatch(med.generic, approvedSearchQuery)})
                               </span>
                             </span>
                           </div>
@@ -1097,10 +996,7 @@ export function AssessmentContent() {
                           </span>
                           <span className="text-[9px] text-slate-400">|</span>
                           <span className="text-[9px] text-slate-500">
-                            {highlightMatch(
-                              med.benefitCategory,
-                              approvedSearchQuery,
-                            )}
+                            {highlightMatch(med.benefitCategory, approvedSearchQuery)}
                           </span>
                         </div>
                       </button>
@@ -1112,9 +1008,7 @@ export function AssessmentContent() {
           </div>
           <div className="space-y-2">
             <div className="flex items-center gap-2 h-6">
-              <label className="text-xs font-medium text-slate-600">
-                Disease Diagnosis
-              </label>
+              <label className="text-xs font-medium text-slate-600">Disease Diagnosis</label>
             </div>
             <input
               type="text"
@@ -1122,25 +1016,22 @@ export function AssessmentContent() {
               onChange={(e) => setDiseaseDiagnosis(e.target.value)}
               placeholder="Enter diagnosis code"
               className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:border-transparent"
-              style={{ "--tw-ring-color": "#00373a" } as React.CSSProperties}
+              style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
             />
           </div>
         </div>
-
       </div>
 
       {/* Assessment Summary Checklist */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-[15px] font-semibold text-slate-900">
-            Assessment Verification
-          </h3>
+          <h3 className="text-[15px] font-semibold text-slate-900">Assessment Verification</h3>
         </div>
         <div className="border border-slate-200 rounded-sm overflow-hidden">
           <table className="w-full text-sm table-fixed">
             <colgroup>
-              <col style={{ width: "240px" }} />
-              <col style={{ width: "360px" }} />
+              <col style={{ width: '240px' }} />
+              <col style={{ width: '360px' }} />
               <col />
             </colgroup>
             <thead>
@@ -1166,37 +1057,33 @@ export function AssessmentContent() {
                       </span>
                       <span
                         className={`text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded border ${
-                          assessmentAllChecked
-                            ? "ui-badge-success"
-                            : "ui-badge-info"
+                          assessmentAllChecked ? 'ui-badge-success' : 'ui-badge-info'
                         }`}
                       >
-                        {assessmentAllChecked ? "Verified" : "Pending"}
+                        {assessmentAllChecked ? 'Verified' : 'Pending'}
                       </span>
                     </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setChecklist((prev) => {
-                          const allChecked = assessmentItems.every(
-                            (item) => prev[item.key],
-                          );
-                          const next = { ...prev };
-                          assessmentItems.forEach((item) => {
-                            next[item.key] = !allChecked;
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setChecklist((prev) => {
+                            const allChecked = assessmentItems.every((item) => prev[item.key]);
+                            const next = { ...prev };
+                            assessmentItems.forEach((item) => {
+                              next[item.key] = !allChecked;
+                            });
+                            return next;
                           });
-                          return next;
-                        });
-                      }}
-                      className="px-2.5 py-1 text-[11px] font-medium rounded border transition-colors hover:bg-slate-50"
-                      style={{ color: "#00373a", borderColor: "#00373a" }}
-                    >
-                      Verify
-                    </button>
+                        }}
+                        className="px-2.5 py-1 text-[11px] font-medium rounded border transition-colors hover:bg-slate-50"
+                        style={{ color: '#00373a', borderColor: '#00373a' }}
+                      >
+                        Verify
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </td>
               </tr>
               {assessmentItems.map((item) => (
@@ -1212,7 +1099,7 @@ export function AssessmentContent() {
                 >
                   <td className="py-2 px-3">
                     <span
-                      className={`transition-colors ${checklist[item.key] ? "text-slate-500" : "text-slate-700"}`}
+                      className={`transition-colors ${checklist[item.key] ? 'text-slate-500' : 'text-slate-700'}`}
                     >
                       {item.label}
                     </span>
@@ -1255,12 +1142,10 @@ export function AssessmentContent() {
                       </span>
                       <span
                         className={`text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded border ${
-                          coverageAllChecked
-                            ? "ui-badge-success"
-                            : "ui-badge-info"
+                          coverageAllChecked ? 'ui-badge-success' : 'ui-badge-info'
                         }`}
                       >
-                        {coverageAllChecked ? "Acknowledged" : "Pending"}
+                        {coverageAllChecked ? 'Acknowledged' : 'Pending'}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
@@ -1269,9 +1154,7 @@ export function AssessmentContent() {
                         onClick={(e) => {
                           e.stopPropagation();
                           setChecklist((prev) => {
-                            const allChecked = coverageItems.every(
-                              (item) => prev[item.key],
-                            );
+                            const allChecked = coverageItems.every((item) => prev[item.key]);
                             const next = { ...prev };
                             coverageItems.forEach((item) => {
                               next[item.key] = !allChecked;
@@ -1280,7 +1163,7 @@ export function AssessmentContent() {
                           });
                         }}
                         className="px-2.5 py-1 text-[11px] font-medium rounded border transition-colors hover:bg-slate-50"
-                        style={{ color: "#00373a", borderColor: "#00373a" }}
+                        style={{ color: '#00373a', borderColor: '#00373a' }}
                       >
                         Acknowledge
                       </button>
@@ -1301,13 +1184,13 @@ export function AssessmentContent() {
                 >
                   <td className="py-2 px-3">
                     <span
-                      className={`transition-colors ${checklist[item.key] ? "text-slate-500" : "text-slate-700"}`}
+                      className={`transition-colors ${checklist[item.key] ? 'text-slate-500' : 'text-slate-700'}`}
                     >
                       {item.label}
                     </span>
                   </td>
                   <td className="py-2 px-3 text-left">
-                    {item.key === "mockClaimSummary" ? (
+                    {item.key === 'mockClaimSummary' ? (
                       <span className="inline-flex flex-col items-start text-[11px] px-2 py-1 text-slate-500">
                         <span className="font-medium">Failed on</span>
                         <span>BEL 0400: Not a benefit</span>
@@ -1330,47 +1213,40 @@ export function AssessmentContent() {
                       </span>
                       <span
                         className={`text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded border ${
-                          decisionAllChecked
-                            ? "ui-badge-success"
-                            : "ui-badge-info"
+                          decisionAllChecked ? 'ui-badge-success' : 'ui-badge-info'
                         }`}
                       >
-                        {decisionAllChecked ? "Verified" : "Pending"}
+                        {decisionAllChecked ? 'Verified' : 'Pending'}
                       </span>
                     </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setChecklist((prev) => {
-                          const allChecked = decisionItems.every(
-                            (item) => prev[item.key],
-                          );
-                          const next = { ...prev };
-                          decisionItems.forEach((item) => {
-                            next[item.key] = !allChecked;
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setChecklist((prev) => {
+                            const allChecked = decisionItems.every((item) => prev[item.key]);
+                            const next = { ...prev };
+                            decisionItems.forEach((item) => {
+                              next[item.key] = !allChecked;
+                            });
+                            return next;
                           });
-                          return next;
-                        });
-                      }}
-                      className="px-2.5 py-1 text-[11px] font-medium rounded border transition-colors hover:bg-slate-50"
-                      style={{ color: "#00373a", borderColor: "#00373a" }}
-                    >
-                      Verify
-                    </button>
+                        }}
+                        className="px-2.5 py-1 text-[11px] font-medium rounded border transition-colors hover:bg-slate-50"
+                        style={{ color: '#00373a', borderColor: '#00373a' }}
+                      >
+                        Verify
+                      </button>
+                    </div>
                   </div>
-                </div>
                 </td>
               </tr>
               {decisionItems.map((item) => (
-                <tr
-                  key={item.key}
-                  className="hover:bg-slate-50 transition-colors"
-                >
+                <tr key={item.key} className="hover:bg-slate-50 transition-colors">
                   <td className="py-2 px-3">
                     <span
-                      className={`transition-colors ${checklist[item.key] ? "text-slate-500" : "text-slate-700"}`}
+                      className={`transition-colors ${checklist[item.key] ? 'text-slate-500' : 'text-slate-700'}`}
                     >
                       {item.label}
                     </span>
@@ -1403,9 +1279,9 @@ export function AssessmentContent() {
       <div className="flex items-center gap-2 pt-3">
         <button
           className="px-4 py-2 text-sm text-white rounded-lg font-medium transition-colors"
-          style={{ backgroundColor: "#00373a" }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.9")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+          style={{ backgroundColor: '#00373a' }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
         >
           Save
         </button>

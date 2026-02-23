@@ -20,9 +20,9 @@ export function ToastBanners() {
   ]);
 
   const closeBanner = (id: number) => {
-    setBanners(banners.map(banner => 
-      banner.id === id ? { ...banner, visible: false } : banner
-    ));
+    setBanners(
+      banners.map((banner) => (banner.id === id ? { ...banner, visible: false } : banner)),
+    );
   };
 
   const getBannerStyles = (type: string) => {
@@ -46,12 +46,12 @@ export function ToastBanners() {
         return {
           bg: '',
           icon: Info,
-          customStyle: { background: 'linear-gradient(to right, #00373a, #004d51)' }
+          customStyle: { background: 'linear-gradient(to right, #00373a, #004d51)' },
         };
     }
   };
 
-  const visibleBanners = banners.filter(b => b.visible);
+  const visibleBanners = banners.filter((b) => b.visible);
 
   if (visibleBanners.length === 0) return null;
 
@@ -60,7 +60,7 @@ export function ToastBanners() {
       {visibleBanners.map((banner) => {
         const styles = getBannerStyles(banner.type);
         const Icon = styles.icon;
-        
+
         return (
           <div
             key={banner.id}
@@ -71,11 +71,9 @@ export function ToastBanners() {
               <Icon className="w-5 h-5" />
               <span className="text-sm font-medium">{banner.message}</span>
             </div>
-            
+
             <div className="flex items-center gap-3">
-              <button className="text-sm font-medium hover:underline">
-                {banner.action}
-              </button>
+              <button className="text-sm font-medium hover:underline">{banner.action}</button>
               <button
                 onClick={() => closeBanner(banner.id)}
                 className="p-1 hover:bg-white/20 rounded transition-colors"

@@ -17,8 +17,8 @@ import 'react-pdf/dist/Page/TextLayer.css';
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
 if (typeof URL !== 'undefined' && !('parse' in URL)) {
-  (URL as unknown as { parse?: (url: string, base?: string) => URL }).parse =
-    (url, base) => new URL(url, base);
+  (URL as unknown as { parse?: (url: string, base?: string) => URL }).parse = (url, base) =>
+    new URL(url, base);
 }
 
 class PdfErrorBoundary extends Component<
@@ -37,9 +37,7 @@ class PdfErrorBoundary extends Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div className="text-sm text-red-500">
-          {this.state.message ?? 'Unable to load PDF'}
-        </div>
+        <div className="text-sm text-red-500">{this.state.message ?? 'Unable to load PDF'}</div>
       );
     }
 
@@ -85,7 +83,6 @@ export function DocumentViewerPanel() {
     if (!node) return;
 
     const updateWidth = () => {
-     
       setContainerWidth(node.clientWidth);
     };
 
@@ -117,9 +114,7 @@ export function DocumentViewerPanel() {
   return (
     <div className="flex-1 min-w-0 min-h-0 border-r border-slate-200 bg-white flex flex-col">
       <div className="p-6 shrink-0">
-        <label className="text-xs font-medium text-slate-500">
-          Select document
-        </label>
+        <label className="text-xs font-medium text-slate-500">Select document</label>
         <div className="mt-2 relative w-full" ref={menuRef}>
           <button
             ref={triggerRef}
@@ -162,8 +157,7 @@ export function DocumentViewerPanel() {
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 p-6 flex"
-            style={{'overflow': 'auto'} as React.CSSProperties }>
+      <div className="flex-1 min-h-0 p-6 flex" style={{ overflow: 'auto' } as React.CSSProperties}>
         <div
           className={`bg-slate-50 flex flex-col flex-1 min-h-0 border border-slate-200 rounded-lg transition-shadow ${
             isPreviewExpanded ? 'ring-2 ring-slate-300' : ''
@@ -171,9 +165,7 @@ export function DocumentViewerPanel() {
         >
           <div className="px-3 py-2 border-b border-slate-200 bg-white flex items-center justify-between shrink-0">
             <div>
-              <div className="text-sm font-semibold text-slate-900">
-                {selectedDoc.title}
-              </div>
+              <div className="text-sm font-semibold text-slate-900">{selectedDoc.title}</div>
               <div className="text-[11px] text-slate-500">
                 {selectedDoc.type} • {selectedDoc.pages} pages
               </div>
@@ -187,9 +179,7 @@ export function DocumentViewerPanel() {
               >
                 <ZoomOut className="w-4 h-4" />
               </button>
-              <span className="text-[11px] text-slate-500 w-10 text-center">
-                {zoom}%
-              </span>
+              <span className="text-[11px] text-slate-500 w-10 text-center">{zoom}%</span>
               <button
                 type="button"
                 onClick={() => setZoom((prev) => Math.min(100, prev + 10))}

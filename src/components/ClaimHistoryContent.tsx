@@ -311,10 +311,15 @@ export function ClaimHistoryContent() {
               {paginatedClaims.map((claim) => {
                 const StatusIcon = statusConfig[claim.claimStatus].icon;
                 return (
-                  <tr key={claim.id} className="border-b border-slate-100 last:border-b-0 hover:bg-slate-50 transition-colors">
+                  <tr
+                    key={claim.id}
+                    className="border-b border-slate-100 last:border-b-0 hover:bg-slate-50 transition-colors"
+                  >
                     <td className="px-4 py-3 text-slate-700">{claim.serviceDate}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full border ${statusConfig[claim.claimStatus].className}`}>
+                      <span
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full border ${statusConfig[claim.claimStatus].className}`}
+                      >
                         <StatusIcon className="w-3 h-3" />
                         {claim.claimStatus}
                       </span>
@@ -325,7 +330,9 @@ export function ClaimHistoryContent() {
                     <td className="px-4 py-3 text-right text-slate-700">{claim.allowedAmount}</td>
                     <td className="px-4 py-3 text-right text-slate-700">{claim.deductible}</td>
                     <td className="px-4 py-3 text-right text-slate-700">{claim.copay}</td>
-                    <td className="px-4 py-3 text-right text-slate-900 font-medium">{claim.paidAmount}</td>
+                    <td className="px-4 py-3 text-right text-slate-900 font-medium">
+                      {claim.paidAmount}
+                    </td>
                     <td className="px-4 py-3 text-right text-slate-700">{claim.cob}</td>
                     <td className="px-4 py-3 text-right text-slate-700">{claim.daysSupply}</td>
                     <td className="px-4 py-3 text-right text-slate-700">{claim.quantity}</td>
@@ -340,7 +347,8 @@ export function ClaimHistoryContent() {
         {/* Pagination */}
         <div className="flex items-center justify-between pt-2">
           <span className="text-xs text-slate-500">
-            Showing {startIndex + 1}–{Math.min(startIndex + ROWS_PER_PAGE, claimHistory.length)} of {claimHistory.length} claims
+            Showing {startIndex + 1}–{Math.min(startIndex + ROWS_PER_PAGE, claimHistory.length)} of{' '}
+            {claimHistory.length} claims
           </span>
           <div className="flex items-center gap-1">
             <button

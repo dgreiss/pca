@@ -1,5 +1,16 @@
 import { useState } from 'react';
-import { Search, Plus, Filter, ChevronDown, Tag, Check, X, AlertTriangle, Calendar, RotateCcw } from 'lucide-react';
+import {
+  Search,
+  Plus,
+  Filter,
+  ChevronDown,
+  Tag,
+  Check,
+  X,
+  AlertTriangle,
+  Calendar,
+  RotateCcw,
+} from 'lucide-react';
 
 interface DecisionCode {
   id: string;
@@ -19,19 +30,177 @@ interface DecisionCode {
 }
 
 const initialDecisionCodes: DecisionCode[] = [
-  { id: '1', rowStatus: 'C', conditionCode: 'E11.65', code: 'DC-001', codeType: 'RFU', diagnosisEffectiveDate: '01/15/2025', diagnosisExpiry: '01/15/2027', statusCode: 'A', description: 'Prior Authorization Required', expiryDate: '02/10/2027', decisionEffectiveDate: '01/15/2025', decisionExpiryDate: '01/15/2027', status: 'applied', category: 'Authorization' },
-  { id: '2', rowStatus: 'C', conditionCode: 'E11.65', code: 'DC-002', codeType: 'MC', diagnosisEffectiveDate: '01/15/2025', diagnosisExpiry: '01/15/2027', statusCode: 'A', description: 'Step Therapy Protocol Met', expiryDate: '02/08/2027', decisionEffectiveDate: '01/20/2025', decisionExpiryDate: '01/20/2027', status: 'applied', category: 'Authorization' },
-  { id: '3', rowStatus: 'C', conditionCode: 'Z79.01', code: 'DC-010', codeType: 'Provincial', diagnosisEffectiveDate: '03/01/2025', diagnosisExpiry: '03/01/2027', statusCode: 'P', description: 'Drug-Drug Interaction Override', expiryDate: '—', decisionEffectiveDate: '03/01/2025', decisionExpiryDate: '—', status: 'pending', category: 'Clinical Review' },
-  { id: '4', rowStatus: 'H', conditionCode: 'Z79.01', code: 'DC-015', codeType: 'RFU', diagnosisEffectiveDate: '03/01/2025', diagnosisExpiry: '03/01/2027', statusCode: 'R', description: 'Therapeutic Duplication Identified', expiryDate: '02/05/2026', decisionEffectiveDate: '03/05/2025', decisionExpiryDate: '03/05/2026', status: 'rejected', category: 'Clinical Review' },
-  { id: '5', rowStatus: 'C', conditionCode: 'J45.30', code: 'DC-020', codeType: 'MC', diagnosisEffectiveDate: '06/12/2025', diagnosisExpiry: '06/12/2027', statusCode: 'A', description: 'Quantity Limit Exception Approved', expiryDate: '02/09/2027', decisionEffectiveDate: '06/15/2025', decisionExpiryDate: '06/15/2027', status: 'applied', category: 'Quantity/Supply' },
-  { id: '6', rowStatus: 'C', conditionCode: 'J45.30', code: 'DC-021', codeType: 'Provincial', diagnosisEffectiveDate: '06/12/2025', diagnosisExpiry: '06/12/2027', statusCode: 'P', description: 'Days Supply Override', expiryDate: '—', decisionEffectiveDate: '06/20/2025', decisionExpiryDate: '—', status: 'pending', category: 'Quantity/Supply' },
-  { id: '7', rowStatus: 'H', conditionCode: 'M79.3', code: 'DC-030', codeType: 'RFU', diagnosisEffectiveDate: '09/20/2025', diagnosisExpiry: '09/20/2027', statusCode: 'R', description: 'Non-Formulary Exception', expiryDate: '02/03/2026', decisionEffectiveDate: '09/22/2025', decisionExpiryDate: '09/22/2026', status: 'rejected', category: 'Formulary' },
-  { id: '8', rowStatus: 'C', conditionCode: 'M79.3', code: 'DC-031', codeType: 'MC', diagnosisEffectiveDate: '09/20/2025', diagnosisExpiry: '09/20/2027', statusCode: 'A', description: 'Brand Medically Necessary', expiryDate: '02/11/2027', decisionEffectiveDate: '09/25/2025', decisionExpiryDate: '09/25/2027', status: 'applied', category: 'Formulary' },
-  { id: '9', rowStatus: 'H', conditionCode: 'I10', code: 'DC-040', codeType: 'Provincial', diagnosisEffectiveDate: '11/05/2025', diagnosisExpiry: '11/05/2027', statusCode: 'A', description: 'Age Restriction Override', expiryDate: '02/07/2027', decisionEffectiveDate: '11/08/2025', decisionExpiryDate: '11/08/2027', status: 'applied', category: 'Demographics' },
-  { id: '10', rowStatus: 'C', conditionCode: 'F32.1', code: 'DC-050', codeType: 'RFU', diagnosisEffectiveDate: '12/01/2025', diagnosisExpiry: '12/01/2027', statusCode: 'P', description: 'Cost Share Tier Exception', expiryDate: '—', decisionEffectiveDate: '12/05/2025', decisionExpiryDate: '—', status: 'pending', category: 'Financial' },
+  {
+    id: '1',
+    rowStatus: 'C',
+    conditionCode: 'E11.65',
+    code: 'DC-001',
+    codeType: 'RFU',
+    diagnosisEffectiveDate: '01/15/2025',
+    diagnosisExpiry: '01/15/2027',
+    statusCode: 'A',
+    description: 'Prior Authorization Required',
+    expiryDate: '02/10/2027',
+    decisionEffectiveDate: '01/15/2025',
+    decisionExpiryDate: '01/15/2027',
+    status: 'applied',
+    category: 'Authorization',
+  },
+  {
+    id: '2',
+    rowStatus: 'C',
+    conditionCode: 'E11.65',
+    code: 'DC-002',
+    codeType: 'MC',
+    diagnosisEffectiveDate: '01/15/2025',
+    diagnosisExpiry: '01/15/2027',
+    statusCode: 'A',
+    description: 'Step Therapy Protocol Met',
+    expiryDate: '02/08/2027',
+    decisionEffectiveDate: '01/20/2025',
+    decisionExpiryDate: '01/20/2027',
+    status: 'applied',
+    category: 'Authorization',
+  },
+  {
+    id: '3',
+    rowStatus: 'C',
+    conditionCode: 'Z79.01',
+    code: 'DC-010',
+    codeType: 'Provincial',
+    diagnosisEffectiveDate: '03/01/2025',
+    diagnosisExpiry: '03/01/2027',
+    statusCode: 'P',
+    description: 'Drug-Drug Interaction Override',
+    expiryDate: '—',
+    decisionEffectiveDate: '03/01/2025',
+    decisionExpiryDate: '—',
+    status: 'pending',
+    category: 'Clinical Review',
+  },
+  {
+    id: '4',
+    rowStatus: 'H',
+    conditionCode: 'Z79.01',
+    code: 'DC-015',
+    codeType: 'RFU',
+    diagnosisEffectiveDate: '03/01/2025',
+    diagnosisExpiry: '03/01/2027',
+    statusCode: 'R',
+    description: 'Therapeutic Duplication Identified',
+    expiryDate: '02/05/2026',
+    decisionEffectiveDate: '03/05/2025',
+    decisionExpiryDate: '03/05/2026',
+    status: 'rejected',
+    category: 'Clinical Review',
+  },
+  {
+    id: '5',
+    rowStatus: 'C',
+    conditionCode: 'J45.30',
+    code: 'DC-020',
+    codeType: 'MC',
+    diagnosisEffectiveDate: '06/12/2025',
+    diagnosisExpiry: '06/12/2027',
+    statusCode: 'A',
+    description: 'Quantity Limit Exception Approved',
+    expiryDate: '02/09/2027',
+    decisionEffectiveDate: '06/15/2025',
+    decisionExpiryDate: '06/15/2027',
+    status: 'applied',
+    category: 'Quantity/Supply',
+  },
+  {
+    id: '6',
+    rowStatus: 'C',
+    conditionCode: 'J45.30',
+    code: 'DC-021',
+    codeType: 'Provincial',
+    diagnosisEffectiveDate: '06/12/2025',
+    diagnosisExpiry: '06/12/2027',
+    statusCode: 'P',
+    description: 'Days Supply Override',
+    expiryDate: '—',
+    decisionEffectiveDate: '06/20/2025',
+    decisionExpiryDate: '—',
+    status: 'pending',
+    category: 'Quantity/Supply',
+  },
+  {
+    id: '7',
+    rowStatus: 'H',
+    conditionCode: 'M79.3',
+    code: 'DC-030',
+    codeType: 'RFU',
+    diagnosisEffectiveDate: '09/20/2025',
+    diagnosisExpiry: '09/20/2027',
+    statusCode: 'R',
+    description: 'Non-Formulary Exception',
+    expiryDate: '02/03/2026',
+    decisionEffectiveDate: '09/22/2025',
+    decisionExpiryDate: '09/22/2026',
+    status: 'rejected',
+    category: 'Formulary',
+  },
+  {
+    id: '8',
+    rowStatus: 'C',
+    conditionCode: 'M79.3',
+    code: 'DC-031',
+    codeType: 'MC',
+    diagnosisEffectiveDate: '09/20/2025',
+    diagnosisExpiry: '09/20/2027',
+    statusCode: 'A',
+    description: 'Brand Medically Necessary',
+    expiryDate: '02/11/2027',
+    decisionEffectiveDate: '09/25/2025',
+    decisionExpiryDate: '09/25/2027',
+    status: 'applied',
+    category: 'Formulary',
+  },
+  {
+    id: '9',
+    rowStatus: 'H',
+    conditionCode: 'I10',
+    code: 'DC-040',
+    codeType: 'Provincial',
+    diagnosisEffectiveDate: '11/05/2025',
+    diagnosisExpiry: '11/05/2027',
+    statusCode: 'A',
+    description: 'Age Restriction Override',
+    expiryDate: '02/07/2027',
+    decisionEffectiveDate: '11/08/2025',
+    decisionExpiryDate: '11/08/2027',
+    status: 'applied',
+    category: 'Demographics',
+  },
+  {
+    id: '10',
+    rowStatus: 'C',
+    conditionCode: 'F32.1',
+    code: 'DC-050',
+    codeType: 'RFU',
+    diagnosisEffectiveDate: '12/01/2025',
+    diagnosisExpiry: '12/01/2027',
+    statusCode: 'P',
+    description: 'Cost Share Tier Exception',
+    expiryDate: '—',
+    decisionEffectiveDate: '12/05/2025',
+    decisionExpiryDate: '—',
+    status: 'pending',
+    category: 'Financial',
+  },
 ];
 
-const categories = ['All', 'Authorization', 'Clinical Review', 'Quantity/Supply', 'Formulary', 'Demographics', 'Financial'];
+const categories = [
+  'All',
+  'Authorization',
+  'Clinical Review',
+  'Quantity/Supply',
+  'Formulary',
+  'Demographics',
+  'Financial',
+];
 
 interface InlineForm {
   rfuCode: string;
@@ -57,8 +226,9 @@ export function DecisionCodesContent() {
   const [formErrors, setFormErrors] = useState<Partial<Record<string, string>>>({});
   const [successMessage, setSuccessMessage] = useState('');
 
-  const filteredCodes = decisionCodes.filter(code => {
-    const matchesSearch = searchQuery === '' ||
+  const filteredCodes = decisionCodes.filter((code) => {
+    const matchesSearch =
+      searchQuery === '' ||
       code.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
       code.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || code.category === selectedCategory;
@@ -66,8 +236,18 @@ export function DecisionCodesContent() {
   });
 
   const statusConfig = {
-    applied: { label: 'Applied', color: 'ui-badge-success', icon: Check, dotColor: 'text-emerald-500' },
-    pending: { label: 'Pending', color: 'ui-badge-warning', icon: AlertTriangle, dotColor: 'text-amber-500' },
+    applied: {
+      label: 'Applied',
+      color: 'ui-badge-success',
+      icon: Check,
+      dotColor: 'text-emerald-500',
+    },
+    pending: {
+      label: 'Pending',
+      color: 'ui-badge-warning',
+      icon: AlertTriangle,
+      dotColor: 'text-amber-500',
+    },
     rejected: { label: 'Rejected', color: 'ui-badge-danger', icon: X, dotColor: 'text-red-500' },
   };
 
@@ -84,7 +264,12 @@ export function DecisionCodesContent() {
     return `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}/${d.getFullYear()}`;
   };
 
-  const hasAnyInput = form.rfuCode || form.mcCode || form.provincialCode || form.decisionEffectiveDate || form.decisionExpiryDate;
+  const hasAnyInput =
+    form.rfuCode ||
+    form.mcCode ||
+    form.provincialCode ||
+    form.decisionEffectiveDate ||
+    form.decisionExpiryDate;
 
   const handleReset = () => {
     setForm({ ...emptyForm });
@@ -94,7 +279,8 @@ export function DecisionCodesContent() {
 
   const handleAddCode = (codeType: 'RFU' | 'MC' | 'Provincial') => {
     const errors: Partial<Record<string, string>> = {};
-    const fieldKey = codeType === 'RFU' ? 'rfuCode' : codeType === 'MC' ? 'mcCode' : 'provincialCode';
+    const fieldKey =
+      codeType === 'RFU' ? 'rfuCode' : codeType === 'MC' ? 'mcCode' : 'provincialCode';
     const codeValue = form[fieldKey];
 
     if (!codeValue.trim()) {
@@ -106,7 +292,11 @@ export function DecisionCodesContent() {
     if (!form.decisionExpiryDate) {
       errors.decisionExpiryDate = 'Required';
     }
-    if (form.decisionEffectiveDate && form.decisionExpiryDate && form.decisionEffectiveDate > form.decisionExpiryDate) {
+    if (
+      form.decisionEffectiveDate &&
+      form.decisionExpiryDate &&
+      form.decisionEffectiveDate > form.decisionExpiryDate
+    ) {
       errors.decisionExpiryDate = 'Must be after effective date';
     }
 
@@ -134,9 +324,9 @@ export function DecisionCodesContent() {
       category: 'Authorization',
     };
 
-    setDecisionCodes(prev => [newCode, ...prev]);
+    setDecisionCodes((prev) => [newCode, ...prev]);
     // Clear only the submitted code field
-    setForm(prev => ({ ...prev, [fieldKey]: '' }));
+    setForm((prev) => ({ ...prev, [fieldKey]: '' }));
     setFormErrors({});
     setSuccessMessage(`${codeType} Code "${codeValue.trim()}" added successfully`);
     setTimeout(() => setSuccessMessage(''), 3000);
@@ -159,7 +349,11 @@ export function DecisionCodesContent() {
     if (!form.decisionExpiryDate) {
       errors.decisionExpiryDate = 'Required';
     }
-    if (form.decisionEffectiveDate && form.decisionExpiryDate && form.decisionEffectiveDate > form.decisionExpiryDate) {
+    if (
+      form.decisionEffectiveDate &&
+      form.decisionExpiryDate &&
+      form.decisionEffectiveDate > form.decisionExpiryDate
+    ) {
       errors.decisionExpiryDate = 'Must be after effective date';
     }
 
@@ -172,7 +366,8 @@ export function DecisionCodesContent() {
     const codesToAdd: { type: 'RFU' | 'MC' | 'Provincial'; prefix: string; value: string }[] = [];
     if (hasRfu) codesToAdd.push({ type: 'RFU', prefix: 'RFU', value: form.rfuCode.trim() });
     if (hasMc) codesToAdd.push({ type: 'MC', prefix: 'MC', value: form.mcCode.trim() });
-    if (hasProv) codesToAdd.push({ type: 'Provincial', prefix: 'PROV', value: form.provincialCode.trim() });
+    if (hasProv)
+      codesToAdd.push({ type: 'Provincial', prefix: 'PROV', value: form.provincialCode.trim() });
 
     codesToAdd.forEach((entry, idx) => {
       const codeLabel = `${entry.prefix}-${entry.value}`;
@@ -195,7 +390,7 @@ export function DecisionCodesContent() {
       });
     });
 
-    setDecisionCodes(prev => [...newCodes, ...prev]);
+    setDecisionCodes((prev) => [...newCodes, ...prev]);
     setForm({ ...emptyForm });
     setFormErrors({});
     setSuccessMessage(`Added ${addedLabels.join(', ')} successfully`);
@@ -207,7 +402,9 @@ export function DecisionCodesContent() {
       {/* Header */}
       <div>
         <h2 className="text-xl font-semibold text-slate-900 mb-1.5">Decision Codes</h2>
-        <p className="text-[13px] text-slate-500">Review and manage clinical decision codes for this assessment</p>
+        <p className="text-[13px] text-slate-500">
+          Review and manage clinical decision codes for this assessment
+        </p>
       </div>
 
       {/* Inline Add Code Form */}
@@ -240,14 +437,21 @@ export function DecisionCodesContent() {
           <div className="grid grid-cols-3 gap-3">
             {/* RFU Code */}
             <div className="space-y-1.5">
-              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">RFU Code</label>
+              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">
+                RFU Code
+              </label>
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={form.rfuCode}
                   onChange={(e) => {
-                    setForm(prev => ({ ...prev, rfuCode: e.target.value }));
-                    if (formErrors.rfuCode) setFormErrors(prev => { const n = { ...prev }; delete n.rfuCode; return n; });
+                    setForm((prev) => ({ ...prev, rfuCode: e.target.value }));
+                    if (formErrors.rfuCode)
+                      setFormErrors((prev) => {
+                        const n = { ...prev };
+                        delete n.rfuCode;
+                        return n;
+                      });
                   }}
                   placeholder="e.g. 001"
                   className={`flex-1 min-w-0 px-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
@@ -260,14 +464,21 @@ export function DecisionCodesContent() {
 
             {/* MC Code */}
             <div className="space-y-1.5">
-              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">MC Code</label>
+              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">
+                MC Code
+              </label>
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={form.mcCode}
                   onChange={(e) => {
-                    setForm(prev => ({ ...prev, mcCode: e.target.value }));
-                    if (formErrors.mcCode) setFormErrors(prev => { const n = { ...prev }; delete n.mcCode; return n; });
+                    setForm((prev) => ({ ...prev, mcCode: e.target.value }));
+                    if (formErrors.mcCode)
+                      setFormErrors((prev) => {
+                        const n = { ...prev };
+                        delete n.mcCode;
+                        return n;
+                      });
                   }}
                   placeholder="e.g. 100"
                   className={`flex-1 min-w-0 px-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
@@ -280,14 +491,21 @@ export function DecisionCodesContent() {
 
             {/* Provincial Code */}
             <div className="space-y-1.5">
-              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">Provincial Code</label>
+              <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">
+                Provincial Code
+              </label>
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={form.provincialCode}
                   onChange={(e) => {
-                    setForm(prev => ({ ...prev, provincialCode: e.target.value }));
-                    if (formErrors.provincialCode) setFormErrors(prev => { const n = { ...prev }; delete n.provincialCode; return n; });
+                    setForm((prev) => ({ ...prev, provincialCode: e.target.value }));
+                    if (formErrors.provincialCode)
+                      setFormErrors((prev) => {
+                        const n = { ...prev };
+                        delete n.provincialCode;
+                        return n;
+                      });
                   }}
                   placeholder="e.g. AB-200"
                   className={`flex-1 min-w-0 px-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
@@ -295,7 +513,9 @@ export function DecisionCodesContent() {
                   }`}
                 />
               </div>
-              {formErrors.provincialCode && <p className="text-xs text-red-500">{formErrors.provincialCode}</p>}
+              {formErrors.provincialCode && (
+                <p className="text-xs text-red-500">{formErrors.provincialCode}</p>
+              )}
             </div>
           </div>
 
@@ -311,15 +531,24 @@ export function DecisionCodesContent() {
                   type="date"
                   value={form.decisionEffectiveDate}
                   onChange={(e) => {
-                    setForm(prev => ({ ...prev, decisionEffectiveDate: e.target.value }));
-                    if (formErrors.decisionEffectiveDate) setFormErrors(prev => { const n = { ...prev }; delete n.decisionEffectiveDate; return n; });
+                    setForm((prev) => ({ ...prev, decisionEffectiveDate: e.target.value }));
+                    if (formErrors.decisionEffectiveDate)
+                      setFormErrors((prev) => {
+                        const n = { ...prev };
+                        delete n.decisionEffectiveDate;
+                        return n;
+                      });
                   }}
                   className={`w-full pl-9 pr-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
-                    formErrors.decisionEffectiveDate ? 'border-red-400 bg-red-50' : 'border-slate-300'
+                    formErrors.decisionEffectiveDate
+                      ? 'border-red-400 bg-red-50'
+                      : 'border-slate-300'
                   }`}
                 />
               </div>
-              {formErrors.decisionEffectiveDate && <p className="text-xs text-red-500">{formErrors.decisionEffectiveDate}</p>}
+              {formErrors.decisionEffectiveDate && (
+                <p className="text-xs text-red-500">{formErrors.decisionEffectiveDate}</p>
+              )}
             </div>
             <div className="space-y-1.5">
               <label className="block text-[11px] font-semibold text-slate-600 uppercase tracking-wide">
@@ -331,15 +560,22 @@ export function DecisionCodesContent() {
                   type="date"
                   value={form.decisionExpiryDate}
                   onChange={(e) => {
-                    setForm(prev => ({ ...prev, decisionExpiryDate: e.target.value }));
-                    if (formErrors.decisionExpiryDate) setFormErrors(prev => { const n = { ...prev }; delete n.decisionExpiryDate; return n; });
+                    setForm((prev) => ({ ...prev, decisionExpiryDate: e.target.value }));
+                    if (formErrors.decisionExpiryDate)
+                      setFormErrors((prev) => {
+                        const n = { ...prev };
+                        delete n.decisionExpiryDate;
+                        return n;
+                      });
                   }}
                   className={`w-full pl-9 pr-3 py-1.5 border rounded-lg text-[13px] focus:outline-none focus:ring-2 focus:ring-[#00373a]/20 focus:border-[#00373a] bg-white ${
                     formErrors.decisionExpiryDate ? 'border-red-400 bg-red-50' : 'border-slate-300'
                   }`}
                 />
               </div>
-              {formErrors.decisionExpiryDate && <p className="text-xs text-red-500">{formErrors.decisionExpiryDate}</p>}
+              {formErrors.decisionExpiryDate && (
+                <p className="text-xs text-red-500">{formErrors.decisionExpiryDate}</p>
+              )}
             </div>
           </div>
           <p className="text-[11px] text-slate-500">Effective date must be on or before expiry.</p>
@@ -364,14 +600,30 @@ export function DecisionCodesContent() {
           <table className="w-full text-[13px]">
             <thead className="sticky top-0 z-10">
               <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider w-[70px]">Status</th>
-                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Condition Code</th>
-                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Code</th>
-                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Dx Effective Date</th>
-                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Dx Expiry</th>
-                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider w-[80px]">Status Code</th>
-                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Condition Description</th>
-                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Expiry Date</th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider w-[70px]">
+                  Status
+                </th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  Condition Code
+                </th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  Code
+                </th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  Dx Effective Date
+                </th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  Dx Expiry
+                </th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider w-[80px]">
+                  Status Code
+                </th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  Condition Description
+                </th>
+                <th className="px-3 py-2 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  Expiry Date
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -380,9 +632,11 @@ export function DecisionCodesContent() {
                 return (
                   <tr key={code.id} className="hover:bg-slate-50 transition-colors">
                     <td className="px-3 py-2">
-                      <span className={`inline-flex items-center justify-center w-5 h-5 rounded text-[11px] font-semibold ${
-                        code.rowStatus === 'C' ? 'ui-badge-success' : 'ui-badge-neutral'
-                      }`}>
+                      <span
+                        className={`inline-flex items-center justify-center w-5 h-5 rounded text-[11px] font-semibold ${
+                          code.rowStatus === 'C' ? 'ui-badge-success' : 'ui-badge-neutral'
+                        }`}
+                      >
                         {code.rowStatus}
                       </span>
                     </td>
@@ -390,7 +644,9 @@ export function DecisionCodesContent() {
                     <td className="px-3 py-2">
                       <div className="flex items-center gap-2">
                         <span className="font-mono font-semibold text-slate-900">{code.code}</span>
-                        <span className={`inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide border ${codeTypeBadge[code.codeType]}`}>
+                        <span
+                          className={`inline-flex px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide border ${codeTypeBadge[code.codeType]}`}
+                        >
                           {code.codeType}
                         </span>
                       </div>
@@ -398,7 +654,9 @@ export function DecisionCodesContent() {
                     <td className="px-3 py-2 text-slate-600">{code.diagnosisEffectiveDate}</td>
                     <td className="px-3 py-2 text-slate-600">{code.diagnosisExpiry}</td>
                     <td className="px-3 py-2">
-                      <span className={`inline-flex items-center justify-center w-5 h-5 rounded text-[11px] font-semibold border ${statusInfo.color}`}>
+                      <span
+                        className={`inline-flex items-center justify-center w-5 h-5 rounded text-[11px] font-semibold border ${statusInfo.color}`}
+                      >
                         {code.statusCode}
                       </span>
                     </td>

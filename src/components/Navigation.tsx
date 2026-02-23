@@ -49,7 +49,9 @@ export function Navigation({ activeItem, onSelect }: NavigationProps) {
       }`}
     >
       {/* Collapse Toggle */}
-      <div className={`flex items-center mb-4 ${expanded ? 'justify-end px-2.5' : 'justify-center'}`}>
+      <div
+        className={`flex items-center mb-4 ${expanded ? 'justify-end px-2.5' : 'justify-center'}`}
+      >
         <button
           onClick={() => setExpanded(!expanded)}
           className="w-7 h-7 rounded-md flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-colors"

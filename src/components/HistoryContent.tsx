@@ -2,42 +2,46 @@ import { Clock, CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
 
 export function HistoryContent() {
   const history = [
-    { 
-      date: 'Feb 5, 2026 10:30 AM', 
-      action: 'Assessment updated', 
+    {
+      date: 'Feb 5, 2026 10:30 AM',
+      action: 'Assessment updated',
       user: 'Dr. Sarah Smith',
       status: 'info',
-      details: 'Clinical justification updated with additional information'
+      details: 'Clinical justification updated with additional information',
     },
-    { 
-      date: 'Feb 3, 2026 2:15 PM', 
-      action: 'More information requested', 
+    {
+      date: 'Feb 3, 2026 2:15 PM',
+      action: 'More information requested',
       user: 'PharmD Review Team',
       status: 'warning',
-      details: 'Requested lab results and prior treatment documentation'
+      details: 'Requested lab results and prior treatment documentation',
     },
-    { 
-      date: 'Feb 1, 2026 9:00 AM', 
-      action: 'Assessment created', 
+    {
+      date: 'Feb 1, 2026 9:00 AM',
+      action: 'Assessment created',
       user: 'Dr. Sarah Smith',
       status: 'success',
-      details: 'Initial prior authorization request submitted'
+      details: 'Initial prior authorization request submitted',
     },
-    { 
-      date: 'Jan 28, 2026 3:45 PM', 
-      action: 'Previous PA denied', 
+    {
+      date: 'Jan 28, 2026 3:45 PM',
+      action: 'Previous PA denied',
       user: 'System',
       status: 'error',
-      details: 'Insufficient clinical documentation for alternative medication'
+      details: 'Insufficient clinical documentation for alternative medication',
     },
   ];
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'success': return <CheckCircle2 className="w-5 h-5 text-green-600" />;
-      case 'error': return <XCircle className="w-5 h-5 text-red-600" />;
-      case 'warning': return <AlertCircle className="w-5 h-5 text-orange-600" />;
-      default: return <Clock className="w-5 h-5" style={{ color: '#00373a' }} />;
+      case 'success':
+        return <CheckCircle2 className="w-5 h-5 text-green-600" />;
+      case 'error':
+        return <XCircle className="w-5 h-5 text-red-600" />;
+      case 'warning':
+        return <AlertCircle className="w-5 h-5 text-orange-600" />;
+      default:
+        return <Clock className="w-5 h-5" style={{ color: '#00373a' }} />;
     }
   };
 
@@ -55,9 +59,7 @@ export function HistoryContent() {
               <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
                 {getStatusIcon(item.status)}
               </div>
-              {idx < history.length - 1 && (
-                <div className="w-0.5 h-full bg-slate-200 mt-2" />
-              )}
+              {idx < history.length - 1 && <div className="w-0.5 h-full bg-slate-200 mt-2" />}
             </div>
             <div className="flex-1 pb-8">
               <div className="flex items-start justify-between mb-1">

@@ -13,7 +13,7 @@ export function AttachmentsContent() {
   const [sharedFiles, setSharedFiles] = useState<Set<number>>(new Set([1, 3]));
 
   const toggleShared = (id: number) => {
-    setSharedFiles(prev => {
+    setSharedFiles((prev) => {
       const next = new Set(prev);
       if (next.has(id)) {
         next.delete(id);
@@ -25,7 +25,7 @@ export function AttachmentsContent() {
   };
 
   const toggleFile = (id: number) => {
-    setSelectedFiles(prev => {
+    setSelectedFiles((prev) => {
       const next = new Set(prev);
       if (next.has(id)) {
         next.delete(id);
@@ -40,7 +40,7 @@ export function AttachmentsContent() {
     if (selectedFiles.size === attachments.length) {
       setSelectedFiles(new Set());
     } else {
-      setSelectedFiles(new Set(attachments.map(a => a.id)));
+      setSelectedFiles(new Set(attachments.map((a) => a.id)));
     }
   };
 
@@ -58,7 +58,12 @@ export function AttachmentsContent() {
       {/* Action bar */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3 text-sm">
-          <button className="flex items-center gap-2 p-2 text-white rounded-lg font-medium transition-colors" style={{ backgroundColor: '#00373a' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
+          <button
+            className="flex items-center gap-2 p-2 text-white rounded-lg font-medium transition-colors"
+            style={{ backgroundColor: '#00373a' }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+          >
             <Plus className="w-4 h-4" />
             Create New
           </button>
@@ -81,13 +86,20 @@ export function AttachmentsContent() {
             <FolderInput className="w-4 h-4" />
             Import Files
           </button>
-          <button className="flex items-center gap-2 p-2 text-white rounded-lg font-medium transition-colors" style={{ backgroundColor: '#00373a' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
+          <button
+            className="flex items-center gap-2 p-2 text-white rounded-lg font-medium transition-colors"
+            style={{ backgroundColor: '#00373a' }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+          >
             <Upload className="w-4 h-4" />
             Upload File
           </button>
         </div>
         {hasSelection && (
-          <span className="text-sm text-slate-500">{selectedFiles.size} file{selectedFiles.size !== 1 ? 's' : ''} selected</span>
+          <span className="text-sm text-slate-500">
+            {selectedFiles.size} file{selectedFiles.size !== 1 ? 's' : ''} selected
+          </span>
         )}
       </div>
 
@@ -129,7 +141,9 @@ export function AttachmentsContent() {
             </div>
             <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
               <div className="flex items-center gap-2 mr-3 border-r border-slate-200 pr-3">
-                <span className="text-xs text-slate-500">{sharedFiles.has(file.id) ? 'Shared' : 'Not shared'}</span>
+                <span className="text-xs text-slate-500">
+                  {sharedFiles.has(file.id) ? 'Shared' : 'Not shared'}
+                </span>
                 <button
                   onClick={() => toggleShared(file.id)}
                   className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${

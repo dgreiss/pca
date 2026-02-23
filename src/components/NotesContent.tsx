@@ -5,17 +5,20 @@ export function NotesContent() {
     {
       author: 'Sarah Smith',
       date: 'Feb 5, 2026 10:15 AM',
-      content: 'Patient responded well to initial consultation. Confirmed previous treatment failures and documented all adverse reactions. Will monitor for biologic therapy approval.'
+      content:
+        'Patient responded well to initial consultation. Confirmed previous treatment failures and documented all adverse reactions. Will monitor for biologic therapy approval.',
     },
     {
       author: 'John Lee',
       date: 'Feb 3, 2026 2:00 PM',
-      content: 'Clinical documentation appears complete. However, need to verify insurance coverage details and obtain pre-authorization from secondary insurer.'
+      content:
+        'Clinical documentation appears complete. However, need to verify insurance coverage details and obtain pre-authorization from secondary insurer.',
     },
     {
       author: 'Michael Johnson',
       date: 'Feb 1, 2026 4:30 PM',
-      content: 'Initial assessment indicates strong clinical need for biologic therapy. Patient meets all criteria per treatment guidelines. Forwarding to pharmacy benefits team.'
+      content:
+        'Initial assessment indicates strong clinical need for biologic therapy. Patient meets all criteria per treatment guidelines. Forwarding to pharmacy benefits team.',
     },
   ];
 
@@ -26,7 +29,12 @@ export function NotesContent() {
           <h2 className="text-2xl font-semibold text-slate-900 mb-2">Notes</h2>
           <p className="text-sm text-slate-500">Internal notes and comments</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2.5 text-white rounded-lg font-medium transition-colors" style={{ backgroundColor: '#00373a' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
+        <button
+          className="flex items-center gap-2 px-4 py-2.5 text-white rounded-lg font-medium transition-colors"
+          style={{ backgroundColor: '#00373a' }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+        >
           <Plus className="w-4 h-4" />
           Add Note
         </button>
@@ -34,7 +42,10 @@ export function NotesContent() {
 
       <div className="space-y-4">
         {notes.map((note, idx) => (
-          <div key={idx} className="border border-slate-200 rounded-lg p-5 hover:border-slate-300 transition-colors">
+          <div
+            key={idx}
+            className="border border-slate-200 rounded-lg p-5 hover:border-slate-300 transition-colors"
+          >
             <div className="flex items-start justify-between mb-3">
               <div>
                 <h3 className="font-semibold text-slate-900">{note.author}</h3>
@@ -61,7 +72,12 @@ export function NotesContent() {
           <button className="px-4 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
             Cancel
           </button>
-          <button className="px-4 py-2 text-sm text-white rounded-lg transition-colors" style={{ backgroundColor: '#00373a' }} onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'} onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
+          <button
+            className="px-4 py-2 text-sm text-white rounded-lg transition-colors"
+            style={{ backgroundColor: '#00373a' }}
+            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
+          >
             Save Note
           </button>
         </div>

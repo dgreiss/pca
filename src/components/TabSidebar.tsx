@@ -1,4 +1,14 @@
-import { ClipboardList, Paperclip, Activity, FileText, Layers, Receipt, ShieldAlert, FlaskConical, Tag } from 'lucide-react';
+import {
+  ClipboardList,
+  Paperclip,
+  Activity,
+  FileText,
+  Layers,
+  Receipt,
+  ShieldAlert,
+  FlaskConical,
+  Tag,
+} from 'lucide-react';
 
 interface TabSidebarProps {
   activeTab: string;

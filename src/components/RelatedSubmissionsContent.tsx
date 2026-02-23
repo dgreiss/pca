@@ -48,10 +48,28 @@ const relatedSubmissions = [
   },
 ];
 
-const statusConfig: Record<string, { label: string; icon: typeof CheckCircle2; colorClass: string; bgClass: string }> = {
-  approved: { label: 'Approved', icon: CheckCircle2, colorClass: 'text-green-700', bgClass: 'bg-green-50 border-green-200' },
-  pending: { label: 'Pending', icon: Clock, colorClass: 'text-yellow-700', bgClass: 'bg-yellow-50 border-yellow-200' },
-  denied: { label: 'Denied', icon: XCircle, colorClass: 'text-red-700', bgClass: 'bg-red-50 border-red-200' },
+const statusConfig: Record<
+  string,
+  { label: string; icon: typeof CheckCircle2; colorClass: string; bgClass: string }
+> = {
+  approved: {
+    label: 'Approved',
+    icon: CheckCircle2,
+    colorClass: 'text-green-700',
+    bgClass: 'bg-green-50 border-green-200',
+  },
+  pending: {
+    label: 'Pending',
+    icon: Clock,
+    colorClass: 'text-yellow-700',
+    bgClass: 'bg-yellow-50 border-yellow-200',
+  },
+  denied: {
+    label: 'Denied',
+    icon: XCircle,
+    colorClass: 'text-red-700',
+    bgClass: 'bg-red-50 border-red-200',
+  },
 };
 
 export function RelatedSubmissionsContent() {
@@ -61,7 +79,8 @@ export function RelatedSubmissionsContent() {
       <div>
         <h2 className="text-2xl font-semibold text-slate-900 mb-2">Related Submissions</h2>
         <p className="text-sm text-slate-500">
-          Prior authorizations, exceptions, and other submissions linked to this member and assessment.
+          Prior authorizations, exceptions, and other submissions linked to this member and
+          assessment.
         </p>
       </div>
 
@@ -97,7 +116,9 @@ export function RelatedSubmissionsContent() {
                   <span className="text-sm font-semibold text-slate-900">{submission.id}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full ${config.colorClass} ${config.bgClass}`}>
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full ${config.colorClass} ${config.bgClass}`}
+                  >
                     <StatusIcon className="w-3.5 h-3.5" />
                     {config.label}
                   </span>

@@ -79,22 +79,85 @@ const dinLookup: Record<string, string> = {
 };
 
 // Price DIN mapping — some medications price via a generic equivalent
-const priceDinMap: Record<string, { priceDin: string; pricedDinDescription: string; pricedVia: string }> = {
-  '02182963': { priceDin: '02182963', pricedDinDescription: 'Methotrexate 2.5mg oral tablet', pricedVia: 'Formulary' },
-  '00585840': { priceDin: '00585840', pricedDinDescription: 'Hydroxychloroquine 200mg oral tablet', pricedVia: 'Formulary' },
-  '02258595': { priceDin: '02258595', pricedDinDescription: 'Humira 40mg/0.8mL subcutaneous', pricedVia: 'MAC Pricing' },
-  '02497514': { priceDin: '02497514', pricedDinDescription: 'Rinvoq 15mg oral tablet', pricedVia: 'Formulary' },
-  '02444550': { priceDin: '02444550', pricedDinDescription: 'Cosentyx 150mg/mL subcutaneous', pricedVia: 'N/A — Excluded' },
-  '02413728': { priceDin: '02413728', pricedDinDescription: 'Xeljanz 5mg oral tablet', pricedVia: 'Formulary' },
-  '02242903': { priceDin: '02242903', pricedDinDescription: 'Enbrel 50mg/mL subcutaneous', pricedVia: 'MAC Pricing' },
-  '02401274': { priceDin: '02401274', pricedDinDescription: 'Eliquis 5mg oral tablet', pricedVia: 'Formulary' },
-  '02471736': { priceDin: '02471736', pricedDinDescription: 'Ozempic 1mg/dose subcutaneous', pricedVia: 'Exception Review' },
-  '02479044': { priceDin: '02479044', pricedDinDescription: 'Dupixent 300mg/2mL subcutaneous', pricedVia: 'Formulary' },
-  '02350092': { priceDin: '02350092', pricedDinDescription: 'Actemra 162mg/0.9mL subcutaneous', pricedVia: 'MAC Pricing' },
-  '02438917': { priceDin: '02438917', pricedDinDescription: 'Otezla 30mg oral tablet', pricedVia: 'Formulary' },
-  '00235822': { priceDin: '00235822', pricedDinDescription: 'Sulfasalazine 500mg oral tablet', pricedVia: 'Formulary' },
-  '02324776': { priceDin: '02324776', pricedDinDescription: 'Stelara 45mg/0.5mL subcutaneous', pricedVia: 'MAC Pricing' },
-  '02280132': { priceDin: '02280132', pricedDinDescription: 'Orencia 125mg/mL subcutaneous', pricedVia: 'Formulary' },
+const priceDinMap: Record<
+  string,
+  { priceDin: string; pricedDinDescription: string; pricedVia: string }
+> = {
+  '02182963': {
+    priceDin: '02182963',
+    pricedDinDescription: 'Methotrexate 2.5mg oral tablet',
+    pricedVia: 'Formulary',
+  },
+  '00585840': {
+    priceDin: '00585840',
+    pricedDinDescription: 'Hydroxychloroquine 200mg oral tablet',
+    pricedVia: 'Formulary',
+  },
+  '02258595': {
+    priceDin: '02258595',
+    pricedDinDescription: 'Humira 40mg/0.8mL subcutaneous',
+    pricedVia: 'MAC Pricing',
+  },
+  '02497514': {
+    priceDin: '02497514',
+    pricedDinDescription: 'Rinvoq 15mg oral tablet',
+    pricedVia: 'Formulary',
+  },
+  '02444550': {
+    priceDin: '02444550',
+    pricedDinDescription: 'Cosentyx 150mg/mL subcutaneous',
+    pricedVia: 'N/A — Excluded',
+  },
+  '02413728': {
+    priceDin: '02413728',
+    pricedDinDescription: 'Xeljanz 5mg oral tablet',
+    pricedVia: 'Formulary',
+  },
+  '02242903': {
+    priceDin: '02242903',
+    pricedDinDescription: 'Enbrel 50mg/mL subcutaneous',
+    pricedVia: 'MAC Pricing',
+  },
+  '02401274': {
+    priceDin: '02401274',
+    pricedDinDescription: 'Eliquis 5mg oral tablet',
+    pricedVia: 'Formulary',
+  },
+  '02471736': {
+    priceDin: '02471736',
+    pricedDinDescription: 'Ozempic 1mg/dose subcutaneous',
+    pricedVia: 'Exception Review',
+  },
+  '02479044': {
+    priceDin: '02479044',
+    pricedDinDescription: 'Dupixent 300mg/2mL subcutaneous',
+    pricedVia: 'Formulary',
+  },
+  '02350092': {
+    priceDin: '02350092',
+    pricedDinDescription: 'Actemra 162mg/0.9mL subcutaneous',
+    pricedVia: 'MAC Pricing',
+  },
+  '02438917': {
+    priceDin: '02438917',
+    pricedDinDescription: 'Otezla 30mg oral tablet',
+    pricedVia: 'Formulary',
+  },
+  '00235822': {
+    priceDin: '00235822',
+    pricedDinDescription: 'Sulfasalazine 500mg oral tablet',
+    pricedVia: 'Formulary',
+  },
+  '02324776': {
+    priceDin: '02324776',
+    pricedDinDescription: 'Stelara 45mg/0.5mL subcutaneous',
+    pricedVia: 'MAC Pricing',
+  },
+  '02280132': {
+    priceDin: '02280132',
+    pricedDinDescription: 'Orencia 125mg/mL subcutaneous',
+    pricedVia: 'Formulary',
+  },
 };
 
 const providerOptions = [
@@ -161,17 +224,20 @@ function adjudicateClaim(form: MockClaimForm): AdjudicationResult {
         {
           response: 'Deny',
           ruleDescription: 'PA Required — Biologic DMARD',
-          message: 'Prior authorization required for Humira. Submit PA request through plan administrator.',
+          message:
+            'Prior authorization required for Humira. Submit PA request through plan administrator.',
         },
         {
           response: 'Deny',
           ruleDescription: 'Step Therapy — Conventional DMARDs first',
-          message: 'Patient must trial two conventional DMARDs (e.g. Methotrexate, Sulfasalazine) before biologic initiation.',
+          message:
+            'Patient must trial two conventional DMARDs (e.g. Methotrexate, Sulfasalazine) before biologic initiation.',
         },
         {
           response: 'Info',
           ruleDescription: 'Formulary Tier — Specialty Non-Preferred',
-          message: 'Humira is classified as Non-Preferred Specialty. Preferred alternatives: Enbrel, Rinvoq.',
+          message:
+            'Humira is classified as Non-Preferred Specialty. Preferred alternatives: Enbrel, Rinvoq.',
         },
       ],
       triggeredRules: [
@@ -224,7 +290,8 @@ function adjudicateClaim(form: MockClaimForm): AdjudicationResult {
         {
           response: 'Deny',
           ruleDescription: 'Indication Exclusion — IL-17 Inhibitor',
-          message: 'Cosentyx is not covered for rheumatoid arthritis. IL-17 inhibitors are not approved for RA.',
+          message:
+            'Cosentyx is not covered for rheumatoid arthritis. IL-17 inhibitors are not approved for RA.',
         },
         {
           response: 'Info',
@@ -272,17 +339,20 @@ function adjudicateClaim(form: MockClaimForm): AdjudicationResult {
         {
           response: 'Pend',
           ruleDescription: 'Benefit Category Exception — GLP-1 Agonist',
-          message: 'GLP-1 agonist requires benefit category exception. Weight management indication excluded.',
+          message:
+            'GLP-1 agonist requires benefit category exception. Weight management indication excluded.',
         },
         {
           response: 'Info',
           ruleDescription: 'Documentation Required',
-          message: 'If prescribed for Type 2 Diabetes, submit clinical documentation including A1C values and prior therapy history.',
+          message:
+            'If prescribed for Type 2 Diabetes, submit clinical documentation including A1C values and prior therapy history.',
         },
         {
           response: 'Info',
           ruleDescription: 'Review Timeline',
-          message: 'Clinical review typically completed within 3–5 business days. Expedited review available upon request.',
+          message:
+            'Clinical review typically completed within 3–5 business days. Expedited review available upon request.',
         },
       ],
       triggeredRules: [
@@ -321,7 +391,18 @@ function adjudicateClaim(form: MockClaimForm): AdjudicationResult {
   }
 
   // Paid — Specialty tier with messages
-  if (['02497514', '02242903', '02479044', '02350092', '02324776', '02280132', '02413728', '02438917'].includes(form.din)) {
+  if (
+    [
+      '02497514',
+      '02242903',
+      '02479044',
+      '02350092',
+      '02324776',
+      '02280132',
+      '02413728',
+      '02438917',
+    ].includes(form.din)
+  ) {
     return {
       id,
       timestamp,
@@ -340,7 +421,8 @@ function adjudicateClaim(form: MockClaimForm): AdjudicationResult {
         {
           response: 'Info',
           ruleDescription: 'Specialty Pharmacy Coordination',
-          message: 'Specialty medications require dispensing through a designated specialty pharmacy network.',
+          message:
+            'Specialty medications require dispensing through a designated specialty pharmacy network.',
         },
       ],
       triggeredRules: [
@@ -421,9 +503,19 @@ function adjudicateClaim(form: MockClaimForm): AdjudicationResult {
 }
 
 const statusConfig = {
-  Paid: { icon: CheckCircle2, color: 'text-green-700', bg: 'bg-green-50', border: 'border-green-200' },
+  Paid: {
+    icon: CheckCircle2,
+    color: 'text-green-700',
+    bg: 'bg-green-50',
+    border: 'border-green-200',
+  },
   Denied: { icon: XCircle, color: 'text-red-700', bg: 'bg-red-50', border: 'border-red-200' },
-  'Pending Review': { icon: Clock, color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-200' },
+  'Pending Review': {
+    icon: Clock,
+    color: 'text-amber-700',
+    bg: 'bg-amber-50',
+    border: 'border-amber-200',
+  },
 };
 
 const responseColors: Record<string, string> = {
@@ -479,7 +571,8 @@ export function MockClaimContent() {
       <div>
         <h2 className="text-2xl font-semibold text-slate-900 mb-2">Mock Claim</h2>
         <p className="text-sm text-slate-500">
-          Simulate claim adjudication to test formulary coverage, copay calculations, and rejection scenarios.
+          Simulate claim adjudication to test formulary coverage, copay calculations, and rejection
+          scenarios.
         </p>
       </div>
 
@@ -573,7 +666,9 @@ export function MockClaimContent() {
             <div>
               <label className="block text-xs text-slate-500 mb-1.5">Other Payer Amount</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400">
+                  $
+                </span>
                 <input
                   type="number"
                   value={form.otherPayerAmount}
@@ -624,9 +719,7 @@ export function MockClaimContent() {
       {results.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-slate-900">
-              Adjudication Results
-            </h3>
+            <h3 className="text-sm font-semibold text-slate-900">Adjudication Results</h3>
           </div>
 
           <div className="space-y-3">
@@ -642,8 +735,8 @@ export function MockClaimContent() {
                     result.status === 'Paid'
                       ? 'border-green-200'
                       : result.status === 'Denied'
-                      ? 'border-red-200'
-                      : 'border-amber-200'
+                        ? 'border-red-200'
+                        : 'border-amber-200'
                   }`}
                 >
                   {/* Result Header */}
@@ -659,7 +752,9 @@ export function MockClaimContent() {
                         <StatusIcon className="w-3.5 h-3.5" />
                         {result.status}
                       </span>
-                      <span className="text-sm text-slate-700 truncate">{result.pricedDinDescription}</span>
+                      <span className="text-sm text-slate-700 truncate">
+                        {result.pricedDinDescription}
+                      </span>
                       <span className="text-xs text-slate-400 font-mono shrink-0">{result.id}</span>
                     </div>
                     <div className="flex items-center gap-3 shrink-0">
@@ -683,7 +778,9 @@ export function MockClaimContent() {
                           </div>
                           <div className="px-3 py-2.5 rounded-lg border bg-slate-50 border-slate-100">
                             <span className="text-[11px] text-slate-400">Correspondence Type</span>
-                            <p className="text-sm text-slate-700 mt-0.5">{result.correspondenceType}</p>
+                            <p className="text-sm text-slate-700 mt-0.5">
+                              {result.correspondenceType}
+                            </p>
                           </div>
                           <div className="px-3 py-2.5 rounded-lg border bg-slate-50 border-slate-100">
                             <span className="text-[11px] text-slate-400">Claim Priced Via</span>
@@ -691,12 +788,16 @@ export function MockClaimContent() {
                           </div>
                           <div className="px-3 py-2.5 rounded-lg border bg-slate-50 border-slate-100">
                             <span className="text-[11px] text-slate-400">Price DIN</span>
-                            <p className="text-sm text-slate-700 font-mono mt-0.5">{result.priceDin}</p>
+                            <p className="text-sm text-slate-700 font-mono mt-0.5">
+                              {result.priceDin}
+                            </p>
                           </div>
                         </div>
                         <div className="mt-3 px-3 py-2.5 rounded-lg border bg-slate-50 border-slate-100">
                           <span className="text-[11px] text-slate-400">Priced DIN Description</span>
-                          <p className="text-sm text-slate-700 mt-0.5">{result.pricedDinDescription}</p>
+                          <p className="text-sm text-slate-700 mt-0.5">
+                            {result.pricedDinDescription}
+                          </p>
                         </div>
                       </div>
 
@@ -705,15 +806,23 @@ export function MockClaimContent() {
                         <div>
                           <div className="flex items-center gap-2 mb-3">
                             <MessageSquare className="w-3.5 h-3.5 text-slate-400" />
-                            <h4 className="text-xs text-slate-500 font-medium">Interactive Messages</h4>
+                            <h4 className="text-xs text-slate-500 font-medium">
+                              Interactive Messages
+                            </h4>
                           </div>
                           <div className="border border-slate-200 rounded-lg overflow-hidden">
                             <table className="w-full text-left">
                               <thead>
                                 <tr className="bg-slate-100 border-b border-slate-200">
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium w-[100px]">Response</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium w-[35%]">Rule Description</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium">Message</th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium w-[100px]">
+                                    Response
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium w-[35%]">
+                                    Rule Description
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium">
+                                    Message
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -754,14 +863,30 @@ export function MockClaimContent() {
                             <table className="w-full text-left min-w-[800px]">
                               <thead>
                                 <tr className="bg-slate-100 border-b border-slate-200">
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap">Definition ID</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap">Code</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium">Rule Description</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap">Status</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap text-right">Reduction</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap text-right">Accum Amount</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap text-right">Accum Units</th>
-                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap">Next Eligible</th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap">
+                                    Definition ID
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap">
+                                    Code
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium">
+                                    Rule Description
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap">
+                                    Status
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap text-right">
+                                    Reduction
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap text-right">
+                                    Accum Amount
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap text-right">
+                                    Accum Units
+                                  </th>
+                                  <th className="px-3 py-2 text-[11px] text-slate-500 font-medium whitespace-nowrap">
+                                    Next Eligible
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody>

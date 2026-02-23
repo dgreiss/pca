@@ -96,7 +96,8 @@ const ruleExceptions: RuleException[] = [
     effectiveDate: 'Feb 1, 2026',
     expiry: 'Feb 1, 2027',
     reason: 'Inadequate response',
-    description: 'Step therapy override granted — documented failure of Methotrexate and Sulfasalazine',
+    description:
+      'Step therapy override granted — documented failure of Methotrexate and Sulfasalazine',
     appliesTo: 'Group A — RA Benefit Plan',
   },
   {
@@ -108,7 +109,8 @@ const ruleExceptions: RuleException[] = [
     effectiveDate: 'Nov 28, 2025',
     expiry: 'Feb 28, 2026',
     reason: 'Clinical necessity',
-    description: 'Quantity limit override — prescriber supports higher daily dose for disease control',
+    description:
+      'Quantity limit override — prescriber supports higher daily dose for disease control',
     appliesTo: 'Member-specific',
   },
   {
@@ -140,7 +142,8 @@ const ruleExceptions: RuleException[] = [
     addedRemoved: 'Removed',
     benefitCategory: 'Dermatology — Biologics',
     ruleType: 'Prior Authorization',
-    ruleDescription: 'PA required for IL-4/IL-13 inhibitors in moderate-to-severe atopic dermatitis',
+    ruleDescription:
+      'PA required for IL-4/IL-13 inhibitors in moderate-to-severe atopic dermatitis',
     effectiveDate: 'Oct 1, 2025',
     expiry: '—',
     reason: 'Streamlined access',
@@ -160,7 +163,8 @@ const categoryConfig = {
   },
   rule: {
     label: 'Rule Exceptions',
-    description: 'Step therapy, quantity limit, prior authorization, and other utilization management rule overrides.',
+    description:
+      'Step therapy, quantity limit, prior authorization, and other utilization management rule overrides.',
     icon: Scale,
     accentColor: 'text-teal-700',
     accentBg: 'bg-teal-50',
@@ -183,14 +187,23 @@ export function ExceptionsContent() {
         <table className="w-full table-fixed text-xs">
           <thead>
             <tr className="bg-slate-50 border-b border-slate-200">
-              <th className="w-[8%] px-4 py-3 text-left text-slate-500 font-medium">Added /<br/>Removed</th>
-              <th className="w-[12%] px-4 py-3 text-left text-slate-500 font-medium">Benefit Category</th>
+              <th className="w-[8%] px-4 py-3 text-left text-slate-500 font-medium">
+                Added /<br />
+                Removed
+              </th>
+              <th className="w-[12%] px-4 py-3 text-left text-slate-500 font-medium">
+                Benefit Category
+              </th>
               <th className="w-[9%] px-4 py-3 text-left text-slate-500 font-medium">Rule Type</th>
-              <th className="w-[16%] px-4 py-3 text-left text-slate-500 font-medium">Rule Description</th>
+              <th className="w-[16%] px-4 py-3 text-left text-slate-500 font-medium">
+                Rule Description
+              </th>
               <th className="w-[9%] px-4 py-3 text-left text-slate-500 font-medium">Effective</th>
               <th className="w-[9%] px-4 py-3 text-left text-slate-500 font-medium">Expiry</th>
               <th className="w-[10%] px-4 py-3 text-left text-slate-500 font-medium">Reason</th>
-              <th className="w-[15%] px-4 py-3 text-left text-slate-500 font-medium">Description</th>
+              <th className="w-[15%] px-4 py-3 text-left text-slate-500 font-medium">
+                Description
+              </th>
               <th className="w-[7%] px-4 py-3 text-left text-slate-500 font-medium">Applies To</th>
               <th className="w-[5%] px-4 py-3 text-center text-slate-500 font-medium">View</th>
             </tr>
@@ -199,12 +212,18 @@ export function ExceptionsContent() {
             {ruleExceptions.map((item) => (
               <tr key={item.id} className="bg-white hover:bg-slate-50 transition-colors">
                 <td className="px-4 py-3">
-                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${
-                    item.addedRemoved === 'Added'
-                      ? 'bg-green-50 text-green-700 border border-green-200'
-                      : 'bg-red-50 text-red-700 border border-red-200'
-                  }`}>
-                    {item.addedRemoved === 'Added' ? <Plus className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
+                  <span
+                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${
+                      item.addedRemoved === 'Added'
+                        ? 'bg-green-50 text-green-700 border border-green-200'
+                        : 'bg-red-50 text-red-700 border border-red-200'
+                    }`}
+                  >
+                    {item.addedRemoved === 'Added' ? (
+                      <Plus className="w-3 h-3" />
+                    ) : (
+                      <Minus className="w-3 h-3" />
+                    )}
                     {item.addedRemoved}
                   </span>
                 </td>
@@ -221,7 +240,10 @@ export function ExceptionsContent() {
                 <td className="px-4 py-3 text-slate-500">{item.description}</td>
                 <td className="px-4 py-3 text-slate-700">{item.appliesTo}</td>
                 <td className="px-4 py-3 text-center">
-                  <button type="button" className="inline-flex items-center justify-center w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors">
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                  >
                     <Eye className="w-4 h-4" />
                   </button>
                 </td>
@@ -239,13 +261,22 @@ export function ExceptionsContent() {
         <table className="w-full table-fixed text-xs">
           <thead>
             <tr className="bg-slate-50 border-b border-slate-200">
-              <th className="w-[8%] px-4 py-3 text-left text-slate-500 font-medium">Added /<br/>Removed</th>
-              <th className="w-[14%] px-4 py-3 text-left text-slate-500 font-medium">Benefit Category</th>
+              <th className="w-[8%] px-4 py-3 text-left text-slate-500 font-medium">
+                Added /<br />
+                Removed
+              </th>
+              <th className="w-[14%] px-4 py-3 text-left text-slate-500 font-medium">
+                Benefit Category
+              </th>
               <th className="w-[9%] px-4 py-3 text-left text-slate-500 font-medium">DIN</th>
-              <th className="w-[10%] px-4 py-3 text-left text-slate-500 font-medium">Effective Date</th>
+              <th className="w-[10%] px-4 py-3 text-left text-slate-500 font-medium">
+                Effective Date
+              </th>
               <th className="w-[10%] px-4 py-3 text-left text-slate-500 font-medium">Expiry</th>
               <th className="w-[12%] px-4 py-3 text-left text-slate-500 font-medium">Reason</th>
-              <th className="w-[18%] px-4 py-3 text-left text-slate-500 font-medium">Description</th>
+              <th className="w-[18%] px-4 py-3 text-left text-slate-500 font-medium">
+                Description
+              </th>
               <th className="w-[13%] px-4 py-3 text-left text-slate-500 font-medium">Applies To</th>
               <th className="w-[6%] px-4 py-3 text-center text-slate-500 font-medium">View</th>
             </tr>
@@ -254,12 +285,18 @@ export function ExceptionsContent() {
             {benefitExceptions.map((item) => (
               <tr key={item.id} className="bg-white hover:bg-slate-50 transition-colors">
                 <td className="px-4 py-3">
-                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${
-                    item.addedRemoved === 'Added'
-                      ? 'bg-green-50 text-green-700 border border-green-200'
-                      : 'bg-red-50 text-red-700 border border-red-200'
-                  }`}>
-                    {item.addedRemoved === 'Added' ? <Plus className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
+                  <span
+                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${
+                      item.addedRemoved === 'Added'
+                        ? 'bg-green-50 text-green-700 border border-green-200'
+                        : 'bg-red-50 text-red-700 border border-red-200'
+                    }`}
+                  >
+                    {item.addedRemoved === 'Added' ? (
+                      <Plus className="w-3 h-3" />
+                    ) : (
+                      <Minus className="w-3 h-3" />
+                    )}
                     {item.addedRemoved}
                   </span>
                 </td>
@@ -271,7 +308,10 @@ export function ExceptionsContent() {
                 <td className="px-4 py-3 text-slate-500">{item.description}</td>
                 <td className="px-4 py-3 text-slate-700">{item.appliesTo}</td>
                 <td className="px-4 py-3 text-center">
-                  <button type="button" className="inline-flex items-center justify-center w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors">
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center w-7 h-7 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                  >
                     <Eye className="w-4 h-4" />
                   </button>
                 </td>
@@ -291,7 +331,9 @@ export function ExceptionsContent() {
     return (
       <div className="space-y-3">
         <div className="flex items-center gap-3">
-          <div className={`flex items-center justify-center w-7 h-7 rounded-lg ${catConfig.accentBg}`}>
+          <div
+            className={`flex items-center justify-center w-7 h-7 rounded-lg ${catConfig.accentBg}`}
+          >
             <CatIcon className={`w-4 h-4 ${catConfig.accentColor}`} />
           </div>
           <div>
@@ -302,11 +344,7 @@ export function ExceptionsContent() {
             {count}
           </span>
         </div>
-        {category === 'benefit' ? (
-          renderBenefitTable()
-        ) : (
-          renderRuleTable()
-        )}
+        {category === 'benefit' ? renderBenefitTable() : renderRuleTable()}
       </div>
     );
   };
@@ -335,9 +373,13 @@ export function ExceptionsContent() {
             }`}
           >
             {tab.label}
-            <span className={`px-1.5 py-0.5 rounded-full text-[10px] ${
-              activeCategory === tab.id ? 'bg-slate-100 text-slate-600' : 'bg-slate-200/60 text-slate-400'
-            }`}>
+            <span
+              className={`px-1.5 py-0.5 rounded-full text-[10px] ${
+                activeCategory === tab.id
+                  ? 'bg-slate-100 text-slate-600'
+                  : 'bg-slate-200/60 text-slate-400'
+              }`}
+            >
               {tab.count}
             </span>
           </button>
@@ -348,8 +390,7 @@ export function ExceptionsContent() {
       <div className="space-y-8">
         {(activeCategory === 'all' || activeCategory === 'benefit') &&
           renderCategorySection('benefit')}
-        {(activeCategory === 'all' || activeCategory === 'rule') &&
-          renderCategorySection('rule')}
+        {(activeCategory === 'all' || activeCategory === 'rule') && renderCategorySection('rule')}
       </div>
     </div>
   );

@@ -99,7 +99,6 @@ export function Dashboard() {
   const slaStatus = snapshot.averageTat <= slaTarget ? 'Within SLA' : 'At Risk';
   const slaAccent = snapshot.averageTat <= slaTarget ? 'ui-badge-success' : 'ui-badge-warning';
 
-
   const handleRefresh = () => {
     setSnapshot(createSnapshot());
     setLastUpdated(new Date());
@@ -110,7 +109,7 @@ export function Dashboard() {
       <header className="rounded-2xl border border-slate-200 bg-white px-6 py-5 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div className="space-y-1">
-           <h1 className="text-2xl font-semibold text-slate-900">
+            <h1 className="text-2xl font-semibold text-slate-900">
               Prior Authorization Operations Dashboard
             </h1>
           </div>
