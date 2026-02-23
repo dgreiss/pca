@@ -1,44 +1,38 @@
 import { useState } from 'react';
-import { Navigation } from './components/Navigation';
 import { HeaderBar } from './components/HeaderBar';
+import { Navigation } from './components/Navigation';
 import { ToastBanners } from './components/ToastBanners';
 import { TabSidebar } from './components/TabSidebar';
-import { DocumentViewerPanel } from './components/DocumentViewerPanel';
 import { ContentPanel } from './components/ContentPanel';
+import { DocumentViewerPanel } from './components/DocumentViewerPanel';
 import { DetailsPanel } from './components/DetailsPanel';
+import { Dashboard } from './components/Dashboard';
 
 function App() {
+  const [activeNav, setActiveNav] = useState('dashboard');
   const [activeTab, setActiveTab] = useState('assessment');
+  const isDashboard = activeNav === 'dashboard';
 
   return (
-    <div className="flex flex-col h-screen bg-slate-50">
-      {/* Full-width Header Bar */}
+    <div className="flex h-screen flex-col bg-slate-50">
       <HeaderBar />
-
-      {/* Below header: sidebar + main content */}
       <div className="flex flex-1 min-h-0 overflow-hidden">
-        {/* Navigation Sidebar */}
-        <Navigation />
-
-        {/* Main Content Area */}
-        <div className="flex-1 flex flex-col min-h-0 min-w-0">
-          {/* Toast Banners */}
-          <ToastBanners />
-
-          {/* Horizontal Tab Bar */}
-          <TabSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-
-          <div className="flex flex-1 min-h-0 overflow-hidden min-w-0">
-            {/* Content */}
-            <ContentPanel activeTab={activeTab} setActiveTab={setActiveTab} />
-
-            {/* Member Panel */}
-            <DocumentViewerPanel />
-
-            {/* Details Panel */}
-            <DetailsPanel />
-          </div>
-        </div>
+        <Navigation activeItem={activeNav} onSelect={setActiveNav} />
+        <main className="flex-1 min-h-0 min-w-0">
+          {isDashboard ? (
+            <Dashboard />
+          ) : (
+            <div className="flex h-full flex-col">
+              <ToastBanners />
+              <TabSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+              <div className="flex flex-1 min-h-0 overflow-hidden min-w-0">
+                <ContentPanel activeTab={activeTab} setActiveTab={setActiveTab} />
+                <DocumentViewerPanel />
+                <DetailsPanel />
+              </div>
+            </div>
+          )}
+        </main>
       </div>
     </div>
   );

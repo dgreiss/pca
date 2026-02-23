@@ -1,16 +1,40 @@
 import { useState } from 'react';
-import { Home, BarChart3, ListTodo, Hash, Stethoscope, Search, Settings, HelpCircle, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import {
+  Home,
+  LayoutDashboard,
+  BarChart3,
+  ListTodo,
+  Hash,
+  Stethoscope,
+  Search,
+  Settings,
+  HelpCircle,
+  PanelLeftClose,
+  PanelLeftOpen,
+} from 'lucide-react';
 
-export function Navigation() {
+type NavigationItem = {
+  id: string;
+  icon: typeof Home;
+  label: string;
+};
+
+type NavigationProps = {
+  activeItem: string;
+  onSelect: (id: string) => void;
+};
+
+export function Navigation({ activeItem, onSelect }: NavigationProps) {
   const [expanded, setExpanded] = useState(true);
 
-  const navItems = [
-    { icon: Home, label: 'Home', active: false },
-    { icon: BarChart3, label: 'Reports', active: false },
-    { icon: ListTodo, label: 'Queue', active: true },
-    { icon: Hash, label: 'PPN', active: false },
-    { icon: Stethoscope, label: 'Pharm Consult', active: false },
-    { icon: Search, label: 'Search', active: false },
+  const navItems: NavigationItem[] = [
+    { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { id: 'home', icon: Home, label: 'Home' },
+    { id: 'reports', icon: BarChart3, label: 'Reports' },
+    { id: 'queue', icon: ListTodo, label: 'Queue' },
+    { id: 'ppn', icon: Hash, label: 'PPN' },
+    { id: 'pharm', icon: Stethoscope, label: 'Pharm Consult' },
+    { id: 'search', icon: Search, label: 'Search' },
   ];
 
   const bottomItems = [
@@ -41,13 +65,15 @@ export function Navigation() {
 
       {/* Main Navigation */}
       <nav className="flex-1 flex flex-col gap-1">
-        {navItems.map((item, idx) => {
+        {navItems.map((item) => {
           const Icon = item.icon;
+          const isActive = activeItem === item.id;
           return expanded ? (
             <button
-              key={idx}
+              key={item.id}
+              onClick={() => onSelect(item.id)}
               className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-colors ${
-                item.active
+                isActive
                   ? 'bg-white/20 text-white'
                   : 'text-white/60 hover:bg-white/10 hover:text-white'
               }`}
@@ -57,9 +83,10 @@ export function Navigation() {
             </button>
           ) : (
             <button
-              key={idx}
+              key={item.id}
+              onClick={() => onSelect(item.id)}
               className={`w-16 py-1.5 rounded-lg flex flex-col items-center justify-center gap-0.5 transition-colors ${
-                item.active
+                isActive
                   ? 'bg-white/20 text-white'
                   : 'text-white/60 hover:bg-white/10 hover:text-white'
               }`}
