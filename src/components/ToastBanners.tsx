@@ -56,7 +56,7 @@ export function ToastBanners() {
   if (visibleBanners.length === 0) return null;
 
   return (
-    <div className="space-y-2 p-3">
+    <div className="relative z-10 shrink-0 space-y-2 p-3">
       {visibleBanners.map((banner) => {
         const styles = getBannerStyles(banner.type);
         const Icon = styles.icon;
