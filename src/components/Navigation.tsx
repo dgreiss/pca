@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import {
   Home,
   LayoutDashboard,
@@ -14,7 +15,7 @@ import {
 } from 'lucide-react';
 
 type NavigationItem = {
-  id: string;
+  path: string;
   icon: typeof Home;
   label: string;
 };
@@ -24,31 +25,26 @@ type NavigationSection = {
   items: NavigationItem[];
 };
 
-type NavigationProps = {
-  activeItem: string;
-  onSelect: (id: string) => void;
-};
-
-export function Navigation({ activeItem, onSelect }: NavigationProps) {
+export function Navigation() {
   const [expanded, setExpanded] = useState(true);
 
   const navSections: NavigationSection[] = [
     {
       title: 'Submissions',
       items: [
-        { id: 'intake', icon: LayoutDashboard, label: 'Intake' },
-        { id: 'search', icon: Search, label: 'Search' },
+        { path: '/intake', icon: LayoutDashboard, label: 'Intake' },
+        { path: '/search', icon: Search, label: 'Search' },
       ],
     },
     {
       title: 'Assessments',
       items: [
-        { id: 'home', icon: Home, label: 'Home' },
-        { id: 'dashboard', icon: BarChart3, label: 'Reports' },
-        { id: 'queue', icon: ListTodo, label: 'Queue' },
-        { id: 'ppn', icon: Hash, label: 'PPN' },
-        { id: 'pharm', icon: Stethoscope, label: 'Pharm Consult' },
-        { id: 'search', icon: Search, label: 'Search' },
+        { path: '/assessments/home', icon: Home, label: 'Home' },
+        { path: '/reports', icon: BarChart3, label: 'Reports' },
+        { path: '/assessments/queue', icon: ListTodo, label: 'Queue' },
+        { path: '/assessments/ppn', icon: Hash, label: 'PPN' },
+        { path: '/assessments/pharm-consult', icon: Stethoscope, label: 'Pharm Consult' },
+        { path: '/search', icon: Search, label: 'Search' },
       ],
     },
   ];
@@ -96,34 +92,37 @@ export function Navigation({ activeItem, onSelect }: NavigationProps) {
             <div className="flex flex-col gap-1">
               {section.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = activeItem === item.id;
                 return expanded ? (
-                  <button
-                    key={item.id}
-                    onClick={() => onSelect(item.id)}
-                    className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-colors ${
-                      isActive
-                        ? 'bg-white text-[#00373a] shadow-sm'
-                        : 'text-slate-500 hover:bg-white hover:text-slate-800'
-                    }`}
+                  <NavLink
+                    key={item.path + item.label}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-colors ${
+                        isActive
+                          ? 'bg-white text-[#00373a] shadow-sm'
+                          : 'text-slate-500 hover:bg-white hover:text-slate-800'
+                      }`
+                    }
                   >
                     <Icon className="w-[18px] h-[18px] shrink-0" />
                     <span className="text-[13px] truncate">{item.label}</span>
-                  </button>
+                  </NavLink>
                 ) : (
-                  <button
-                    key={item.id}
-                    onClick={() => onSelect(item.id)}
-                    className={`w-16 py-1.5 rounded-lg flex flex-col items-center justify-center gap-0.5 transition-colors ${
-                      isActive
-                        ? 'bg-white text-[#00373a] shadow-sm'
-                        : 'text-slate-500 hover:bg-white hover:text-slate-800'
-                    }`}
+                  <NavLink
+                    key={item.path + item.label}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `w-16 py-1.5 rounded-lg flex flex-col items-center justify-center gap-0.5 transition-colors ${
+                        isActive
+                          ? 'bg-white text-[#00373a] shadow-sm'
+                          : 'text-slate-500 hover:bg-white hover:text-slate-800'
+                      }`
+                    }
                     title={item.label}
                   >
                     <Icon className="w-[18px] h-[18px]" />
                     <span className="text-[9px] leading-tight">{item.label}</span>
-                  </button>
+                  </NavLink>
                 );
               })}
             </div>
