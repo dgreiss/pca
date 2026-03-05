@@ -19,143 +19,33 @@ import { useState, useRef, useEffect } from 'react';
 interface Medication {
   id: string;
   name: string;
-  generic: string;
-  din: string;
-  strength: string;
-  benefitCategory: string;
 }
 
 const MEDICATIONS: Medication[] = [
-  {
-    id: '1',
-    name: 'Humira',
-    generic: 'adalimumab',
-    din: '02258595',
-    strength: '40mg/0.8mL subcutaneous',
-    benefitCategory: 'Biologic Response Modifiers',
-  },
-  {
-    id: '2',
-    name: 'Humira',
-    generic: 'adalimumab',
-    din: '02258609',
-    strength: '20mg/0.4mL subcutaneous',
-    benefitCategory: 'Biologic Response Modifiers',
-  },
-  {
-    id: '3',
-    name: 'Enbrel',
-    generic: 'etanercept',
-    din: '02242903',
-    strength: '50mg/mL subcutaneous',
-    benefitCategory: 'Biologic Response Modifiers',
-  },
-  {
-    id: '4',
-    name: 'Enbrel',
-    generic: 'etanercept',
-    din: '02242904',
-    strength: '25mg/0.5mL subcutaneous',
-    benefitCategory: 'Biologic Response Modifiers',
-  },
-  {
-    id: '5',
-    name: 'Remicade',
-    generic: 'infliximab',
-    din: '02244016',
-    strength: '100mg IV infusion',
-    benefitCategory: 'Biologic Response Modifiers',
-  },
-  {
-    id: '6',
-    name: 'Methotrexate',
-    generic: 'methotrexate',
-    din: '02182963',
-    strength: '2.5mg oral tablet',
-    benefitCategory: 'Antineoplastic Agents',
-  },
-  {
-    id: '7',
-    name: 'Rinvoq',
-    generic: 'upadacitinib',
-    din: '02497514',
-    strength: '15mg oral tablet',
-    benefitCategory: 'JAK Inhibitors',
-  },
-  {
-    id: '8',
-    name: 'Xeljanz',
-    generic: 'tofacitinib',
-    din: '02413728',
-    strength: '5mg oral tablet',
-    benefitCategory: 'JAK Inhibitors',
-  },
-  {
-    id: '9',
-    name: 'Orencia',
-    generic: 'abatacept',
-    din: '02280132',
-    strength: '125mg/mL subcutaneous',
-    benefitCategory: 'Biologic Response Modifiers',
-  },
-  {
-    id: '10',
-    name: 'Actemra',
-    generic: 'tocilizumab',
-    din: '02350092',
-    strength: '162mg/0.9mL subcutaneous',
-    benefitCategory: 'Biologic Response Modifiers',
-  },
-  {
-    id: '11',
-    name: 'Cosentyx',
-    generic: 'secukinumab',
-    din: '02444550',
-    strength: '150mg/mL subcutaneous',
-    benefitCategory: 'Interleukin Inhibitors',
-  },
-  {
-    id: '12',
-    name: 'Stelara',
-    generic: 'ustekinumab',
-    din: '02324776',
-    strength: '45mg/0.5mL subcutaneous',
-    benefitCategory: 'Interleukin Inhibitors',
-  },
-  {
-    id: '13',
-    name: 'Otezla',
-    generic: 'apremilast',
-    din: '02438917',
-    strength: '30mg oral tablet',
-    benefitCategory: 'PDE4 Inhibitors',
-  },
-  {
-    id: '14',
-    name: 'Hydroxychloroquine',
-    generic: 'hydroxychloroquine',
-    din: '00585840',
-    strength: '200mg oral tablet',
-    benefitCategory: 'Antimalarials',
-  },
-  {
-    id: '15',
-    name: 'Sulfasalazine',
-    generic: 'sulfasalazine',
-    din: '00235822',
-    strength: '500mg oral tablet',
-    benefitCategory: 'Aminosalicylates',
-  },
+  { id: '1', name: 'Humira' },
+  { id: '2', name: 'Enbrel' },
+  { id: '3', name: 'Remicade' },
+  { id: '4', name: 'Methotrexate' },
+  { id: '5', name: 'Rinvoq' },
+  { id: '6', name: 'Xeljanz' },
+  { id: '7', name: 'Orencia' },
+  { id: '8', name: 'Actemra' },
+  { id: '9', name: 'Cosentyx' },
+  { id: '10', name: 'Stelara' },
+  { id: '11', name: 'Otezla' },
+  { id: '12', name: 'Hydroxychloroquine' },
+  { id: '13', name: 'Sulfasalazine' },
 ];
 
 export function AssessmentContent() {
   const submissionTypeOptions = ['Initial', 'Renewal', 'Resubmission'] as const;
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchFilterType, setSearchFilterType] = useState<'name' | 'din' | 'category'>('name');
+  const [searchFilterType, setSearchFilterType] = useState<'name' | 'id'>('name');
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
-  const [selectedMedication, setSelectedMedication] = useState<Medication>(MEDICATIONS[0]);
+  const [selectedMedication, setSelectedMedication] = useState<Medication | null>(MEDICATIONS[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [diseaseDiagnosis, setDiseaseDiagnosis] = useState('');
+  const [additionalComments, setAdditionalComments] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const filterDropdownRef = useRef<HTMLDivElement>(null);
@@ -180,22 +70,14 @@ export function AssessmentContent() {
   });
   const [useAsClaimAddress, setUseAsClaimAddress] = useState(true);
 
-  const displayValue = selectedMedication
-    ? `${selectedMedication.name} (${selectedMedication.generic}) ${selectedMedication.strength.split(' ')[0]}`
-    : '';
+  const displayValue = selectedMedication ? selectedMedication.name : '';
 
   const filteredMedications = MEDICATIONS.filter((med) => {
     const query = searchQuery.toLowerCase();
     if (searchFilterType === 'name') {
-      return med.name.toLowerCase().includes(query) || med.generic.toLowerCase().includes(query);
+      return med.name.toLowerCase().includes(query);
     }
-    if (searchFilterType === 'din') {
-      return med.din.includes(query);
-    }
-    if (searchFilterType === 'category') {
-      return med.benefitCategory.toLowerCase().includes(query);
-    }
-    return med.name.toLowerCase().includes(query) || med.generic.toLowerCase().includes(query);
+    return med.id.includes(query);
   });
 
   useEffect(() => {
@@ -230,7 +112,7 @@ export function AssessmentContent() {
   }
 
   function handleClear() {
-    setSelectedMedication(null as unknown as Medication);
+    setSelectedMedication(null);
     setSearchQuery('');
     setIsDropdownOpen(true);
     inputRef.current?.focus();
@@ -252,7 +134,7 @@ export function AssessmentContent() {
   }
 
   return (
-    <div className="p-3 space-y-3 text-xs">
+    <div className="p-3 space-y-4 text-xs">
       <div className="flex items-center gap-2">
         <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Submission Type
@@ -290,7 +172,7 @@ export function AssessmentContent() {
       </div>
 
       {/* Assessment Overview */}
-      <div className="bg-slate-50/80 rounded-lg p-3">
+      <div className="bg-slate-100 rounded-lg p-3">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div className="flex items-center gap-3">
             <Download className="w-4 h-4" style={{ color: '#00373a' }} />
@@ -337,12 +219,12 @@ export function AssessmentContent() {
             />
           </div>
         </div>
-        <div className="rounded-lg bg-slate-50 p-2.5">
+        <div className="rounded-lg bg-slate-100 p-3">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2">
                 <h4 className="text-sm font-semibold text-slate-900">John Doe</h4>
-                <span className="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-sm bg-green-50 text-green-700">
+                <span className="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-sm bg-green-100 text-green-700">
                   Active
                 </span>
               </div>
@@ -492,7 +374,7 @@ export function AssessmentContent() {
                               setAddress(editAddress);
                               setEditingAddress(false);
                             }}
-                            className="p-1 rounded hover:bg-green-50 text-green-600 transition-colors"
+                            className="p-1 rounded hover:bg-slate-200 text-slate-600 transition-colors"
                             title="Save"
                           >
                             <Check className="w-3.5 h-3.5" />
@@ -502,7 +384,7 @@ export function AssessmentContent() {
                               setEditAddress(address);
                               setEditingAddress(false);
                             }}
-                            className="p-1 rounded hover:bg-red-50 text-red-500 transition-colors"
+                            className="p-1 rounded hover:bg-slate-200 text-slate-500 transition-colors"
                             title="Cancel"
                           >
                             <X className="w-3.5 h-3.5" />
@@ -593,7 +475,7 @@ export function AssessmentContent() {
       </div>
 
       {/* Medication Information */}
-      <div className="space-y-3">
+      <div className="space-y-3 rounded-lg p-3">
         <div className="grid grid-cols-1 gap-3">
           <div className="space-y-2">
             <div className="flex items-center gap-2 h-6">
@@ -606,8 +488,7 @@ export function AssessmentContent() {
                   className="inline-flex items-center gap-1 h-6 px-2 text-xs rounded border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition-colors"
                 >
                   {searchFilterType === 'name' && 'Drug Name'}
-                  {searchFilterType === 'din' && 'DIN'}
-                  {searchFilterType === 'category' && 'Benefit Category'}
+                  {searchFilterType === 'id' && 'Medication ID'}
                   <ChevronDown className="w-3 h-3 text-slate-400" />
                 </button>
                 {isFilterDropdownOpen && (
@@ -615,8 +496,8 @@ export function AssessmentContent() {
                     {(
                       [
                         { value: 'name', label: 'Drug Name' },
-                        { value: 'din', label: 'DIN' },
-                        { value: 'category', label: 'Benefit Category' },
+                        { value: 'id', label: 'Product Name' },
+                        { value: 'benefit', label: 'Benefit Category' },
                       ] as const
                     ).map((option) => (
                       <button
@@ -647,9 +528,7 @@ export function AssessmentContent() {
                   placeholder={
                     searchFilterType === 'name'
                       ? 'Search by drug name...'
-                      : searchFilterType === 'din'
-                        ? 'Search by DIN...'
-                        : 'Search by benefit category...'
+                      : 'Search by medication ID...'
                   }
                   className="w-full pl-9 pr-9 py-1.5 rounded-lg border border-slate-300 bg-white text-xs focus:outline-none focus:ring-2"
                   style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
@@ -697,12 +576,8 @@ export function AssessmentContent() {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <Pill className="w-4 h-4 shrink-0" style={{ color: '#00373a' }} />
                             <span className="text-xs text-slate-900">
-                              {highlightMatch(med.name, searchQuery)}{' '}
-                              <span className="text-slate-500">
-                                ({highlightMatch(med.generic, searchQuery)})
-                              </span>
+                              {highlightMatch(med.name, searchQuery)}
                             </span>
                           </div>
                           {selectedMedication?.id === med.id && (
@@ -711,19 +586,6 @@ export function AssessmentContent() {
                               style={{ color: '#00373a' }}
                             />
                           )}
-                        </div>
-                        <div className="flex items-center gap-2.5 mt-1 ml-6">
-                          <span className="text-xs text-slate-500">
-                            DIN: {highlightMatch(med.din, searchQuery)}
-                          </span>
-                          <span className="text-xs text-slate-400">|</span>
-                          <span className="text-xs text-slate-500">
-                            {highlightMatch(med.strength, searchQuery)}
-                          </span>
-                          <span className="text-xs text-slate-400">|</span>
-                          <span className="text-xs text-slate-500">
-                            {highlightMatch(med.benefitCategory, searchQuery)}
-                          </span>
                         </div>
                       </button>
                     ))
@@ -750,6 +612,18 @@ export function AssessmentContent() {
       </div>
 
       {/* Action Buttons */}
+      <div className="space-y-1 px-3">
+        <label className="text-xs block font-medium text-slate-600 mb-2">Additional Comments</label>
+        <textarea
+          value={additionalComments}
+          onChange={(e) => setAdditionalComments(e.target.value)}
+          placeholder="Add notes or context for this assessment"
+          rows={3}
+          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-2"
+          style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
+        />
+      </div>
+
       <div className="flex items-center gap-2 pt-3">
         <button
           className="px-4 py-2 text-xs text-white rounded-lg font-medium transition-colors"
