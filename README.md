@@ -1,6 +1,6 @@
 # Prior Authorization Workflow Tool
 
-This app is a Vite-powered React UI that models a prior authorization workflow, featuring guided assessment flows, document viewing, and supervisor-ready dashboard views optimized for fast iteration.
+This app is a Vite-powered React UI that models a prior authorization workflow, featuring guided assessment flows, document viewing, and supervisor-ready dashboard views optimized for rapid iteration.
 
 ## Key architectural features
 
