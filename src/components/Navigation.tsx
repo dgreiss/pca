@@ -28,8 +28,8 @@ export function Navigation({ activeItem, onSelect }: NavigationProps) {
   const [expanded, setExpanded] = useState(true);
 
   const navItems: NavigationItem[] = [
-    { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { id: 'home', icon: Home, label: 'Home' },
+    { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { id: 'reports', icon: BarChart3, label: 'Reports' },
     { id: 'queue', icon: ListTodo, label: 'Queue' },
     { id: 'ppn', icon: Hash, label: 'PPN' },
