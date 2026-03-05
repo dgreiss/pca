@@ -5,7 +5,7 @@ import { AssessmentContent } from '../components/AssessmentContent';
 import { AssessmentVerificationContent } from '../components/AssessmentVerificationContent';
 
 export function IntakePage() {
-  const [showIntakeId, setShowIntakeId] = useState(true);
+  const [showIntakeId, setShowIntakeId] = useState(false);
   const intakeId = '4e55f6ff-c50b-495b-afd8-be4f7a7c323f';
   const assessmentId = '850234';
   const submissionId = '1008741';
@@ -51,7 +51,6 @@ export function IntakePage() {
         <div className="flex min-h-0 min-w-0 flex-1 lg:basis-[30%]">
           <div className="flex-1 min-h-0 overflow-y-auto bg-white min-w-0">
             <AssessmentContent />
-            <AssessmentVerificationContent />
           </div>
         </div>
       </div>
