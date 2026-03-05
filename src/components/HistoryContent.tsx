@@ -46,7 +46,7 @@ export function HistoryContent() {
   };
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="p-4 space-y-4">
       <div>
         <h2 className="text-2xl font-semibold text-slate-900 mb-2">Assessment History</h2>
         <p className="text-sm text-slate-500">Timeline of all changes and actions</p>

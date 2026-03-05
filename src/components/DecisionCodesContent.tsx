@@ -398,7 +398,7 @@ export function DecisionCodesContent() {
   };
 
   return (
-    <div className="p-6 space-y-5">
+    <div className="p-4 space-y-4">
       {/* Header */}
       <div>
         <h2 className="text-xl font-semibold text-slate-900 mb-1.5">Decision Codes</h2>

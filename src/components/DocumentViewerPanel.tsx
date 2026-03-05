@@ -113,7 +113,7 @@ export function DocumentViewerPanel() {
 
   return (
     <div className="flex-1 min-w-0 min-h-0 border-r border-slate-200 bg-white flex flex-col">
-      <div className="p-6 shrink-0">
+      <div className="p-3 shrink-0">
         <label className="text-xs font-medium text-slate-500">Select document</label>
         <div className="mt-2 relative w-full" ref={menuRef}>
           <button
@@ -157,13 +157,13 @@ export function DocumentViewerPanel() {
         </div>
       </div>
 
-      <div className="flex-1 min-h-0 p-6 flex" style={{ overflow: 'auto' } as React.CSSProperties}>
+      <div className="flex-1 min-h-0 p-3 flex" style={{ overflow: 'auto' } as React.CSSProperties}>
         <div
           className={`bg-slate-50 flex flex-col flex-1 min-h-0 border border-slate-200 rounded-lg transition-shadow ${
             isPreviewExpanded ? 'ring-2 ring-slate-300' : ''
           }`}
         >
-          <div className="px-3 py-2 border-b border-slate-200 bg-white flex items-center justify-between shrink-0">
+          <div className="px-2 py-1.5 border-b border-slate-200 bg-white flex items-center justify-between shrink-0">
             <div>
               <div className="text-sm font-semibold text-slate-900">{selectedDoc.title}</div>
               <div className="text-[11px] text-slate-500">
@@ -226,7 +226,7 @@ export function DocumentViewerPanel() {
             className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden bg-gradient-to-br from-slate-100 via-white to-slate-100"
           >
             {isPdf ? (
-              <div className="w-full p-4">
+              <div className="w-full p-2">
                 {containerWidth > 0 ? (
                   <PdfErrorBoundary>
                     <Document
@@ -252,7 +252,7 @@ export function DocumentViewerPanel() {
                               rotate={rotation}
                               renderTextLayer={false}
                               renderAnnotationLayer={false}
-                              className="mb-6"
+                              className="mb-3"
                             />
                           );
                         })

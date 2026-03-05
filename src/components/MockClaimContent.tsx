@@ -566,7 +566,7 @@ export function MockClaimContent() {
   const isFormValid = form.din && form.provider && form.interventionCode;
 
   return (
-    <div className="p-8 space-y-8">
+    <div className="p-4 space-y-5">
       {/* Header */}
       <div>
         <h2 className="text-2xl font-semibold text-slate-900 mb-2">Mock Claim</h2>
@@ -584,7 +584,7 @@ export function MockClaimContent() {
           </div>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 space-y-4">
           {/* Row 1: Service Date, DIN, Provider */}
           <div className="grid grid-cols-3 gap-4">
             <div>

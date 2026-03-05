@@ -74,7 +74,7 @@ const statusConfig: Record<
 
 export function RelatedSubmissionsContent() {
   return (
-    <div className="p-8 space-y-8">
+    <div className="p-4 space-y-5">
       {/* Header */}
       <div>
         <h2 className="text-2xl font-semibold text-slate-900 mb-2">Related Submissions</h2>
