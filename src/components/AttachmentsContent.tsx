@@ -1,4 +1,14 @@
-import { FileText, Download, Eye, Upload, FolderInput, Plus, Trash2, Mail } from 'lucide-react';
+import {
+  FileText,
+  Download,
+  Eye,
+  Upload,
+  FolderInput,
+  Plus,
+  Trash2,
+  Mail,
+  ChevronDown,
+} from 'lucide-react';
 import { useState } from 'react';
 
 export interface AttachmentFile {
@@ -65,6 +75,7 @@ export function AttachmentsContent({
 }: AttachmentsContentProps) {
   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
   const [sharedFiles, setSharedFiles] = useState<Set<string>>(new Set(['att-1', 'att-3']));
+  const [isFileListExpanded, setIsFileListExpanded] = useState(true);
 
   const toggleShared = (id: string) => {
     setSharedFiles((prev) => {
@@ -106,7 +117,7 @@ export function AttachmentsContent({
     <div
       className={compact ? 'p-2.5 space-y-2 rounded-lg border border-slate-200' : 'p-3 space-y-3'}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2">
         <div>
           <h2
             className={
@@ -118,6 +129,18 @@ export function AttachmentsContent({
             Attachments
           </h2>
         </div>
+        <button
+          type="button"
+          onClick={() => setIsFileListExpanded((prev) => !prev)}
+          className="inline-flex items-center gap-1 rounded border border-slate-200 px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50"
+          aria-expanded={isFileListExpanded}
+          aria-label={isFileListExpanded ? 'Collapse attachments list' : 'Expand attachments list'}
+        >
+          Files
+          <ChevronDown
+            className={`h-3.5 w-3.5 transition-transform ${isFileListExpanded ? 'rotate-180' : ''}`}
+          />
+        </button>
       </div>
 
       {/* Action bar */}
@@ -171,64 +194,66 @@ export function AttachmentsContent({
       </div>
 
       {/* File list */}
-      <div className="space-y-1.5">
-        {/* Select all header */}
-        <div className="flex items-center gap-2 px-2 py-1">
-          <input
-            type="checkbox"
-            checked={attachments.length > 0 && selectedFiles.size === attachments.length}
-            onChange={toggleAll}
-            className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
-          />
-          <span className="text-xs text-slate-500 lg:text-sm">Select all</span>
-        </div>
+      {isFileListExpanded && (
+        <div className="space-y-1.5">
+          {/* Select all header */}
+          <div className="flex items-center gap-2 px-2 py-1">
+            <input
+              type="checkbox"
+              checked={attachments.length > 0 && selectedFiles.size === attachments.length}
+              onChange={toggleAll}
+              className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
+            />
+            <span className="text-xs text-slate-500 lg:text-sm">Select all</span>
+          </div>
 
-        {attachments.map((file) => (
-          <div
-            key={file.id}
-            className={`flex items-center justify-between p-1.5 border rounded-lg transition-colors cursor-pointer ${
-              selectedAttachmentId === file.id
-                ? 'ring-1 ring-[#00373a] border-[#00373a]/40 bg-[#00373a]/5'
-                : selectedFiles.has(file.id)
-                  ? 'border-[#00373a]/30 bg-[#00373a]/5'
-                  : 'border-slate-200 hover:bg-slate-50'
-            }`}
-            onClick={() => onSelectAttachment?.(file)}
-          >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <input
-                type="checkbox"
-                checked={selectedFiles.has(file.id)}
-                onChange={() => toggleFile(file.id)}
-                onClick={(e) => e.stopPropagation()}
-                className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
-              />
-              <div className="text-xs font-medium text-slate-900 truncate lg:text-sm">
-                {file.name}
+          {attachments.map((file) => (
+            <div
+              key={file.id}
+              className={`flex items-center justify-between p-1.5 border rounded-lg transition-colors cursor-pointer ${
+                selectedAttachmentId === file.id
+                  ? 'ring-1 ring-[#00373a] border-[#00373a]/40 bg-[#00373a]/5'
+                  : selectedFiles.has(file.id)
+                    ? 'border-[#00373a]/30 bg-[#00373a]/5'
+                    : 'border-slate-200 hover:bg-slate-50'
+              }`}
+              onClick={() => onSelectAttachment?.(file)}
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <input
+                  type="checkbox"
+                  checked={selectedFiles.has(file.id)}
+                  onChange={() => toggleFile(file.id)}
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
+                />
+                <div className="text-xs font-medium text-slate-900 truncate lg:text-sm">
+                  {file.name}
+                </div>
+              </div>
+              <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                <button
+                  onClick={() => toggleShared(file.id)}
+                  className={`relative inline-flex h-4.5 w-8 shrink-0 items-center rounded-full transition-colors ${
+                    sharedFiles.has(file.id) ? 'bg-[#00373a]' : 'bg-slate-300'
+                  }`}
+                  role="switch"
+                  aria-checked={sharedFiles.has(file.id)}
+                >
+                  <span
+                    className={`inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform ${
+                      sharedFiles.has(file.id) ? 'translate-x-4' : 'translate-x-0.5'
+                    }`}
+                  />
+                </button>
+                <button className="p-1.5 hover:bg-slate-100 rounded transition-colors">
+                  <Download className="w-4 h-4 text-slate-600" />
+                </button>
               </div>
             </div>
-            <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
-              <button
-                onClick={() => toggleShared(file.id)}
-                className={`relative inline-flex h-4.5 w-8 shrink-0 items-center rounded-full transition-colors ${
-                  sharedFiles.has(file.id) ? 'bg-[#00373a]' : 'bg-slate-300'
-                }`}
-                role="switch"
-                aria-checked={sharedFiles.has(file.id)}
-              >
-                <span
-                  className={`inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform ${
-                    sharedFiles.has(file.id) ? 'translate-x-4' : 'translate-x-0.5'
-                  }`}
-                />
-              </button>
-              <button className="p-1.5 hover:bg-slate-100 rounded transition-colors">
-                <Download className="w-4 h-4 text-slate-600" />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
