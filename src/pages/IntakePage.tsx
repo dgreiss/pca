@@ -57,7 +57,7 @@ export function IntakePage() {
   return (
     <div className="flex h-full flex-col">
       <div className="flex flex-1 min-h-0 min-w-0 flex-col overflow-hidden lg:flex-row">
-        <div className="flex min-h-0 min-w-0 flex-col lg:basis-[70%] lg:shrink-0">
+        <div className="flex min-h-0 min-w-0 flex-col lg:basis-1/2 lg:shrink-0">
           <div className="shrink-0 border-r border-b border-slate-200 bg-white px-4 py-3">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2 text-xs">
@@ -99,7 +99,7 @@ export function IntakePage() {
             onSelectAttachment={setSelectedAttachment}
           />
         </div>
-        <div className="flex min-h-0 min-w-0 flex-1 lg:basis-[30%]">
+        <div className="flex min-h-0 min-w-0 flex-1 lg:basis-1/2">
           <div className="flex-1 min-h-0 overflow-y-auto bg-white min-w-0">
             <AssessmentContent />
           </div>
