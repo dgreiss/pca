@@ -89,15 +89,15 @@ export function IntakePage() {
               </div>
             )}
           </div>
-          <DocumentViewerPanel selectedAttachment={selectedAttachment} />
+          <DocumentViewerPanel
+            attachments={ATTACHMENTS}
+            selectedAttachment={selectedAttachment}
+            onSelectAttachment={setSelectedAttachment}
+          />
         </div>
         <div className="flex min-h-0 min-w-0 flex-1 lg:basis-[30%]">
           <div className="flex-1 min-h-0 overflow-y-auto bg-white min-w-0">
-            <AssessmentContent
-              attachments={ATTACHMENTS}
-              selectedAttachmentId={selectedAttachment?.id}
-              onSelectAttachment={setSelectedAttachment}
-            />
+            <AssessmentContent />
           </div>
         </div>
       </div>

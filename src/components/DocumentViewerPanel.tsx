@@ -1,7 +1,7 @@
 import { Component, useEffect, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
-import { type AttachmentFile } from './AttachmentsContent';
+import { AttachmentsContent, type AttachmentFile } from './AttachmentsContent';
 import { FileText, ZoomIn, ZoomOut, RotateCw, RotateCcw, Download, Maximize2 } from 'lucide-react';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -38,10 +38,16 @@ class PdfErrorBoundary extends Component<
 }
 
 interface DocumentViewerPanelProps {
+  attachments: AttachmentFile[];
   selectedAttachment?: AttachmentFile | null;
+  onSelectAttachment: (attachment: AttachmentFile) => void;
 }
 
-export function DocumentViewerPanel({ selectedAttachment }: DocumentViewerPanelProps) {
+export function DocumentViewerPanel({
+  attachments,
+  selectedAttachment,
+  onSelectAttachment,
+}: DocumentViewerPanelProps) {
   const [zoom, setZoom] = useState(100);
   const [rotation, setRotation] = useState(0);
   const [numPages, setNumPages] = useState<number | null>(null);
@@ -79,6 +85,14 @@ export function DocumentViewerPanel({ selectedAttachment }: DocumentViewerPanelP
 
   return (
     <div className="flex-1 min-w-0 min-h-0 border-r border-slate-200 bg-white flex flex-col">
+      <div className="p-3 pb-0 shrink-0">
+        <AttachmentsContent
+          compact
+          attachments={attachments}
+          selectedAttachmentId={selectedAttachment?.id}
+          onSelectAttachment={onSelectAttachment}
+        />
+      </div>
       <div className="flex-1 min-h-0 p-3 flex" style={{ overflow: 'auto' } as React.CSSProperties}>
         <div
           className={`bg-slate-50 flex flex-col flex-1 min-h-0 border border-slate-200 rounded-lg transition-shadow ${

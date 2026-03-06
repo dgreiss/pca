@@ -15,7 +15,6 @@ import {
   Check,
 } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
-import { AttachmentsContent, type AttachmentFile } from './AttachmentsContent';
 
 interface Medication {
   id: string;
@@ -38,17 +37,7 @@ const MEDICATIONS: Medication[] = [
   { id: '13', name: 'Sulfasalazine' },
 ];
 
-interface AssessmentContentProps {
-  attachments?: AttachmentFile[];
-  selectedAttachmentId?: string;
-  onSelectAttachment?: (attachment: AttachmentFile) => void;
-}
-
-export function AssessmentContent({
-  attachments,
-  selectedAttachmentId,
-  onSelectAttachment,
-}: AssessmentContentProps = {}) {
+export function AssessmentContent() {
   const submissionTypeOptions = ['Initial', 'Renewal', 'Resubmission'] as const;
   const [searchQuery, setSearchQuery] = useState('');
   const [searchFilterType, setSearchFilterType] = useState<'name' | 'id'>('name');
@@ -181,13 +170,6 @@ export function AssessmentContent({
           )}
         </div>
       </div>
-
-      <AttachmentsContent
-        compact
-        attachments={attachments}
-        selectedAttachmentId={selectedAttachmentId}
-        onSelectAttachment={onSelectAttachment}
-      />
 
       {/* Assessment Overview */}
       <div className="bg-slate-100 rounded-lg p-3">
