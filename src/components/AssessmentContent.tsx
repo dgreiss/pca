@@ -132,7 +132,7 @@ export function AssessmentContent() {
   }
 
   return (
-    <div className="p-3 space-y-4 text-xs">
+    <div className="p-3 space-y-4 text-xs lg:[&_.text-xs]:text-sm">
       <div className="flex items-center gap-2">
         <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Submission Type
