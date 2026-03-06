@@ -103,16 +103,20 @@ export function DocumentViewerPanel({
             <div>
               {selectedDoc ? (
                 <>
-                  <div className="text-sm font-semibold text-slate-900">{selectedDoc.name}</div>
-                  <div className="text-[11px] text-slate-500">
+                  <div className="text-sm font-semibold text-slate-900 lg:text-base">
+                    {selectedDoc.name}
+                  </div>
+                  <div className="text-[11px] text-slate-500 lg:text-xs">
                     {selectedDoc.type}
                     {selectedDoc.pages ? ` • ${selectedDoc.pages} pages` : ''}
                   </div>
                 </>
               ) : (
                 <>
-                  <div className="text-sm font-semibold text-slate-900">No attachment selected</div>
-                  <div className="text-[11px] text-slate-500">
+                  <div className="text-sm font-semibold text-slate-900 lg:text-base">
+                    No attachment selected
+                  </div>
+                  <div className="text-[11px] text-slate-500 lg:text-xs">
                     Select an attachment from the list to preview it here
                   </div>
                 </>
@@ -127,7 +131,9 @@ export function DocumentViewerPanel({
               >
                 <ZoomOut className="w-4 h-4" />
               </button>
-              <span className="text-[11px] text-slate-500 w-10 text-center">{zoom}%</span>
+              <span className="text-[11px] text-slate-500 w-10 text-center lg:text-xs">
+                {zoom}%
+              </span>
               <button
                 type="button"
                 onClick={() => setZoom((prev) => Math.min(100, prev + 10))}

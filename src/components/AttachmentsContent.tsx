@@ -100,7 +100,7 @@ export function AttachmentsContent({
 
   const hasSelection = selectedFiles.size > 0;
   const buttonPadding = compact ? 'px-1.5 py-1' : 'px-2 py-1.5';
-  const buttonTextSize = 'text-xs';
+  const buttonTextSize = 'text-xs lg:text-sm';
 
   return (
     <div
@@ -180,7 +180,7 @@ export function AttachmentsContent({
             onChange={toggleAll}
             className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
           />
-          <span className="text-xs text-slate-500">Select all</span>
+          <span className="text-xs text-slate-500 lg:text-sm">Select all</span>
         </div>
 
         {attachments.map((file) => (
@@ -203,7 +203,9 @@ export function AttachmentsContent({
                 onClick={(e) => e.stopPropagation()}
                 className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
               />
-              <div className="text-xs font-medium text-slate-900 truncate">{file.name}</div>
+              <div className="text-xs font-medium text-slate-900 truncate lg:text-sm">
+                {file.name}
+              </div>
             </div>
             <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
               <button
