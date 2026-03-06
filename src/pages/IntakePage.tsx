@@ -3,6 +3,7 @@ import { ChevronDown, ChevronRight } from 'lucide-react';
 import { DocumentViewerPanel } from '../components/DocumentViewerPanel';
 import { AssessmentContent } from '../components/AssessmentContent';
 import { AssessmentVerificationContent } from '../components/AssessmentVerificationContent';
+import { AssessmentDatesOverview } from '../components/AssessmentDatesOverview';
 import { type AttachmentFile } from '../components/AttachmentsContent';
 
 const ATTACHMENTS: AttachmentFile[] = [
@@ -83,9 +84,12 @@ export function IntakePage() {
               </button>
             </div>
             {showIntakeId && (
-              <div className="mt-1.5 text-xs">
-                <span className="text-slate-500">Intake ID</span>
-                <span className="ml-2 font-semibold text-slate-900">{intakeId}</span>
+              <div className="mt-1.5 space-y-2">
+                <div className="text-xs">
+                  <span className="text-slate-500">Intake ID</span>
+                  <span className="ml-2 font-semibold text-slate-900">{intakeId}</span>
+                </div>
+                <AssessmentDatesOverview />
               </div>
             )}
           </div>
