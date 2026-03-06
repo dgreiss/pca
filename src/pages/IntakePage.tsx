@@ -3,9 +3,52 @@ import { ChevronDown, ChevronRight } from 'lucide-react';
 import { DocumentViewerPanel } from '../components/DocumentViewerPanel';
 import { AssessmentContent } from '../components/AssessmentContent';
 import { AssessmentVerificationContent } from '../components/AssessmentVerificationContent';
+import { type AttachmentFile } from '../components/AttachmentsContent';
+
+const ATTACHMENTS: AttachmentFile[] = [
+  {
+    id: 'att-1',
+    name: 'Semaglutide_Ozempic_Form.pdf',
+    size: '245 KB',
+    date: 'Feb 1, 2026',
+    type: 'PDF',
+    url: '/docs/semaglutide-ozempic.pdf',
+    pages: 7,
+  },
+  {
+    id: 'att-2',
+    name: 'Lab_Results_20260125.pdf',
+    size: '189 KB',
+    date: 'Jan 25, 2026',
+    type: 'PDF',
+    url: '/docs/semaglutide-ozempic.pdf',
+    pages: 3,
+  },
+  {
+    id: 'att-3',
+    name: 'Clinical_Notes.pdf',
+    size: '324 KB',
+    date: 'Jan 20, 2026',
+    type: 'PDF',
+    url: '/docs/semaglutide-ozempic.pdf',
+    pages: 2,
+  },
+  {
+    id: 'att-4',
+    name: 'Insurance_Card.pdf',
+    size: '1.2 MB',
+    date: 'Jan 15, 2026',
+    type: 'PDF',
+    url: '/docs/semaglutide-ozempic.pdf',
+    pages: 1,
+  },
+];
 
 export function IntakePage() {
   const [showIntakeId, setShowIntakeId] = useState(false);
+  const [selectedAttachment, setSelectedAttachment] = useState<AttachmentFile | null>(
+    ATTACHMENTS[0],
+  );
   const intakeId = '4e55f6ff-c50b-495b-afd8-be4f7a7c323f';
   const assessmentId = '850234';
   const submissionId = '1008741';
@@ -46,11 +89,15 @@ export function IntakePage() {
               </div>
             )}
           </div>
-          <DocumentViewerPanel />
+          <DocumentViewerPanel selectedAttachment={selectedAttachment} />
         </div>
         <div className="flex min-h-0 min-w-0 flex-1 lg:basis-[30%]">
           <div className="flex-1 min-h-0 overflow-y-auto bg-white min-w-0">
-            <AssessmentContent />
+            <AssessmentContent
+              attachments={ATTACHMENTS}
+              selectedAttachmentId={selectedAttachment?.id}
+              onSelectAttachment={setSelectedAttachment}
+            />
           </div>
         </div>
       </div>

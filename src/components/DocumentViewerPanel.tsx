@@ -1,16 +1,8 @@
 import { Component, useEffect, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
-import {
-  FileText,
-  ZoomIn,
-  ZoomOut,
-  RotateCw,
-  RotateCcw,
-  Download,
-  Maximize2,
-  ChevronDown,
-} from 'lucide-react';
+import { type AttachmentFile } from './AttachmentsContent';
+import { FileText, ZoomIn, ZoomOut, RotateCw, RotateCcw, Download, Maximize2 } from 'lucide-react';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
@@ -45,38 +37,27 @@ class PdfErrorBoundary extends Component<
   }
 }
 
-const DOCUMENTS = [
-  {
-    id: 'doc-1001',
-    title: 'Semaglutide (Ozempic) Form',
-    type: 'PDF',
-    url: '/docs/semaglutide-ozempic.pdf',
-    pages: 7,
-    updated: 'Feb 22, 2026',
-    status: 'Submitted',
-  },
-];
+interface DocumentViewerPanelProps {
+  selectedAttachment?: AttachmentFile | null;
+}
 
-export function DocumentViewerPanel() {
-  const [selectedDoc, setSelectedDoc] = useState(DOCUMENTS[0]);
+export function DocumentViewerPanel({ selectedAttachment }: DocumentViewerPanelProps) {
   const [zoom, setZoom] = useState(100);
   const [rotation, setRotation] = useState(0);
   const [numPages, setNumPages] = useState<number | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPreviewExpanded, setIsPreviewExpanded] = useState(false);
   const [containerWidth, setContainerWidth] = useState(0);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
 
-  const isPdf = selectedDoc.type === 'PDF';
-  const isImage = selectedDoc.type === 'PNG';
+  const selectedDoc = selectedAttachment;
+  const isPdf = selectedDoc?.type === 'PDF';
+  const isImage = selectedDoc?.type === 'Image';
 
   useEffect(() => {
     setNumPages(null);
     setLoadError(null);
-  }, [selectedDoc]);
+  }, [selectedDoc?.id]);
 
   useEffect(() => {
     const node = previewRef.current;
@@ -96,67 +77,8 @@ export function DocumentViewerPanel() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        triggerRef.current &&
-        !triggerRef.current.contains(event.target as Node)
-      ) {
-        setIsMenuOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   return (
     <div className="flex-1 min-w-0 min-h-0 border-r border-slate-200 bg-white flex flex-col">
-      <div className="p-3 shrink-0">
-        <label className="text-xs font-medium text-slate-500">Select document</label>
-        <div className="mt-2 relative w-full" ref={menuRef}>
-          <button
-            ref={triggerRef}
-            type="button"
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            className="w-full text-left text-sm text-slate-900 bg-white border border-slate-300 rounded-lg px-3 py-2 pr-9 focus:outline-none focus:ring-2 focus:border-transparent transition-colors hover:border-slate-400"
-            style={{ '--tw-ring-color': '#00373a' } as React.CSSProperties}
-          >
-            <span className="block truncate">
-              {selectedDoc.title} • {selectedDoc.type} • {selectedDoc.pages} pages
-            </span>
-            <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2" />
-          </button>
-          {isMenuOpen && (
-            <div className="absolute inset-x-0 top-full mt-1 z-30 w-full min-w-full bg-white border border-slate-200 rounded-lg shadow-lg overflow-auto">
-              <div className="max-h-64 overflow-y-auto">
-                {DOCUMENTS.map((doc) => (
-                  <button
-                    key={doc.id}
-                    type="button"
-                    onClick={() => {
-                      setSelectedDoc(doc);
-                      setIsMenuOpen(false);
-                    }}
-                    className={`w-full text-left px-3 py-2 text-sm transition-colors ${
-                      selectedDoc.id === doc.id
-                        ? 'bg-slate-50 text-slate-900'
-                        : 'text-slate-700 hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="font-medium">{doc.title}</div>
-                    <div className="text-[11px] text-slate-500">
-                      {doc.type} • {doc.pages} pages
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
       <div className="flex-1 min-h-0 p-3 flex" style={{ overflow: 'auto' } as React.CSSProperties}>
         <div
           className={`bg-slate-50 flex flex-col flex-1 min-h-0 border border-slate-200 rounded-lg transition-shadow ${
@@ -165,10 +87,22 @@ export function DocumentViewerPanel() {
         >
           <div className="px-2 py-1.5 border-b border-slate-200 bg-white flex items-center justify-between shrink-0">
             <div>
-              <div className="text-sm font-semibold text-slate-900">{selectedDoc.title}</div>
-              <div className="text-[11px] text-slate-500">
-                {selectedDoc.type} • {selectedDoc.pages} pages
-              </div>
+              {selectedDoc ? (
+                <>
+                  <div className="text-sm font-semibold text-slate-900">{selectedDoc.name}</div>
+                  <div className="text-[11px] text-slate-500">
+                    {selectedDoc.type}
+                    {selectedDoc.pages ? ` • ${selectedDoc.pages} pages` : ''}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-sm font-semibold text-slate-900">No attachment selected</div>
+                  <div className="text-[11px] text-slate-500">
+                    Select an attachment from the list to preview it here
+                  </div>
+                </>
+              )}
             </div>
             <div className="flex items-center gap-1">
               <button
@@ -225,7 +159,17 @@ export function DocumentViewerPanel() {
             ref={previewRef}
             className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden bg-gradient-to-br from-slate-100 via-white to-slate-100"
           >
-            {isPdf ? (
+            {!selectedDoc ? (
+              <div className="min-h-full w-full flex items-center justify-center p-6">
+                <div className="w-64 rounded-lg border border-dashed border-slate-300 bg-white/70 p-5 text-center">
+                  <FileText className="mx-auto mb-2 h-5 w-5 text-slate-400" />
+                  <p className="text-sm font-medium text-slate-700">No attachment selected</p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Click an attachment in the right panel to load it in the viewer.
+                  </p>
+                </div>
+              </div>
+            ) : isPdf ? (
               <div className="w-full p-2">
                 {containerWidth > 0 ? (
                   <PdfErrorBoundary>
@@ -267,7 +211,7 @@ export function DocumentViewerPanel() {
               <div className="min-h-full w-full flex items-center justify-center p-6">
                 <img
                   src={selectedDoc.url}
-                  alt={selectedDoc.title}
+                  alt={selectedDoc.name}
                   className="max-h-full max-w-full"
                   style={{ transform: `scale(${zoom / 100}) rotate(${rotation}deg)` }}
                 />

@@ -1,18 +1,72 @@
 import { FileText, Download, Eye, Upload, FolderInput, Plus, Trash2, Mail } from 'lucide-react';
 import { useState } from 'react';
 
-export function AttachmentsContent() {
-  const attachments = [
-    { id: 1, name: 'Prescription_20260201.pdf', size: '245 KB', date: 'Feb 1, 2026', type: 'PDF' },
-    { id: 2, name: 'Lab_Results_20260125.pdf', size: '189 KB', date: 'Jan 25, 2026', type: 'PDF' },
-    { id: 3, name: 'Clinical_Notes.pdf', size: '324 KB', date: 'Jan 20, 2026', type: 'PDF' },
-    { id: 4, name: 'Insurance_Card.jpg', size: '1.2 MB', date: 'Jan 15, 2026', type: 'Image' },
-  ];
+export interface AttachmentFile {
+  id: string;
+  name: string;
+  size: string;
+  date: string;
+  type: 'PDF' | 'Image';
+  url: string;
+  pages?: number;
+}
 
-  const [selectedFiles, setSelectedFiles] = useState<Set<number>>(new Set());
-  const [sharedFiles, setSharedFiles] = useState<Set<number>>(new Set([1, 3]));
+interface AttachmentsContentProps {
+  compact?: boolean;
+  attachments?: AttachmentFile[];
+  selectedAttachmentId?: string;
+  onSelectAttachment?: (attachment: AttachmentFile) => void;
+}
 
-  const toggleShared = (id: number) => {
+const DEFAULT_ATTACHMENTS: AttachmentFile[] = [
+  {
+    id: 'att-1',
+    name: 'Semaglutide_Ozempic_Form.pdf',
+    size: '245 KB',
+    date: 'Feb 1, 2026',
+    type: 'PDF',
+    url: '/docs/semaglutide-ozempic.pdf',
+    pages: 7,
+  },
+  {
+    id: 'att-2',
+    name: 'Lab_Results_20260125.pdf',
+    size: '189 KB',
+    date: 'Jan 25, 2026',
+    type: 'PDF',
+    url: '/docs/semaglutide-ozempic.pdf',
+    pages: 3,
+  },
+  {
+    id: 'att-3',
+    name: 'Clinical_Notes.pdf',
+    size: '324 KB',
+    date: 'Jan 20, 2026',
+    type: 'PDF',
+    url: '/docs/semaglutide-ozempic.pdf',
+    pages: 2,
+  },
+  {
+    id: 'att-4',
+    name: 'Insurance_Card.pdf',
+    size: '1.2 MB',
+    date: 'Jan 15, 2026',
+    type: 'PDF',
+    url: '/docs/semaglutide-ozempic.pdf',
+    pages: 1,
+  },
+];
+
+export function AttachmentsContent({
+  compact = false,
+  attachments = DEFAULT_ATTACHMENTS,
+  selectedAttachmentId,
+  onSelectAttachment,
+}: AttachmentsContentProps) {
+  const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
+  const [sharedFiles, setSharedFiles] = useState<Set<string>>(new Set(['att-1', 'att-3']));
+
+  const toggleShared = (id: string) => {
     setSharedFiles((prev) => {
       const next = new Set(prev);
       if (next.has(id)) {
@@ -24,7 +78,7 @@ export function AttachmentsContent() {
     });
   };
 
-  const toggleFile = (id: number) => {
+  const toggleFile = (id: string) => {
     setSelectedFiles((prev) => {
       const next = new Set(prev);
       if (next.has(id)) {
@@ -45,21 +99,33 @@ export function AttachmentsContent() {
   };
 
   const hasSelection = selectedFiles.size > 0;
+  const buttonPadding = compact ? 'px-2 py-1.5' : 'p-2';
+  const buttonTextSize = compact ? 'text-xs' : 'text-sm';
 
   return (
-    <div className="p-4 space-y-4">
+    <div className={compact ? 'p-3 space-y-3 rounded-lg border border-slate-200' : 'p-4 space-y-4'}>
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-900 mb-2">Attachments</h2>
-          <p className="text-sm text-slate-500">Documents and files related to this assessment</p>
+          <h2
+            className={
+              compact
+                ? 'text-base font-semibold text-slate-900'
+                : 'text-2xl font-semibold text-slate-900 mb-2'
+            }
+          >
+            Attachments
+          </h2>
+          <p className={compact ? 'text-xs text-slate-500 mt-1' : 'text-sm text-slate-500'}>
+            Documents and files related to this assessment
+          </p>
         </div>
       </div>
 
       {/* Action bar */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3 text-sm">
+      <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className={`flex flex-wrap items-center gap-2 ${buttonTextSize}`}>
           <button
-            className="flex items-center gap-2 p-2 text-white rounded-lg font-medium transition-colors"
+            className={`flex items-center gap-2 ${buttonPadding} text-white rounded-lg font-medium transition-colors`}
             style={{ backgroundColor: '#00373a' }}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
@@ -69,25 +135,27 @@ export function AttachmentsContent() {
           </button>
           <button
             disabled={!hasSelection}
-            className={`flex items-center gap-2 p-2 border rounded-lg font-medium transition-colors ${hasSelection ? 'border-red-300 text-red-600 hover:bg-red-50' : 'border-slate-200 text-slate-400 cursor-not-allowed'}`}
+            className={`flex items-center gap-2 ${buttonPadding} border rounded-lg font-medium transition-colors ${hasSelection ? 'border-red-300 text-red-600 hover:bg-red-50' : 'border-slate-200 text-slate-400 cursor-not-allowed'}`}
           >
             <Trash2 className="w-4 h-4" />
             Remove Files
           </button>
           <button
             disabled={!hasSelection}
-            className={`flex items-center gap-2 p-2 border rounded-lg font-medium transition-colors ${hasSelection ? 'border-slate-300 text-slate-700 hover:bg-slate-100' : 'border-slate-200 text-slate-400 cursor-not-allowed'}`}
+            className={`flex items-center gap-2 ${buttonPadding} border rounded-lg font-medium transition-colors ${hasSelection ? 'border-slate-300 text-slate-700 hover:bg-slate-100' : 'border-slate-200 text-slate-400 cursor-not-allowed'}`}
           >
             <Mail className="w-4 h-4" />
             Email Files
           </button>
-          <div className="w-px h-6 bg-slate-300" />
-          <button className="flex items-center gap-2 p-2 border border-slate-300 text-slate-700 rounded-lg font-medium transition-colors hover:bg-slate-100">
+          <div className="hidden sm:block w-px h-6 bg-slate-300" />
+          <button
+            className={`flex items-center gap-2 ${buttonPadding} border border-slate-300 text-slate-700 rounded-lg font-medium transition-colors hover:bg-slate-100`}
+          >
             <FolderInput className="w-4 h-4" />
             Import Files
           </button>
           <button
-            className="flex items-center gap-2 p-2 text-white rounded-lg font-medium transition-colors"
+            className={`flex items-center gap-2 ${buttonPadding} text-white rounded-lg font-medium transition-colors`}
             style={{ backgroundColor: '#00373a' }}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.9')}
             onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
@@ -97,7 +165,7 @@ export function AttachmentsContent() {
           </button>
         </div>
         {hasSelection && (
-          <span className="text-sm text-slate-500">
+          <span className={compact ? 'text-xs text-slate-500' : 'text-sm text-slate-500'}>
             {selectedFiles.size} file{selectedFiles.size !== 1 ? 's' : ''} selected
           </span>
         )}
@@ -109,7 +177,7 @@ export function AttachmentsContent() {
         <div className="flex items-center gap-3 px-4 py-2">
           <input
             type="checkbox"
-            checked={selectedFiles.size === attachments.length}
+            checked={attachments.length > 0 && selectedFiles.size === attachments.length}
             onChange={toggleAll}
             className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
           />
@@ -120,11 +188,13 @@ export function AttachmentsContent() {
           <div
             key={file.id}
             className={`flex items-center justify-between p-2 border rounded-lg transition-colors cursor-pointer ${
-              selectedFiles.has(file.id)
-                ? 'border-[#00373a]/30 bg-[#00373a]/5'
-                : 'border-slate-200 hover:bg-slate-50'
+              selectedAttachmentId === file.id
+                ? 'ring-1 ring-[#00373a] border-[#00373a]/40 bg-[#00373a]/5'
+                : selectedFiles.has(file.id)
+                  ? 'border-[#00373a]/30 bg-[#00373a]/5'
+                  : 'border-slate-200 hover:bg-slate-50'
             }`}
-            onClick={() => toggleFile(file.id)}
+            onClick={() => onSelectAttachment?.(file)}
           >
             <div className="flex items-center gap-4">
               <input
@@ -136,7 +206,10 @@ export function AttachmentsContent() {
               />
               <div>
                 <div className="text-sm font-medium text-slate-900">{file.name}</div>
-                <div className="text-sm text-slate-500">{file.size}</div>
+                <div className="text-sm text-slate-500">
+                  {file.type}
+                  {file.pages ? ` • ${file.pages} pages` : ''} • {file.size}
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
