@@ -84,7 +84,7 @@ export function DocumentViewerPanel({
   }, []);
 
   return (
-    <div className="flex-1 min-w-0 min-h-0 border-r border-slate-200 bg-white flex flex-col">
+    <div className="flex-1 min-w-0 min-h-0 border-r border-slate-200 bg-white flex flex-col overflow-y-auto">
       <div className="p-3 pb-0 shrink-0">
         <AttachmentsContent
           compact
@@ -93,7 +93,7 @@ export function DocumentViewerPanel({
           onSelectAttachment={onSelectAttachment}
         />
       </div>
-      <div className="flex-1 min-h-0 p-3 flex overflow-hidden">
+      <div className="flex-1 min-h-0 p-3 flex overflow-visible">
         <div
           className={`bg-slate-50 flex flex-col flex-1 min-h-0 border border-slate-200 rounded-lg transition-shadow ${
             isPreviewExpanded ? 'ring-2 ring-slate-300' : ''
@@ -171,7 +171,7 @@ export function DocumentViewerPanel({
           </div>
           <div
             ref={previewRef}
-            className="flex-1 min-h-[1100px] h-full overflow-y-auto overflow-x-hidden bg-gradient-to-br from-slate-100 via-white to-slate-100"
+            className="flex-1 h-[1100px] min-h-[1100px] overflow-y-auto overflow-x-hidden bg-gradient-to-br from-slate-100 via-white to-slate-100"
           >
             {!selectedDoc ? (
               <div className="min-h-full w-full flex items-center justify-center p-6">
