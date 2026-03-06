@@ -99,11 +99,13 @@ export function AttachmentsContent({
   };
 
   const hasSelection = selectedFiles.size > 0;
-  const buttonPadding = compact ? 'px-2 py-1.5' : 'p-2';
-  const buttonTextSize = compact ? 'text-xs' : 'text-sm';
+  const buttonPadding = compact ? 'px-1.5 py-1' : 'px-2 py-1.5';
+  const buttonTextSize = 'text-xs';
 
   return (
-    <div className={compact ? 'p-3 space-y-3 rounded-lg border border-slate-200' : 'p-4 space-y-4'}>
+    <div
+      className={compact ? 'p-2.5 space-y-2 rounded-lg border border-slate-200' : 'p-3 space-y-3'}
+    >
       <div className="flex items-center justify-between">
         <div>
           <h2
@@ -115,14 +117,11 @@ export function AttachmentsContent({
           >
             Attachments
           </h2>
-          <p className={compact ? 'text-xs text-slate-500 mt-1' : 'text-sm text-slate-500'}>
-            Documents and files related to this assessment
-          </p>
         </div>
       </div>
 
       {/* Action bar */}
-      <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col items-start gap-1.5 sm:flex-row sm:items-center sm:justify-between">
         <div className={`flex flex-wrap items-center gap-2 ${buttonTextSize}`}>
           <button
             className={`flex items-center gap-2 ${buttonPadding} text-white rounded-lg font-medium transition-colors`}
@@ -172,22 +171,22 @@ export function AttachmentsContent({
       </div>
 
       {/* File list */}
-      <div className="space-y-2">
+      <div className="space-y-1.5">
         {/* Select all header */}
-        <div className="flex items-center gap-3 px-4 py-2">
+        <div className="flex items-center gap-2 px-2 py-1">
           <input
             type="checkbox"
             checked={attachments.length > 0 && selectedFiles.size === attachments.length}
             onChange={toggleAll}
             className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
           />
-          <span className="text-sm text-slate-500">Select all</span>
+          <span className="text-xs text-slate-500">Select all</span>
         </div>
 
         {attachments.map((file) => (
           <div
             key={file.id}
-            className={`flex items-center justify-between p-2 border rounded-lg transition-colors cursor-pointer ${
+            className={`flex items-center justify-between p-1.5 border rounded-lg transition-colors cursor-pointer ${
               selectedAttachmentId === file.id
                 ? 'ring-1 ring-[#00373a] border-[#00373a]/40 bg-[#00373a]/5'
                 : selectedFiles.has(file.id)
@@ -196,7 +195,7 @@ export function AttachmentsContent({
             }`}
             onClick={() => onSelectAttachment?.(file)}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2.5 min-w-0">
               <input
                 type="checkbox"
                 checked={selectedFiles.has(file.id)}
@@ -204,35 +203,24 @@ export function AttachmentsContent({
                 onClick={(e) => e.stopPropagation()}
                 className="w-4 h-4 rounded border-slate-300 accent-[#00373a] cursor-pointer"
               />
-              <div>
-                <div className="text-sm font-medium text-slate-900">{file.name}</div>
-                <div className="text-sm text-slate-500">
-                  {file.type}
-                  {file.pages ? ` • ${file.pages} pages` : ''} • {file.size}
-                </div>
-              </div>
+              <div className="text-xs font-medium text-slate-900 truncate">{file.name}</div>
             </div>
             <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
-              <div className="flex items-center gap-2 mr-3 border-r border-slate-200 pr-3">
-                <span className="text-xs text-slate-500">
-                  {sharedFiles.has(file.id) ? 'Shared' : 'Not shared'}
-                </span>
-                <button
-                  onClick={() => toggleShared(file.id)}
-                  className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors ${
-                    sharedFiles.has(file.id) ? 'bg-[#00373a]' : 'bg-slate-300'
+              <button
+                onClick={() => toggleShared(file.id)}
+                className={`relative inline-flex h-4.5 w-8 shrink-0 items-center rounded-full transition-colors ${
+                  sharedFiles.has(file.id) ? 'bg-[#00373a]' : 'bg-slate-300'
+                }`}
+                role="switch"
+                aria-checked={sharedFiles.has(file.id)}
+              >
+                <span
+                  className={`inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform ${
+                    sharedFiles.has(file.id) ? 'translate-x-4' : 'translate-x-0.5'
                   }`}
-                  role="switch"
-                  aria-checked={sharedFiles.has(file.id)}
-                >
-                  <span
-                    className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform ${
-                      sharedFiles.has(file.id) ? 'translate-x-[18px]' : 'translate-x-[3px]'
-                    }`}
-                  />
-                </button>
-              </div>
-              <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors">
+                />
+              </button>
+              <button className="p-1.5 hover:bg-slate-100 rounded transition-colors">
                 <Download className="w-4 h-4 text-slate-600" />
               </button>
             </div>

@@ -93,7 +93,7 @@ export function DocumentViewerPanel({
           onSelectAttachment={onSelectAttachment}
         />
       </div>
-      <div className="flex-1 min-h-0 p-3 flex" style={{ overflow: 'auto' } as React.CSSProperties}>
+      <div className="flex-1 min-h-0 p-3 flex overflow-hidden">
         <div
           className={`bg-slate-50 flex flex-col flex-1 min-h-0 border border-slate-200 rounded-lg transition-shadow ${
             isPreviewExpanded ? 'ring-2 ring-slate-300' : ''
@@ -171,7 +171,7 @@ export function DocumentViewerPanel({
           </div>
           <div
             ref={previewRef}
-            className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden bg-gradient-to-br from-slate-100 via-white to-slate-100"
+            className="flex-1 min-h-[1100px] h-full overflow-y-auto overflow-x-hidden bg-gradient-to-br from-slate-100 via-white to-slate-100"
           >
             {!selectedDoc ? (
               <div className="min-h-full w-full flex items-center justify-center p-6">
@@ -184,7 +184,7 @@ export function DocumentViewerPanel({
                 </div>
               </div>
             ) : isPdf ? (
-              <div className="w-full p-2">
+              <div className="min-h-full w-full p-2">
                 {containerWidth > 0 ? (
                   <PdfErrorBoundary>
                     <Document
